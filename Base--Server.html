@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Base::Server - Basic implementation of a TCP/IP server : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Base::Server</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Base::Server - Basic implementation of a TCP/IP server</h1>
+
+When writing TCP servers, a significant amount of time is spent in
+handling connection issues (such as establishing connections, client
+multiplexing, etc). This class makes it easier to write a TCP server
+by handling all connection issues for you, so you can concentrate
+on handling the protocol.
+<p>
+
+You are supposed to create a class which is derived from Base::Server.
+Override the abstract methods <code>onClientNew()</code>, <code>onClientExit()</code> and
+<code>onClientData()</code> (see the API specification).
+<p>
+
+<h3>Example</h3>
+Here is an example of how to use Base::Server (MyServer.pm):
+<pre class="example">
+<span class="hl kwa">package</span> <span class="hl kwd">MyServer</span><span class="hl sym">;</span>
+
+<span class="hl kwa">use</span> <span class="hl kwd">strict</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> Base<span class="hl sym">::</span><span class="hl kwd">Server</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> base <span class="hl kwd">qw</span><span class="hl sym">(</span>Base<span class="hl sym">::</span>Server<span class="hl sym">);</span>
+
+<span class="hl kwa">sub</span> onClientNew <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$self</span><span class="hl sym">,</span> <span class="hl kwb">$client</span><span class="hl sym">,</span> <span class="hl kwb">$index</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;Client $index connected.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+
+<span class="hl kwa">sub</span> onClientExit <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$self</span><span class="hl sym">,</span> <span class="hl kwb">$client</span><span class="hl sym">,</span> <span class="hl kwb">$index</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;Client $index disconnected.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+
+<span class="hl kwa">sub</span> onClientData <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$self</span><span class="hl sym">,</span> <span class="hl kwb">$client</span><span class="hl sym">,</span> <span class="hl kwb">$data</span><span class="hl sym">,</span> <span class="hl kwb">$index</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;Client $index sent the following data: $data</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+
+<span class="hl num">1</span><span class="hl sym">;</span>
+</pre>
+And in the main script you write:
+<pre class="example">
+<span class="hl kwa">use</span> <span class="hl kwd">strict</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> <span class="hl kwd">MyServer</span><span class="hl sym">;</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$port</span> <span class="hl sym">=</span> <span class="hl num">1234</span><span class="hl sym">;</span>
+<span class="hl kwc">my</span> <span class="hl kwb">$server</span> <span class="hl sym">=</span> new <span class="hl kwd">MyServer</span><span class="hl sym">(</span><span class="hl kwb">$port</span><span class="hl sym">);</span>
+<span class="hl kwa">while</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">) {</span>
+    <span class="hl slc"># Main loop</span>
+    <span class="hl kwb">$server</span><span class="hl sym">-&gt;</span><span class="hl kwd">iterate</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre>
+<p>
+
+<h3>The client object</h3>
+See <a href="Base--Server--Client.html"><code>Base::Server::Client</code></a> for more information about how to use <code>$client</code>.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Abstract methods</th></tr><tr onclick="location.href='#$BaseServer->onClientData';">
+	<td class="return-type">abstract&nbsp;void</td>
+	<td class="func"><a href="#$BaseServer->onClientData">$BaseServer->onClientData</a></td>
+	<td class="decl">(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, Bytes data, int index)</td>
+</tr><tr onclick="location.href='#$BaseServer->onClientExit';">
+	<td class="return-type">abstract&nbsp;void</td>
+	<td class="func"><a href="#$BaseServer->onClientExit">$BaseServer->onClientExit</a></td>
+	<td class="decl">(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, int index)</td>
+</tr><tr onclick="location.href='#$BaseServer->onClientNew';">
+	<td class="return-type">abstract&nbsp;void</td>
+	<td class="func"><a href="#$BaseServer->onClientNew">$BaseServer->onClientNew</a></td>
+	<td class="decl">(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, int index)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Constructor</th></tr><tr onclick="location.href='#Base::Server->new';">
+	<td class="return-type"><a href="Base--Server.html">Base::Server</a></td>
+	<td class="func"><a href="#Base::Server->new">Base::Server->new</a></td>
+	<td class="decl">(<span class="type">[int</span> port, String bind])</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Methods</th></tr><tr onclick="location.href='#$BaseServer->getHost';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$BaseServer->getHost">$BaseServer->getHost</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServer->getPort';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$BaseServer->getPort">$BaseServer->getPort</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServer->iterate';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$BaseServer->iterate">$BaseServer->iterate</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServer->sendData';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$BaseServer->sendData">$BaseServer->sendData</a></td>
+	<td class="decl">(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, Bytes data)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$BaseServer-&gt;getHost"></a>
+<h3>$BaseServer-&gt;getHost</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$BaseServer-&gt;getHost</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an IP address in textual form.</dd>
+		</dl><p>
+
+		<div class="desc">Get the IP address on which the server is started.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServer-&gt;getPort"></a>
+<h3>$BaseServer-&gt;getPort</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$BaseServer-&gt;getPort</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">a port number.</dd>
+		</dl><p>
+
+		<div class="desc">Get the port on which the server is started.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServer-&gt;iterate"></a>
+<h3>$BaseServer-&gt;iterate</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$BaseServer-&gt;iterate</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Handle connection issues. You should call this function in your
+program's main loop.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServer-&gt;onClientData"></a>
+<h3>$BaseServer-&gt;onClientData</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type">abstract  void</span> <strong>$BaseServer-&gt;onClientData</strong>(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, Bytes data, int index)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>client</code> : a client object (see overview).</dd>
+			<dd class="param"><code>data</code> : the data this client received.</dd>
+			<dd class="param"><code>index</code> : the client's index (same as <code>$client</code>->getIndex).</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($client) && defined($data)</dd>
+		</dl><p>
+
+		<div class="desc">This method is called when a client has received data.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServer-&gt;onClientExit"></a>
+<h3>$BaseServer-&gt;onClientExit</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type">abstract  void</span> <strong>$BaseServer-&gt;onClientExit</strong>(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, int index)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>client</code> : a client object (see overview).</dd>
+			<dd class="param"><code>index</code> : the client's index (same as <code>$client</code>->getIndex).</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($client)</dd>
+		</dl><p>
+
+		<div class="desc">This method is called when a client has disconnected from the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServer-&gt;onClientNew"></a>
+<h3>$BaseServer-&gt;onClientNew</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type">abstract  void</span> <strong>$BaseServer-&gt;onClientNew</strong>(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, int index)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>client</code> : a client object (see overview).</dd>
+			<dd class="param"><code>index</code> : the client's index (same as <code>$client</code>->getIndex).</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($client)</dd>
+		</dl><p>
+
+		<div class="desc">This method is called when a new client has connected to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServer-&gt;sendData"></a>
+<h3>$BaseServer-&gt;sendData</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$BaseServer-&gt;sendData</strong>(<span class="type"><a href="Base--Server--Client.html">Base::Server::Client</a></span> client, Bytes data)
+	</dt>
+	<dd>
+		<div class="desc">This function is obsolete. Use <a href="Base--Server--Client.html#$BaseServerClient->send"><code>$BaseServerClient->send()</code></a> instead.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Base::Server-&gt;new"></a>
+<h3>Base::Server-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Base--Server.html">Base::Server</a></span> <strong>Base::Server-&gt;new</strong>(<span class="type">[int</span> port, String bind])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>port</code> : the port to bind the server socket to. If unspecified, the first available port (as returned by the operating system) will be used.</dd>
+			<dd class="param"><code>bind</code> : the IP address to bind the server socket to. If unspecified, the socket will be bound to "localhost". Specify "0.0.0.0" to not bind to any address.</dd>
+		</dl><p>
+
+		<div class="desc">Start a server at the specified port and IP address.
+<p>
+
+Throws SocketException if the server socket cannot be created.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

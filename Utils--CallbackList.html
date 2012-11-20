@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::CallbackList - Callback functions holder : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::CallbackList</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::CallbackList - Callback functions holder</h1>
+
+<h3>What is an event?</h3>
+An event in is a way for a class to provide notifications to clients of
+that class when some interesting thing happens to an object. The most
+familiar use for events is in graphical user interfaces; typically, the
+classes that represent controls in the interface have events that are
+notified when the user does something to the control (for example, click
+a button).
+<p>
+
+An event is the outcome of an action. There are two important
+terms with respect to events. The <i>event source</i> and the <i>event
+receiver</i>. The object that raises the event is called event source and
+the object or callback function that responds to the event is called event receiver.
+The communication channel between an event source and an event receiver is
+this class, CallbackList.<br>
+<small>(Explanation taken from
+<a href="http://www.c-sharpcorner.com/UploadFile/sksaha/EventsinNet11152005043514AM/EventsinNet.aspx">CSharpCorner</a>
+and slightly modified.</small>
+<p>
+
+A CallbackList is used to implement OpenKore's event model.
+<p>
+
+<h3>Example 1: How it works</h3>
+Here's a simple example, which demonstrates how CallbackList actually works.
+<pre class="example">
+<span class="hl kwc">my</span> <span class="hl kwb">$cl</span> <span class="hl sym">=</span> new <span class="hl kwd">CallbackList</span><span class="hl sym">(</span><span class="hl str">&quot;my l33t event name&quot;</span><span class="hl sym">);</span>
+<span class="hl kwb">$cl</span><span class="hl sym">-&gt;</span><span class="hl kwd">add</span><span class="hl sym">(</span>undef<span class="hl sym">,</span> \<span class="hl sym">&amp;</span>myCallback<span class="hl sym">);</span>
+<span class="hl kwb">$cl</span><span class="hl sym">-&gt;</span><span class="hl kwd">call</span><span class="hl sym">();</span>  <span class="hl slc"># myCallback() will now be called.</span>
+
+<span class="hl kwa">sub</span> myCallback <span class="hl sym">{</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;I have been called!</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre>
+<p>
+
+<h3>Example 2: Simple usage - adding functions as callbacks</h3>
+The <a href="ActorList.html"><code>ActorList</code></a> class is a well-known class which supports events.
+Whenever you add an Actor to an ActorList, an <b>onAdd</b> event is triggered.
+This example shows you how to respond to an onAdd event.
+<p>
+
+This also demonstrates how <a href="Utils--CallbackList.html#$CallbackList->add"><code>$CallbackList->add()</code></a> and <a href="Utils--CallbackList.html#$CallbackList->remove"><code>$CallbackList->remove()</code></a>
+work.
+<pre class="example">
+<span class="hl kwc">my</span> <span class="hl kwb">$monstersList</span> <span class="hl sym">=</span> new <span class="hl kwd">ActorList</span><span class="hl sym">(</span><span class="hl str">&quot;Actor::Monster&quot;</span><span class="hl sym">);</span>
+<span class="hl kwc">my</span> <span class="hl kwb">$callbackID</span> <span class="hl sym">=</span> <span class="hl kwb">$monstersList</span><span class="hl sym">-&gt;</span>onAdd<span class="hl sym">-&gt;</span><span class="hl kwd">add</span><span class="hl sym">(</span>undef<span class="hl sym">,</span> \<span class="hl sym">&amp;</span>monsterAdded<span class="hl sym">);</span>
+
+<span class="hl slc"># monsterAdded() will now be called.</span>
+<span class="hl kwb">$monstersList</span><span class="hl sym">-&gt;</span><span class="hl kwd">add</span><span class="hl sym">(</span>new Actor<span class="hl sym">::</span><span class="hl kwd">Monster</span><span class="hl sym">());</span>
+
+<span class="hl slc"># Unregister the previously registred callback.</span>
+<span class="hl kwb">$monstersList</span><span class="hl sym">-&gt;</span>onAdd<span class="hl sym">-&gt;</span><span class="hl kwd">remove</span><span class="hl sym">(</span><span class="hl kwb">$callbackID</span><span class="hl sym">);</span>
+<span class="hl slc"># monsterAdded() will NOT be called.</span>
+<span class="hl kwb">$monstersList</span><span class="hl sym">-&gt;</span><span class="hl kwd">add</span><span class="hl sym">(</span>new Actor<span class="hl sym">::</span><span class="hl kwd">Monster</span><span class="hl sym">());</span>
+
+<span class="hl kwa">sub</span> monsterAdded <span class="hl sym">{</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;A monster has been added to the monsters list!</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class CallbackList</th></tr><tr onclick="location.href='#CallbackList->new';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#CallbackList->new">CallbackList->new</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$CallbackList->add';">
+	<td class="return-type">Scalar</td>
+	<td class="func"><a href="#$CallbackList->add">$CallbackList->add</a></td>
+	<td class="decl">(<span class="type">Object</span> object, function, userData)</td>
+</tr><tr onclick="location.href='#$CallbackList->call';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$CallbackList->call">$CallbackList->call</a></td>
+	<td class="decl">(<span class="type">Scalar</span> source, [argument])</td>
+</tr><tr onclick="location.href='#$CallbackList->checkValidity';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$CallbackList->checkValidity">$CallbackList->checkValidity</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$CallbackList->deepCopy';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$CallbackList->deepCopy">$CallbackList->deepCopy</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$CallbackList->empty';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$CallbackList->empty">$CallbackList->empty</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$CallbackList->remove';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$CallbackList->remove">$CallbackList->remove</a></td>
+	<td class="decl">(ID)</td>
+</tr><tr onclick="location.href='#$CallbackList->size';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$CallbackList->size">$CallbackList->size</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$CallbackList-&gt;add"></a>
+<h3>$CallbackList-&gt;add</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Scalar</span> <strong>$CallbackList-&gt;add</strong>(<span class="type">Object</span> object, function, userData)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>object</code> : An object to pass to the callback function, as the first argument. May be undef.</dd>
+			<dd class="param"><code>function</code> : A callback function.</dd>
+			<dd class="param"><code>userData</code> : A user data argument to pass to the callback function when it's called. May be undef.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($function)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">An ID, which can be used by remove() to remove this callback from the list.</dd>
+		</dl><p>
+
+		<div class="desc">Add a new callback function to this CallbackList. See <a href="Utils--CallbackList.html#$CallbackList->call"><code>$CallbackList->call()</code></a>
+for information about how <code>$function</code> will be called.
+<p>
+
+CallbackList will internally hold a weak reference to <code>$object</code>,
+so there will be no garbage collection problems if this <code>$CallbackList</code> is
+a member of <code>$object</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$CallbackList-&gt;call"></a>
+<h3>$CallbackList-&gt;call</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$CallbackList-&gt;call</strong>(<span class="type">Scalar</span> source, [argument])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>source</code> : The object which emitted this event.</dd>
+		</dl><p>
+
+		<div class="desc">Call all callback functions in this CallbackList. Each function
+<code>$function</code> will be called as follows:
+<pre>
+<span class="hl kwb">$function</span><span class="hl sym">-&gt;(</span><span class="hl kwb">$object</span><span class="hl sym">,</span> <span class="hl kwb">$source</span><span class="hl sym">,</span> <span class="hl kwb">$argument</span><span class="hl sym">,</span> <span class="hl kwb">$userData</span><span class="hl sym">);</span>
+</pre>
+<ul>
+<li>$object and <code>$userData</code> are the arguments passed to <a href="Utils--CallbackList.html#$CallbackList->add"><code>$CallbackList->add()</code></a></li>
+<li>$list is this CallbackList.</li>
+<li>$source and <code>$argument</code> are the parameters passed to this method.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$CallbackList-&gt;checkValidity"></a>
+<h3>$CallbackList-&gt;checkValidity</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$CallbackList-&gt;checkValidity</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether all internal invariants are true.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$CallbackList-&gt;deepCopy"></a>
+<h3>$CallbackList-&gt;deepCopy</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$CallbackList-&gt;deepCopy</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Create a deep copy of this CallbackList.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$CallbackList-&gt;empty"></a>
+<h3>$CallbackList-&gt;empty</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$CallbackList-&gt;empty</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether there are any callbacks in this CallbackList.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$CallbackList-&gt;remove"></a>
+<h3>$CallbackList-&gt;remove</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$CallbackList-&gt;remove</strong>(ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : An ID, as returned by <a href="Utils--CallbackList.html#$CallbackList->add"><code>$CallbackList->add()</code></a></dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($ID)</dd>
+		</dl><p>
+
+		<div class="desc">Removes a callback from this CallbackList.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$CallbackList-&gt;size"></a>
+<h3>$CallbackList-&gt;size</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$CallbackList-&gt;size</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">result >= 0</dd>
+		</dl><p>
+
+		<div class="desc">Returns the number of registered callbacks in this list.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="CallbackList-&gt;new"></a>
+<h3>CallbackList-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>CallbackList-&gt;new</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">    <code>$self->size()</code> == 0</dd>
+		</dl><p>
+
+		<div class="desc">Create a new CallbackList object.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

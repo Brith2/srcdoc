@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::StartupNotification::Launcher - Startup notification: launcher : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::StartupNotification::Launcher</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::StartupNotification::Launcher - Startup notification: launcher</h1>
+
+This class provides an easy way to launch an application while
+monitoring its startup process.
+<p>
+
+<h3>Terminology</h3>
+<dl>
+<dt><b>Launcher</b></dt>
+<dd>The application which wants to start another application.</dd>
+<dt><b>Launchee</b></dt>
+<dd>The application you want to start.</dd>
+</dl>
+<p>
+
+<h3>Usage</h3>
+Create a new StartupNotification::Launcher class, and call the
+<a href="Utils--StartupNotification--Launcher.html#$StartupNotificationLauncher->getArg"><code>$StartupNotificationLauncher->getArg()</code></a> method.
+Pass the result as the first parameter to the launchee. You can
+then use the get* methods to check on the launchee's startup
+progress and status. If the progress is at 100%, then that means
+that the launchee has fully initialized.
+<p>
+
+The launchee <b>must</b> support startup notification, either by
+using the <a href="Utils--StartupNotification--Launchee.html">StartupNotification::Launchee</a> class, or by
+implementing the protocol as described below.
+<p>
+
+You are supposed to use this class in combination with
+<a href="Utils--AppLauncher.html">AppLauncher</a>, <a href="Utils--PerlLauncher.html">PerlLauncher</a>, or any other
+mechanism for starting external application.
+<p>
+
+Note that this class cannot always detect whether the launchee
+exited unexpectedly. So you must also use your launching
+mechanism's functions to check whether the launchee exited.
+(for example, using <a href="Utils--AppLauncher.html#$AppLauncher->check"><code>$AppLauncher->check()</code></a>)
+<p>
+
+<h3>Launcher example</h3>
+This example launches a Perl script (using <a href="Utils--PerlLauncher.html">PerlLauncher</a>)
+and monitors its startup progress. See <a href="Utils--StartupNotification--Launchee.html">StartupNotification::Launchee</a>
+for a launchee example.
+<pre class="example">
+<span class="hl kwa">use</span> <span class="hl kwd">strict</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> Utils<span class="hl sym">::</span><span class="hl kwd">PerlLauncher</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> Utils<span class="hl sym">::</span>StartupNotification<span class="hl sym">::</span><span class="hl kwd">Launcher</span><span class="hl sym">;</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$sn</span> <span class="hl sym">=</span> new StartupNotification<span class="hl sym">::</span><span class="hl kwd">Launcher</span><span class="hl sym">();</span>
+<span class="hl kwc">my</span> <span class="hl kwb">$launcher</span> <span class="hl sym">=</span> new <span class="hl kwd">PerlLauncher</span><span class="hl sym">(</span>undef<span class="hl sym">,</span> <span class="hl str">'testStartupNotifyLaunchee.pl'</span><span class="hl sym">,</span> <span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">getArg</span><span class="hl sym">());</span>
+<span class="hl kwa">if</span> <span class="hl sym">(!</span><span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">launch</span><span class="hl sym">(</span><span class="hl num">0</span><span class="hl sym">)) {</span>
+    <span class="hl kwc">print</span> STDERR <span class="hl str">&quot;Cannot launch application.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span> <span class="hl sym">.</span>
+                 <span class="hl str">&quot;Error message: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">getError</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span> <span class="hl sym">.</span>
+                 <span class="hl str">&quot;Error code: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">getErrorCode</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+    exit <span class="hl num">1</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+
+<span class="hl kwa">while</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">) {</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">check</span><span class="hl sym">()) {</span>
+        <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">getProgress</span><span class="hl sym">() == -</span><span class="hl num">1</span><span class="hl sym">) {</span>
+            <span class="hl kwc">print</span> <span class="hl str">&quot;Application exited unexpectedly.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+            <span class="hl kwc">print</span> <span class="hl str">&quot;Currently its still running.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+            <span class="hl kwc">print</span> <span class="hl str">&quot;-------------------</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+
+        <span class="hl sym">}</span> <span class="hl kwa">else</span> <span class="hl sym">{</span>
+            <span class="hl kwc">print</span> <span class="hl str">&quot;Application startup progress: &quot;</span> <span class="hl sym">.</span>
+                <span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">getProgress</span><span class="hl sym">() .</span> <span class="hl str">&quot;%</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+            <span class="hl kwc">print</span> <span class="hl str">&quot;Application startup status: &quot;</span> <span class="hl sym">.</span>
+                <span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">getStatus</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+            <span class="hl kwc">print</span> <span class="hl str">&quot;-------------------</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl sym">}</span>
+
+    <span class="hl sym">}</span> <span class="hl kwa">else</span> <span class="hl sym">{</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;Application exited with exit code &quot;</span> <span class="hl sym">.</span>
+        <span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">getExitCode</span><span class="hl sym">() .</span> <span class="hl str">&quot;.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;Progress: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">getProgress</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">getProgress</span><span class="hl sym">()) {</span>
+            <span class="hl kwc">print</span> <span class="hl str">&quot;Application was exited unexpectedly.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl sym">}</span>
+        <span class="hl kwa">last</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+    sleep <span class="hl num">1</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre>
+<p>
+
+<h3>Protocol</h3>
+TODO...
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class StartupNotification::Launcher</th></tr><tr onclick="location.href='#StartupNotification::Launcher->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#StartupNotification::Launcher->new">StartupNotification::Launcher->new</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$StartupNotificationLauncher->getArg';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$StartupNotificationLauncher->getArg">$StartupNotificationLauncher->getArg</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$StartupNotificationLauncher->getErrno';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$StartupNotificationLauncher->getErrno">$StartupNotificationLauncher->getErrno</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$StartupNotificationLauncher->getError';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$StartupNotificationLauncher->getError">$StartupNotificationLauncher->getError</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$StartupNotificationLauncher->getProgress';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$StartupNotificationLauncher->getProgress">$StartupNotificationLauncher->getProgress</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$StartupNotificationLauncher->getStatus';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$StartupNotificationLauncher->getStatus">$StartupNotificationLauncher->getStatus</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$StartupNotificationLauncher-&gt;getArg"></a>
+<h3>$StartupNotificationLauncher-&gt;getArg</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$StartupNotificationLauncher-&gt;getArg</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">result ne ''</dd>
+		</dl><p>
+
+		<div class="desc">Returns a the argument which you must pass to the
+launchee application. (as the <i>first</i> parameter)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$StartupNotificationLauncher-&gt;getErrno"></a>
+<h3>$StartupNotificationLauncher-&gt;getErrno</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$StartupNotificationLauncher-&gt;getErrno</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getProgress() == -1</dd>
+		</dl><p>
+
+		<div class="desc">If the launchee failed to start, then you can use
+this method to retrieve the error code, as reported
+by the launchee.
+<p>
+
+If the result is undef, then that means the launchee didn't
+send the launcher an error message, or that the launchee
+exited unexpectedly (crash).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$StartupNotificationLauncher-&gt;getError"></a>
+<h3>$StartupNotificationLauncher-&gt;getError</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$StartupNotificationLauncher-&gt;getError</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getProgress() == -1</dd>
+		</dl><p>
+
+		<div class="desc">If the launchee failed to start, then you can use
+this method to retrieve the error message, as reported
+by the launchee.
+<p>
+
+If the result is undef, then that means the launchee didn't
+send the launcher an error message, or that the launchee
+exited unexpectedly (crash).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$StartupNotificationLauncher-&gt;getProgress"></a>
+<h3>$StartupNotificationLauncher-&gt;getProgress</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$StartupNotificationLauncher-&gt;getProgress</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">0 <= result <= 100 || result == -1</dd>
+		</dl><p>
+
+		<div class="desc">Returns the launchee's startup progress (in percentage),
+as reported by the launchee.
+<p>
+
+If the launchee failed to start (that is, it exited before telling
+the launcher that its progress is 100%), then -1 is returned.
+You can use <a href="Utils--StartupNotification--Launcher.html#$StartupNotificationLauncher->getError"><code>$StartupNotificationLauncher->getError()</code></a> and
+<a href="Utils--StartupNotification--Launcher.html#$StartupNotificationLauncher->getErrno"><code>$StartupNotificationLauncher->getErrno()</code></a> to
+find out why the launchee failed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$StartupNotificationLauncher-&gt;getStatus"></a>
+<h3>$StartupNotificationLauncher-&gt;getStatus</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$StartupNotificationLauncher-&gt;getStatus</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the launchee's startup status, as reported
+by the launchee.
+<p>
+
+If the launchee failed to start (that is, it exited before telling
+the launcher that its progress is 100%), then undef is returned.
+You can use <a href="Utils--StartupNotification--Launcher.html#$StartupNotificationLauncher->getError"><code>$StartupNotificationLauncher->getError()</code></a> and
+<a href="Utils--StartupNotification--Launcher.html#$StartupNotificationLauncher->getErrno"><code>$StartupNotificationLauncher->getErrno()</code></a> to
+find out why the launchee failed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="StartupNotification::Launcher-&gt;new"></a>
+<h3>StartupNotification::Launcher-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>StartupNotification::Launcher-&gt;new</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->getProgress()</code> == 0 && <code>$self->getStatus()</code> eq ''</dd>
+		<dt class="throws"><strong>Throws:</strong></dt>
+			<dd class="throws"><a href="Utils--StartupNotification--CreateSocketException.html">StartupNotification::CreateSocketException</a></dd>
+		</dl><p>
+
+		<div class="desc">Creates a new StartupNotification::Launcher object.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

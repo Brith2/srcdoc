@@ -1,0 +1,455 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Field - Field model. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Field</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Field - Field model.</h1>
+
+The Field class represents a field in the game. A field is a set of blocks.
+each block has a specific type, like 'walkable', 'not walkable', 'water',
+'cliff', etc.
+<p>
+
+This class is closely related to the .fld file, as used by OpenKore.
+See <a href="http://wiki.openkore.com/index.php/Field_file_format">http://wiki.openkore.com/index.php/Field_file_format</a>
+for more information.
+<p>
+
+This class is a hash and has the following hash items:
+<ul>
+<li><tt>name</tt> - The name of the field, like 'prontera' and '0021@cata'. This is not always the same as baseName.
+                  You should not access this item directly; use the <a href="Field.html#$Field->name"><code>$Field->name()</code></a> method instead.</li>
+<li><tt>baseName</tt> - The name of the field, which is the base name of the field without the extension.
+            This is not always the same as name: for example,
+            descName: Training Ground, name: 'new_1-2', field file: 'new_zone01.fld', baseName: 'new_1-2'
+            descName: Catacombs, name: '0021@cata', field file: '1@cata.fld', baseName: '1@cata'</li>
+<li><tt>width</tt> - The field's width. You should not access this item directly; use <a href="Field.html#$Field->width"><code>$Field->width()</code></a> instead.</li>
+<li><tt>height</tt> - The field's height. You should not access this item directly; use <a href="Field.html#$Field->width"><code>$Field->width()</code></a> instead.</li>
+<li><tt>rawMap</tt> - The raw map data. Contains information about which blocks you can walk on (byte 0),
+                    and which not (byte 1).</li>
+<li><tt>dstMap</tt> - The distance map data. Used by pathfinding.
+</li>
+</ul>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Field->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Field->new">Field->new</a></td>
+	<td class="decl">(options...)</td>
+</tr><tr onclick="location.href='#$Field->baseName';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Field->baseName">$Field->baseName</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Field->descName';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Field->descName">$Field->descName</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Field->descString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Field->descString">$Field->descString</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Field->getBlock';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Field->getBlock">$Field->getBlock</a></td>
+	<td class="decl">(<span class="type">int</span> x, int y)</td>
+</tr><tr onclick="location.href='#$Field->height';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Field->height">$Field->height</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Field->instanceID';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Field->instanceID">$Field->instanceID</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Field->isCity';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Field->isCity">$Field->isCity</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Field->isSnipable';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Field->isSnipable">$Field->isSnipable</a></td>
+	<td class="decl">(<span class="type">int</span> x, int y)</td>
+</tr><tr onclick="location.href='#$Field->isWalkable';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Field->isWalkable">$Field->isWalkable</a></td>
+	<td class="decl">(<span class="type">int</span> x, int y)</td>
+</tr><tr onclick="location.href='#$Field->loadByName';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Field->loadByName">$Field->loadByName</a></td>
+	<td class="decl">(<span class="type">String</span> name, [boolean loadDistanceMap = true])</td>
+</tr><tr onclick="location.href='#$Field->loadFile';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Field->loadFile">$Field->loadFile</a></td>
+	<td class="decl">(<span class="type">String</span> filename, [boolean loadDistanceMap = true])</td>
+</tr><tr onclick="location.href='#$Field->name';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Field->name">$Field->name</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Field->width';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Field->width">$Field->width</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Map image API</th></tr><tr onclick="location.href='#$Field->image';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Field->image">$Field->image</a></td>
+	<td class="decl">(<span class="type">[String</span> format])</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Field-&gt;baseName"></a>
+<h3>$Field-&gt;baseName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Field-&gt;baseName</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the field's base name.
+    ex. prontera, new_1-2 (alias), 1@cata (instanced)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;descName"></a>
+<h3>$Field-&gt;descName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Field-&gt;descName</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the field's descriptive name.
+    ex.
+			Prontera City, Capital of Rune Midgard
+			Training Ground
+			Catacombs</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;descString"></a>
+<h3>$Field-&gt;descString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Field-&gt;descString</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the field's descriptive string.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;getBlock"></a>
+<h3>$Field-&gt;getBlock</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Field-&gt;getBlock</strong>(<span class="type">int</span> x, int y)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>x, y</code> : A coordinate on the field.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The type for this block. This is one of the block type constants.</dd>
+		</dl><p>
+
+		<div class="desc">Get the type for the block on the specified coordinate. This type is an integer, which
+corresponds with the values specified in the field file format specification:
+<a href="http://www.openkore.com/wiki/index.php/Field_file_format#The_FLD_file_format">http://www.openkore.com/wiki/index.php/Field_file_format#The_FLD_file_format</a>
+<p>
+
+If you want to check whether the block is walkable, use <code>$field->isWalkable()</code> instead.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;height"></a>
+<h3>$Field-&gt;height</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Field-&gt;height</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the field's height, in blocks.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;image"></a>
+<h3>$Field-&gt;image</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Field-&gt;image</strong>(<span class="type">[String</span> format])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>format</code> : image format</dd>
+		</dl><p>
+
+		<div class="desc">Path to file with map image, autogenerated if needed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;instanceID"></a>
+<h3>$Field-&gt;instanceID</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Field-&gt;instanceID</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the field's instanceID
+    ex. in 0021@cata, 002 is the instanceID</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;isCity"></a>
+<h3>$Field-&gt;isCity</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Field-&gt;isCity</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns wether the field is a city.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;isSnipable"></a>
+<h3>$Field-&gt;isSnipable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Field-&gt;isSnipable</strong>(<span class="type">int</span> x, int y)
+	</dt>
+	<dd>
+		<div class="desc">Check whether you can snipe through ($x,$y) on this field.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;isWalkable"></a>
+<h3>$Field-&gt;isWalkable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Field-&gt;isWalkable</strong>(<span class="type">int</span> x, int y)
+	</dt>
+	<dd>
+		<div class="desc">Check whether you can walk on ($x,$y) on this field.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;loadByName"></a>
+<h3>$Field-&gt;loadByName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Field-&gt;loadByName</strong>(<span class="type">String</span> name, [boolean loadDistanceMap = true])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : The name of the field to load. E.g. "prontera".</dd>
+			<dd class="param"><code>loadDistanceMap</code> : Whether to also load the associated distance map file.</dd>
+		</dl><p>
+
+		<div class="desc">Load a field file based on it's name. The actual field file to load is automatically
+determined based on the field name, the field files folder, whether the field file
+is compressed, etc.
+<p>
+
+This method is like calling the constructor with the 'name' argument,
+but allows you to load a field inside this Field object.
+<p>
+
+If <code>$loadDistanceMap</code> is set to false, then <code>$self</code>->{dstMap} will be undef.
+<p>
+
+Throws FileNotFoundException if a field file cannot be found for the specified
+field name.
+Throws IOException if a read error occured while reading the field file
+and/or the distance map file.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;loadFile"></a>
+<h3>$Field-&gt;loadFile</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Field-&gt;loadFile</strong>(<span class="type">String</span> filename, [boolean loadDistanceMap = true])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>filename</code> : The filename of the field file to load.</dd>
+			<dd class="param"><code>loadDistanceMap</code> : Whether to also load the associated distance map file.</dd>
+		</dl><p>
+
+		<div class="desc">Load the specified field file (.fld file). This is like calling the constructor
+with the 'file' argument, but allows you to load a field inside this Field object.
+<p>
+
+If <code>$loadDistanceMap</code> is set to false, then <code>$self</code>->{dstMap} will be undef.
+<p>
+
+Throws FileNotFoundException if the specified file does not exist.
+Throws IOException if a read error occured while reading the field file
+and/or the distance map file.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;name"></a>
+<h3>$Field-&gt;name</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Field-&gt;name</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the field's name.
+    ex. prontera, new_1-2 (alias), 0021@cata (instance)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Field-&gt;width"></a>
+<h3>$Field-&gt;width</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Field-&gt;width</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the field's width, in blocks.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Field-&gt;new"></a>
+<h3>Field-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Field-&gt;new</strong>(options...)
+	</dt>
+	<dd>
+		<div class="desc">Create a new Load a field (.fld) file. This function also loads an associated .dist file
+(the distance map file), which is used by pathfinding (for wall avoidance support).
+If the associated .dist file does not exist, it will be created.
+<p>
+
+This function also supports gzip-compressed field files (.fld.gz). If the .fld file cannot
+be found, but the corresponding .fld.gz file can be found, this function will load that
+instead and decompress its data on-the-fly.
+<p>
+
+Allowed options:
+<p>
+
+<ul>
+<li><tt>file</tt> - The file to load.</li>
+<li><tt>name</tt> - The name of the field to load.</li>
+<li><tt>loadDistanceMap</tt> (optional) - Whether to also load the distance map. By default, this is true.
+</li>
+</ul>
+<p>
+
+You must specify either the 'file' option or the 'name' option. If you do not, an
+ArgumentException will be thrown. For example:
+<pre class="example">
+new <span class="hl kwd">Field</span><span class="hl sym">(</span>name <span class="hl sym">=&gt;</span> <span class="hl str">&quot;new_1-1&quot;</span><span class="hl sym">);</span>
+new <span class="hl kwd">Field</span><span class="hl sym">(</span>file <span class="hl sym">=&gt;</span> <span class="hl str">&quot;/path/to/prontera.fld&quot;</span><span class="hl sym">);</span>
+new <span class="hl kwd">Field</span><span class="hl sym">();</span> <span class="hl slc"># Error: an ArgumentException will be thrown</span>
+</pre>
+<p>
+
+Throws FileNotFoundException if the field file does not exist (if the 'file' parameter is used),
+or if a field file cannot be found for the specified field name (if the 'name' parameter is used).<br>
+Throws IOException if an error occured while reading the field file.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

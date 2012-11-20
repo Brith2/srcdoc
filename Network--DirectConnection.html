@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Network::DirectConnection - Connection handling : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Network::DirectConnection</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Network::DirectConnection - Connection handling</h1>
+
+The Network module handles connections to the Ragnarok Online server.
+This module only handles connection issues, and nothing else. It doesn't do
+anything with the actual data. Network data handling is performed by
+the <a href="Network--Receive.html"><code>Network::Receive</code></a> and Network::Receive::ServerTypeX classes.
+<p>
+
+The submodule <a href="Network--Send.html"><code>Network::Send</code></a> contains functions for sending all
+kinds of messages to the RO server.
+<p>
+
+Please also read <a href="http://wiki.openkore.com/index.php/Network_subsystem">the
+network subsystem overview.</a>
+<p>
+
+This implementation establishes a direct connection to the RO server.
+Note that there are alternative implementations for this interface: <a href="Network--XKore.html"><code>Network::XKore</code></a>,
+<a href="Network--XKore2.html"><code>Network::XKore2</code></a> and <a href="Network--XKoreProxy.html"><code>Network::XKoreProxy</code></a>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Network::DirectConnection->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Network::DirectConnection->new">Network::DirectConnection->new</a></td>
+	<td class="decl">([wrapper])</td>
+</tr><tr onclick="location.href='#$net->checkConnection';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->checkConnection">$net->checkConnection</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->clientAlive';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$net->clientAlive">$net->clientAlive</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->clientRecv';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$net->clientRecv">$net->clientRecv</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->clientSend';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->clientSend">$net->clientSend</a></td>
+	<td class="decl">(<span class="type">Bytes</span> data)</td>
+</tr><tr onclick="location.href='#$net->serverAddress';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$net->serverAddress">$net->serverAddress</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->serverAliveServer';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$net->serverAliveServer">$net->serverAliveServer</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->serverConnect';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->serverConnect">$net->serverConnect</a></td>
+	<td class="decl">(<span class="type">String</span> host, int port)</td>
+</tr><tr onclick="location.href='#$net->serverDisconnect';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->serverDisconnect">$net->serverDisconnect</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->serverPeerHost';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$net->serverPeerHost">$net->serverPeerHost</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->serverPeerPort';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$net->serverPeerPort">$net->serverPeerPort</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->serverRecv';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$net->serverRecv">$net->serverRecv</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->serverSend';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$net->serverSend">$net->serverSend</a></td>
+	<td class="decl">(<span class="type">Bytes</span> data)</td>
+</tr><tr onclick="location.href='#$net->version';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$net->version">$net->version</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$net-&gt;checkConnection"></a>
+<h3>$net-&gt;checkConnection</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;checkConnection</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Handles any connection issues. Based on the current situation, this function may
+re-connect to the RO server, disconnect, do nothing, etc.
+<p>
+
+This function is meant to be run in the Kore main loop.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientAlive"></a>
+<h3>$net-&gt;clientAlive</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$net-&gt;clientAlive</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether there are one or more clients connected to Kore.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientRecv"></a>
+<h3>$net-&gt;clientRecv</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$net-&gt;clientRecv</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Receive data that the RO client wants to send to the RO server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientSend"></a>
+<h3>$net-&gt;clientSend</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;clientSend</strong>(<span class="type">Bytes</span> data)
+	</dt>
+	<dd>
+		<div class="desc">Make the RO client think that it has received <code>$data</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverAddress"></a>
+<h3>$net-&gt;serverAddress</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$net-&gt;serverAddress</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Return the server's raw address.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverAliveServer"></a>
+<h3>$net-&gt;serverAliveServer</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$net-&gt;serverAliveServer</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether the connection to the server is alive.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverConnect"></a>
+<h3>$net-&gt;serverConnect</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;serverConnect</strong>(<span class="type">String</span> host, int port)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>host</code> : the host name/IP of the RO server to connect to.</dd>
+			<dd class="param"><code>port</code> : the port number of the RO server to connect to.</dd>
+		</dl><p>
+
+		<div class="desc">Establish a connection to a Ragnarok Online server.
+<p>
+
+This function is used internally by <a href="Network--XKore.html#$net->checkConnection"><code>$net->checkConnection()</code></a> and should not be used directly.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverDisconnect"></a>
+<h3>$net-&gt;serverDisconnect</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;serverDisconnect</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Disconnect from the current Ragnarok Online server.
+<p>
+
+This function is used internally by <a href="Network--XKore.html#$net->checkConnection"><code>$net->checkConnection()</code></a> and should not be used directly.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverPeerHost"></a>
+<h3>$net-&gt;serverPeerHost</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$net-&gt;serverPeerHost</strong>()
+	</dt>
+	<dd>
+		<div class="desc">If the connection to the server is alive, returns the host name of the server.
+Otherwise, returns undef.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverPeerPort"></a>
+<h3>$net-&gt;serverPeerPort</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$net-&gt;serverPeerPort</strong>()
+	</dt>
+	<dd>
+		<div class="desc">If the connection to the server is alive, returns the port number of the server.
+Otherwise, returns undef.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverRecv"></a>
+<h3>$net-&gt;serverRecv</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$net-&gt;serverRecv</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Receive data from the RO server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;serverSend"></a>
+<h3>$net-&gt;serverSend</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$net-&gt;serverSend</strong>(<span class="type">Bytes</span> data)
+	</dt>
+	<dd>
+		<div class="desc">If the connection to the server is alive, send data to the server.
+Otherwise, this method does nothing.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;version"></a>
+<h3>$net-&gt;version</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$net-&gt;version</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the implementation number this object.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Network::DirectConnection-&gt;new"></a>
+<h3>Network::DirectConnection-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Network::DirectConnection-&gt;new</strong>([wrapper])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>wrapper</code> : If this object is to be wrapped by another object which is interface-compatible</dd>
+			<dd class="param"><code>         with the Network</code> : :DirectConnection class, then specify the wrapper object here. The message         sender will use this wrapper to send socket data. Internally, the reference to the wrapper         will be stored as a weak reference.</dd>
+		</dl><p>
+
+		<div class="desc">Create a new Network::DirectConnection object. The connection is not yet established.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

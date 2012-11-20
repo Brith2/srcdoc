@@ -1,0 +1,710 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Task - Abstract task base class. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Task</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Task - Abstract task base class.</h1>
+
+This is the abstract base class for all tasks. Please read
+<a href="http://wiki.openkore.com/index.php/AI_subsystem_and_task_framework_overview">
+the AI subsystem and task framework overview
+</a>
+for an overview.
+<p>
+
+<h3>Notes on priority constants</h3>
+The only things you may assume about the values of priority contants are:
+<ul>
+<li>Each priority constant differ at least a value of 100 from other priority constants.
+  That is, <tt>abs(c1 - c2) >= 300</tt> if c1 and c2 are two random priority constants.</li>
+<li>A higher value means a higher priority.
+</li>
+</ul>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Constructor</th></tr><tr onclick="location.href='#Task->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task->new">Task->new</a></td>
+	<td class="decl">(options...)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Events</th></tr><tr onclick="location.href='#$Task->onMutexesChanged';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$Task->onMutexesChanged">$Task->onMutexesChanged</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->onStop';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$Task->onStop">$Task->onStop</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Priority constants</th></tr><tr onclick="location.href='#Task::HIGH_PRIORITY';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::HIGH_PRIORITY">Task::HIGH_PRIORITY</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Task::LOW_PRIORITY';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::LOW_PRIORITY">Task::LOW_PRIORITY</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Task::NORMAL_PRIORITY';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::NORMAL_PRIORITY">Task::NORMAL_PRIORITY</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Task::USER_PRIORITY';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::USER_PRIORITY">Task::USER_PRIORITY</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Protected commands</th></tr><tr onclick="location.href='#$Task->setDone';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->setDone">$Task->setDone</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->setError';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->setError">$Task->setError</a></td>
+	<td class="decl">(<span class="type">code,</span> message)</td>
+</tr><tr onclick="location.href='#$Task->setMutexes';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->setMutexes">$Task->setMutexes</a></td>
+	<td class="decl">(mutexes...)</td>
+</tr><tr onclick="location.href='#$Task->setStopped';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->setStopped">$Task->setStopped</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Public commands</th></tr><tr onclick="location.href='#$Task->activate';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->activate">$Task->activate</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->interrupt';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->interrupt">$Task->interrupt</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->iterate';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->iterate">$Task->iterate</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->resume';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->resume">$Task->resume</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->stop';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Task->stop">$Task->stop</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Queries</th></tr><tr onclick="location.href='#$Task->getError';">
+	<td class="return-type">Hash*</td>
+	<td class="func"><a href="#$Task->getError">$Task->getError</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->getMutexes';">
+	<td class="return-type">Array&lt;String&gt;*</td>
+	<td class="func"><a href="#$Task->getMutexes">$Task->getMutexes</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->getName';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Task->getName">$Task->getName</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->getPriority';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Task->getPriority">$Task->getPriority</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Task->getStatus';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$Task->getStatus">$Task->getStatus</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Status constants</th></tr><tr onclick="location.href='#Task::DONE';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::DONE">Task::DONE</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Task::INACTIVE';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::INACTIVE">Task::INACTIVE</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Task::INTERRUPTED';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::INTERRUPTED">Task::INTERRUPTED</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Task::RUNNING';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::RUNNING">Task::RUNNING</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Task::STOPPED';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::STOPPED">Task::STOPPED</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Task-&gt;activate"></a>
+<h3>$Task-&gt;activate</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;activate</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::INACTIVE</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->getStatus()</code> == Task::RUNNING</dd>
+		</dl><p>
+
+		<div class="desc">Notify a task that it will be activated. Activation happens only once:
+just before <code>iterate()</code> is called, but only if the task has just been created.
+This allows the task to perform initialization.
+<p>
+
+This method will be called by the task manager.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;getError"></a>
+<h3>$Task-&gt;getError</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash*</span> <strong>$Task-&gt;getError</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::DONE</dd>
+		</dl><p>
+
+		<div class="desc">If the status is Task::DONE, then return information about the error (if the task
+completed with an error).
+Otherwise (if the task completed successfully), return undef.
+<p>
+
+The error information is a reference to a hash, containing two items:
+<ul>
+<li>code - The error code.</li>
+<li>message - The error message.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;getMutexes"></a>
+<h3>$Task-&gt;getMutexes</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Array&lt;String&gt;*</span> <strong>$Task-&gt;getMutexes</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns a reference to an array of mutexes for this task. Note that the mutex list may
+change during a Task's life time. This list must not be modified outside the Task object.
+<p>
+
+If you override this method, then you <b>must</b> ensure that when the mutex list changes,
+you trigger a onMutexesChanged event. Otherwise the task manager will not behave correctly.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;getName"></a>
+<h3>$Task-&gt;getName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Task-&gt;getName</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$result</code> ne ""</dd>
+		</dl><p>
+
+		<div class="desc">Returns a human-readable name for this task.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;getPriority"></a>
+<h3>$Task-&gt;getPriority</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Task-&gt;getPriority</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Get the priority for this task. This priority is guaranteed to never change during a Task's
+life time.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;getStatus"></a>
+<h3>$Task-&gt;getStatus</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$Task-&gt;getStatus</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the task's status. This is one of Task::RUNNING, Task::INTERRUPTED, Task::STOPPED or Task::DONE.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;interrupt"></a>
+<h3>$Task-&gt;interrupt</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;interrupt</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::RUNNING</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->getStatus()</code> == Task::INTERRUPTED</dd>
+		</dl><p>
+
+		<div class="desc">Notify a (running) task that it is about to be interrupted. The task may take necessary actions
+(like updating internal timers) in preparation for interruption. The task must immediately
+cease all actions, and set the status to Task::INTERRUPTED.
+<p>
+
+This method should only be called by the task manager.
+<p>
+
+Task implementors may override this method to implement code for interruption handling.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;iterate"></a>
+<h3>$Task-&gt;iterate</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;iterate</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::RUNNING</dd>
+		</dl><p>
+
+		<div class="desc">Run one iteration of this task. Task implementors must override this method to
+implement task code.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;onMutexesChanged"></a>
+<h3>$Task-&gt;onMutexesChanged</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$Task-&gt;onMutexesChanged</strong>()
+	</dt>
+	<dd>
+		<div class="desc">This event is triggered when the mutex list for this task has changed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;onStop"></a>
+<h3>$Task-&gt;onStop</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$Task-&gt;onStop</strong>()
+	</dt>
+	<dd>
+		<div class="desc">This event is triggered when the task's status has been set to Task::STOPPED.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;resume"></a>
+<h3>$Task-&gt;resume</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;resume</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::INTERRUPTED</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->getStatus()</code> == Task::RUNNING</dd>
+		</dl><p>
+
+		<div class="desc">Notify an (interrupted) task that it is about to be resumed. The task may take
+necessary actions in prepration for resuming. The task must set its status to
+Task::RUNNING.
+<p>
+
+This method should only be called by the task manager.
+<p>
+
+Task implementors may override this method to implement code for resume handling.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;setDone"></a>
+<h3>$Task-&gt;setDone</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;setDone</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::INACTIVE or Task::RUNNING</dd>
+		</dl><p>
+
+		<div class="desc">Indicate that the task has been completed, without error. The
+status will be set to Task::DONE.
+<p>
+
+Do not call this method outside <a href="Task.html#$Task->iterate"><code>$Task->iterate()</code></a>, or bad things will happen!</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;setError"></a>
+<h3>$Task-&gt;setError</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;setError</strong>(<span class="type">code,</span> message)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>code</code> : An error code.</dd>
+			<dd class="param"><code>message</code> : An error message.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::INACTIVE or Task::RUNNING</dd>
+		</dl><p>
+
+		<div class="desc">Indicate that the task has been completed, but with an error.
+The status will be set to Task::DONE, and <a href="Task.html#$Task->getError"><code>$Task->getError()</code></a> will return
+the error information passed to this method.
+<p>
+
+Do not call this method outside <a href="Task.html#$Task->iterate"><code>$Task->iterate()</code></a>, or bad things will happen!</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;setMutexes"></a>
+<h3>$Task-&gt;setMutexes</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;setMutexes</strong>(mutexes...)
+	</dt>
+	<dd>
+		<div class="desc">Set the currently active mutexes for this task. This will trigger an
+onMutexesChanged event.
+<p>
+
+You should only call this method inside the class's <code>iterate()</code> method,
+or during initialization. Otherwise you may confuse the task manager.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;setStopped"></a>
+<h3>$Task-&gt;setStopped</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;setStopped</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::RUNNING, Task::INACTIVE or Task::INTERRUPTED</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->getStatus()</code> == Task::STOPPED</dd>
+		</dl><p>
+
+		<div class="desc">Set the task's status to Task::STOPPED and trigger an onStop event.
+This is useful for tasks that cannot stop immediately
+when <code>stop()</code> is called: they can mark the task as stopped when appropriate.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Task-&gt;stop"></a>
+<h3>$Task-&gt;stop</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Task-&gt;stop</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->getStatus() == Task::RUNNING, Task::INACTIVE or Task::INTERRUPTED</dd>
+		</dl><p>
+
+		<div class="desc">Notify a task that it must completely stop. When the task is actually stopped,
+the status must be set to Task::STOPPED.
+<p>
+
+The default behavior is to immediate set the status to Task::STOPPED
+by calling <a href="Task.html#$Task->setStopped"><code>$Task->setStopped()</code></a>, thereby triggering an onStop event.
+Task implementors may override this method to implement custom stop handling.
+You may choose to stop the task after a period of time, instead of immediately.
+<p>
+
+This method may be called by anybody, not just the task manager.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task-&gt;new"></a>
+<h3>Task-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task-&gt;new</strong>(options...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>result->getStatus()</code> == Task::INACTIVE</dd>
+		</dl><p>
+
+		<div class="desc">Create a new Task object. The following options are allowed:
+<ul>
+<li><tt>name</tt> - A name for this task. <a href="Task.html#$Task->getName"><code>$Task->getName()</code></a> will return this name.
+                  If not specified, the class's name (excluding the "Task::" prefix) will be used as name.</li>
+<li><tt>priority</tt> - A priority for this task. <a href="Task.html#$Task->getPriority"><code>$Task->getPriority()</code></a> will return this value.
+                      The default priority is Task::NORMAL_PRIORITY</li>
+<li><tt>mutexes</tt> - A reference to an array of mutexes. <a href="Task.html#$Task->getMutexes"><code>$Task->getMutexes()</code></a> will return this value.
+                     The default is an empty mutex list.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::DONE"></a>
+<h3>Task::DONE</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::DONE</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates that the task is completed. A completed task cannot be stopped or interrupted.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::HIGH_PRIORITY"></a>
+<h3>Task::HIGH_PRIORITY</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::HIGH_PRIORITY</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates a high task priority.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::INACTIVE"></a>
+<h3>Task::INACTIVE</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::INACTIVE</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates that the task has just been created.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::INTERRUPTED"></a>
+<h3>Task::INTERRUPTED</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::INTERRUPTED</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates that the task is interrupted, and not running.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::LOW_PRIORITY"></a>
+<h3>Task::LOW_PRIORITY</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::LOW_PRIORITY</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates a low task priority.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::NORMAL_PRIORITY"></a>
+<h3>Task::NORMAL_PRIORITY</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::NORMAL_PRIORITY</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates a normal task priority.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::RUNNING"></a>
+<h3>Task::RUNNING</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::RUNNING</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates that the task is running.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::STOPPED"></a>
+<h3>Task::STOPPED</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::STOPPED</strong>
+	</dt>
+	<dd>
+		<div class="desc">Indicates that the task is stopped. A stopped task cannot resume.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Task::USER_PRIORITY"></a>
+<h3>Task::USER_PRIORITY</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::USER_PRIORITY</strong>
+	</dt>
+	<dd>
+		<div class="desc">Priority used for user-invoked commands.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

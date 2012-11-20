@@ -1,0 +1,1195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils - Utility functions : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils - Utility functions</h1>
+
+This module contains various general-purpose and independant utility
+functions. Functions in this module should have <b>no</b> dependancies
+on other Kore modules.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Math</th></tr><tr onclick="location.href='#blockDistance';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#blockDistance">blockDistance</a></td>
+	<td class="decl">(<span class="type">pos1,</span> pos2)</td>
+</tr><tr onclick="location.href='#calcPosFromTime';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#calcPosFromTime">calcPosFromTime</a></td>
+	<td class="decl">(<span class="type">pos,</span> pos_to, speed, time)</td>
+</tr><tr onclick="location.href='#calcPosition';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#calcPosition">calcPosition</a></td>
+	<td class="decl">(<span class="type">object,</span> [extra_time, float])</td>
+</tr><tr onclick="location.href='#calcTime';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#calcTime">calcTime</a></td>
+	<td class="decl">(<span class="type">pos,</span> pos_to, speed)</td>
+</tr><tr onclick="location.href='#ceil';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#ceil">ceil</a></td>
+	<td class="decl">($number)</td>
+</tr><tr onclick="location.href='#checkMovementDirection';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#checkMovementDirection">checkMovementDirection</a></td>
+	<td class="decl">(<span class="type">pos1,</span> vec, pos2, fuzziness)</td>
+</tr><tr onclick="location.href='#countSteps';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#countSteps">countSteps</a></td>
+	<td class="decl">(<span class="type">pos,</span> pos_to)</td>
+</tr><tr onclick="location.href='#distance';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#distance">distance</a></td>
+	<td class="decl">(<span class="type">r_hash1,</span> r_hash2)</td>
+</tr><tr onclick="location.href='#getVector';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#getVector">getVector</a></td>
+	<td class="decl">(<span class="type">r_store,</span> to, from)</td>
+</tr><tr onclick="location.href='#intToSignedInt';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#intToSignedInt">intToSignedInt</a></td>
+	<td class="decl">(<span class="type">int</span> i)</td>
+</tr><tr onclick="location.href='#intToSignedShort';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#intToSignedShort">intToSignedShort</a></td>
+	<td class="decl">(<span class="type">int</span> i)</td>
+</tr><tr onclick="location.href='#max';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#max">max</a></td>
+	<td class="decl">(<span class="type">$a,</span> $b)</td>
+</tr><tr onclick="location.href='#min';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#min">min</a></td>
+	<td class="decl">(<span class="type">$a,</span> $b)</td>
+</tr><tr onclick="location.href='#moveAlong';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#moveAlong">moveAlong</a></td>
+	<td class="decl">(<span class="type">pos,</span> pos_to, step)</td>
+</tr><tr onclick="location.href='#moveAlongVector';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#moveAlongVector">moveAlongVector</a></td>
+	<td class="decl">(<span class="type">result,</span> r_pos, r_vec, dist)</td>
+</tr><tr onclick="location.href='#round';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#round">round</a></td>
+	<td class="decl">($number)</td>
+</tr><tr onclick="location.href='#vectorToDegree';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#vectorToDegree">vectorToDegree</a></td>
+	<td class="decl">(vector)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Misc utility functions</th></tr><tr onclick="location.href='#dataWaiting';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#dataWaiting">dataWaiting</a></td>
+	<td class="decl">(r_handle)</td>
+</tr><tr onclick="location.href='#dumpHash';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#dumpHash">dumpHash</a></td>
+	<td class="decl">(r_hash)</td>
+</tr><tr onclick="location.href='#formatNumber';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#formatNumber">formatNumber</a></td>
+	<td class="decl">(num)</td>
+</tr><tr onclick="location.href='#judgeSkillArea';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#judgeSkillArea">judgeSkillArea</a></td>
+	<td class="decl">(ID)</td>
+</tr><tr onclick="location.href='#makeCoords';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#makeCoords">makeCoords</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#makeCoordsDir';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#makeCoordsDir">makeCoordsDir</a></td>
+	<td class="decl">(<span class="type">r_hash,</span> rawCoords, bodyDir)</td>
+</tr><tr onclick="location.href='#makeCoordsFromTo';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#makeCoordsFromTo">makeCoordsFromTo</a></td>
+	<td class="decl">(<span class="type">r_hashFrom,</span> r_hashTo, rawCoords)</td>
+</tr><tr onclick="location.href='#makeCoordsXY';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#makeCoordsXY">makeCoordsXY</a></td>
+	<td class="decl">(<span class="type">r_hashFrom,</span> r_hashRawCoords)</td>
+</tr><tr onclick="location.href='#makeDistMap';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#makeDistMap">makeDistMap</a></td>
+	<td class="decl">(<span class="type">data,</span> width, height)</td>
+</tr><tr onclick="location.href='#parseArgs';">
+	<td class="return-type">Array&lt;String&gt;</td>
+	<td class="func"><a href="#parseArgs">parseArgs</a></td>
+	<td class="decl">(<span class="type">String</span> command, [int max], [String delimiters = &#39; &#39;], [int* last_arg_pos])</td>
+</tr><tr onclick="location.href='#pin_encode';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#pin_encode">pin_encode</a></td>
+	<td class="decl">(<span class="type">int</span> pin, int key)</td>
+</tr><tr onclick="location.href='#quarkToString';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#quarkToString">quarkToString</a></td>
+	<td class="decl">(quark)</td>
+</tr><tr onclick="location.href='#shiftPack';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#shiftPack">shiftPack</a></td>
+	<td class="decl">(<span class="type">data,</span> value, bits)</td>
+</tr><tr onclick="location.href='#stringToQuark';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#stringToQuark">stringToQuark</a></td>
+	<td class="decl">(string)</td>
+</tr><tr onclick="location.href='#timeConvert';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#timeConvert">timeConvert</a></td>
+	<td class="decl">(seconds)</td>
+</tr><tr onclick="location.href='#timeOut';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#timeOut">timeOut</a></td>
+	<td class="decl">(<span class="type">r_time,</span> [timeout])</td>
+</tr><tr onclick="location.href='#unShiftPack';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#unShiftPack">unShiftPack</a></td>
+	<td class="decl">(<span class="type">data,</span> reference, bits)</td>
+</tr><tr onclick="location.href='#urldecode';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#urldecode">urldecode</a></td>
+	<td class="decl">(encoded_string)</td>
+</tr><tr onclick="location.href='#urlencode';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#urlencode">urlencode</a></td>
+	<td class="decl">(str)</td>
+</tr><tr onclick="location.href='#vocalString';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#vocalString">vocalString</a></td>
+	<td class="decl">(<span class="type">letter_length,</span> [r_string])</td>
+</tr><tr onclick="location.href='#wrapText';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#wrapText">wrapText</a></td>
+	<td class="decl">(<span class="type">String</span> text, int maxLineLength)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Operating system-specific stuff</th></tr><tr onclick="location.href='#checkLaunchApp';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#checkLaunchApp">checkLaunchApp</a></td>
+	<td class="decl">(<span class="type">pid,</span> [retval])</td>
+</tr><tr onclick="location.href='#launchApp';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#launchApp">launchApp</a></td>
+	<td class="decl">(<span class="type">detach,</span> args...)</td>
+</tr><tr onclick="location.href='#launchScript';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#launchScript">launchScript</a></td>
+	<td class="decl">(<span class="type">async,</span> module_paths, script, [args...])</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="blockDistance"></a>
+<h3>blockDistance</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>blockDistance</strong>(<span class="type">pos1,</span> pos2)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>pos1, pos2</code> : references to position hash tables.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the distance in number of blocks (integer).</dd>
+		</dl><p>
+
+		<div class="desc">Calculates the distance in number of blocks between pos1 and pos2.
+This is used for e.g. weapon range calculation.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="calcPosFromTime"></a>
+<h3>calcPosFromTime</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>calcPosFromTime</strong>(<span class="type">pos,</span> pos_to, speed, time)
+	</dt>
+	<dd>
+		<div class="desc">Returns: the position where an actor moving from <code>$pos</code> to <code>$pos_to</code> with
+the speed <code>$speed</code> will be in <code>$time</code> amount of time.
+Walls are not considered.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="calcPosition"></a>
+<h3>calcPosition</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>calcPosition</strong>(<span class="type">object,</span> [extra_time, float])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>object</code> : <code>$char</code> (yourself), or a value in <code>%monsters</code> or <code>%players</code>.</dd>
+			<dd class="param"><code>float</code> : If set to 1, return coordinates as floating point.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">reference to a position hash.</dd>
+		</dl><p>
+
+		<div class="desc">The position information server that the server sends indicates a motion:
+it says that an object is walking from A to B, and that it will arrive at B shortly.
+This function calculates the current position of <code>$object</code> based on the motion information.
+<p>
+
+If <code>$extra_time</code> is given, this function will calculate where <code>$object</code> will be
+after <code>$extra_time</code> seconds.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">$pos</span><span class="hl sym">;</span>
+<span class="hl kwb">$pos</span> <span class="hl sym">=</span> <span class="hl kwd">calcPosition</span><span class="hl sym">(</span><span class="hl kwb">$char</span><span class="hl sym">);</span>
+<span class="hl kwc">print</span> <span class="hl str">&quot;You are currently at: $pos-&gt;{x}, $pos-&gt;{y}</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+
+<span class="hl kwb">$pos</span> <span class="hl sym">=</span> <span class="hl kwd">calcPosition</span><span class="hl sym">(</span><span class="hl kwb">$monsters</span><span class="hl sym">{</span><span class="hl kwb">$ID</span><span class="hl sym">});</span>
+<span class="hl slc"># Calculate where the player will be after 2 seconds</span>
+<span class="hl kwb">$pos</span> <span class="hl sym">=</span> <span class="hl kwd">calcPosition</span><span class="hl sym">(</span><span class="hl kwb">$players</span><span class="hl sym">{</span><span class="hl kwb">$ID</span><span class="hl sym">},</span> <span class="hl num">2</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="calcTime"></a>
+<h3>calcTime</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>calcTime</strong>(<span class="type">pos,</span> pos_to, speed)
+	</dt>
+	<dd>
+		<div class="desc">Returns: time to move from <code>$pos</code> to <code>$pos_to</code> with <code>$speed</code> speed.
+Walls are not considered.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ceil"></a>
+<h3>ceil</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>ceil</strong>($number)
+	</dt>
+	<dd>
+		<div class="desc">Returns the rounded up number
+Used for distances (only deciles taken into consideration)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="checkLaunchApp"></a>
+<h3>checkLaunchApp</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>checkLaunchApp</strong>(<span class="type">pid,</span> [retval])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>pid</code> : the return value of <a href="Utils.html#launchApp"><code>launchApp()</code></a> or <a href="Utils.html#launchScript"><code>launchScript()</code></a></dd>
+			<dd class="param"><code>retval</code> : a reference to a scalar. If the app exited, the return value will be stored in here.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if the app is still running, 0 if it has exited.</dd>
+		</dl><p>
+
+		<div class="desc">If you ran a script or an app asynchronously, you can use this function to check
+whether it's currently still running.
+<p>
+
+See also: <a href="Utils.html#launchApp"><code>launchApp()</code></a>, <a href="Utils.html#launchScript"><code>launchScript()</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="checkMovementDirection"></a>
+<h3>checkMovementDirection</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>checkMovementDirection</strong>(<span class="type">pos1,</span> vec, pos2, fuzziness)
+	</dt>
+	<dd>
+		<div class="desc">Check whether an object - which is moving into the direction of vector <code>$vec</code>,
+and is currently at position <code>$pos1</code> - is moving towards <code>$pos2</code>.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># Get monster movement direction</span>
+<span class="hl kwc">my</span> <span class="hl kwb">%vec</span><span class="hl sym">;</span>
+<span class="hl kwd">getVector</span><span class="hl sym">(</span>\<span class="hl kwb">%vec</span><span class="hl sym">,</span> <span class="hl kwb">$monster</span><span class="hl sym">-&gt;{</span>pos_to<span class="hl sym">},</span> <span class="hl kwb">$monster</span><span class="hl sym">-&gt;{</span>pos<span class="hl sym">});</span>
+<span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwd">checkMovementDirection</span><span class="hl sym">(</span><span class="hl kwb">$monster</span><span class="hl sym">-&gt;{</span>pos<span class="hl sym">},</span> \<span class="hl kwb">%vec</span><span class="hl sym">,</span> <span class="hl kwb">$char</span><span class="hl sym">-&gt;{</span>pos<span class="hl sym">},</span> <span class="hl num">15</span><span class="hl sym">)) {</span>
+	warning <span class="hl str">&quot;Monster $monster-&gt;{name} is moving towards you</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="countSteps"></a>
+<h3>countSteps</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>countSteps</strong>(<span class="type">pos,</span> pos_to)
+	</dt>
+	<dd>
+		<div class="desc">Returns: the number of steps from <code>$pos</code> to <code>$pos_to</code>.
+Walls are not considered.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="dataWaiting"></a>
+<h3>dataWaiting</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>dataWaiting</strong>(r_handle)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_handle</code> : A reference to a handle or a socket.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if there's pending incoming data, 0 if not.</dd>
+		</dl><p>
+
+		<div class="desc">Checks whether the socket <code>$r_handle</code> has pending incoming data.
+If there is, then you can read from <code>$r_handle</code> without being blocked.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="distance"></a>
+<h3>distance</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>distance</strong>(<span class="type">r_hash1,</span> r_hash2)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>pos1, pos2</code> : references to position hash tables.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the distance as a floating point number.</dd>
+		</dl><p>
+
+		<div class="desc">Calculates the pythagorean distance between pos1 and pos2.
+<p>
+
+FIXME: Some things in RO should use block distance instead.
+Discussion at
+<a href="http://openkore.sourceforge.net/forum/viewtopic.php?t=9176">http://openkore.sourceforge.net/forum/viewtopic.php?t=9176</a></div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># Calculates the distance between you and a monster</span>
+<span class="hl kwc">my</span> <span class="hl kwb">$dist</span> <span class="hl sym">=</span> <span class="hl kwd">distance</span><span class="hl sym">(</span><span class="hl kwb">$char</span><span class="hl sym">-&gt;{</span>pos_to<span class="hl sym">},</span>
+                    <span class="hl kwb">$monsters</span><span class="hl sym">{</span><span class="hl kwb">$ID</span><span class="hl sym">}{</span>pos_to<span class="hl sym">});</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="dumpHash"></a>
+<h3>dumpHash</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>dumpHash</strong>(r_hash)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_hash</code> : a reference to a hash/array.</dd>
+		</dl><p>
+
+		<div class="desc">Return a formated output of the contents of a hash/array, for debugging purposes.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="formatNumber"></a>
+<h3>formatNumber</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>formatNumber</strong>(num)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>num</code> : An integer number.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">A formatted number with commas.</dd>
+		</dl><p>
+
+		<div class="desc">Add commas to <code>$num</code> so large numbers are more readable.
+<code>$num</code> must be an integer, not a floating point number.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwd">formatNumber</span><span class="hl sym">(</span><span class="hl num">1000000</span><span class="hl sym">);</span>   <span class="hl slc"># -&gt; 1,000,000</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="getVector"></a>
+<h3>getVector</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>getVector</strong>(<span class="type">r_store,</span> to, from)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_store</code> : reference to a hash. The result will be stored here.</dd>
+			<dd class="param"><code>to, from</code> : reference to position hashes.</dd>
+		</dl><p>
+
+		<div class="desc">Create a vector object. For those who don't know: a vector
+is a mathematical term for describing a movement and its direction.
+So this function creates a vector object, which describes the direction of the
+movement <code>%from</code> to <code>%to</code>. You can use this vector object with other math functions.
+<p>
+
+See also: <a href="Utils.html#moveAlongVector"><code>moveAlongVector()</code></a>, <a href="Utils.html#vectorToDegree"><code>vectorToDegree()</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="intToSignedInt"></a>
+<h3>intToSignedInt</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>intToSignedInt</strong>(<span class="type">int</span> i)
+	</dt>
+	<dd>
+		<div class="desc">Convert a 32-bit unsigned integer into a signed integer.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="intToSignedShort"></a>
+<h3>intToSignedShort</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>intToSignedShort</strong>(<span class="type">int</span> i)
+	</dt>
+	<dd>
+		<div class="desc">Convert a 16-bit unsigned integer into a signed integer.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="judgeSkillArea"></a>
+<h3>judgeSkillArea</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>judgeSkillArea</strong>(ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : a skill ID.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the size of the skill's area.</dd>
+		</dl><p>
+
+		<div class="desc">Figure out how large the skill area is, in diameters.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="launchApp"></a>
+<h3>launchApp</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>launchApp</strong>(<span class="type">detach,</span> args...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>detach</code> : set to 1 if you don't care when this application exits.</dd>
+			<dd class="param"><code>args</code> : the application's name and arguments.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">a PID on Unix; a Win32::Process object on Windows.</dd>
+		</dl><p>
+
+		<div class="desc">Asynchronously launch an application.
+<p>
+
+See also: <code>checkLaunchedApp()</code></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="launchScript"></a>
+<h3>launchScript</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>launchScript</strong>(<span class="type">async,</span> module_paths, script, [args...])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>async</code> : 1 if you want to run the script in the background, or 0 if you want to wait until the script has exited.</dd>
+			<dd class="param"><code>module_paths</code> : reference to an array which contains paths to look for modules, or undef.</dd>
+			<dd class="param"><code>script</code> : filename of the Perl script.</dd>
+			<dd class="param"><code>args</code> : parameters to pass to the script.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">a PID on Unix, a Win32::Process object on Windows.</dd>
+		</dl><p>
+
+		<div class="desc">Run a Perl script.
+<p>
+
+See also: <a href="Utils.html#launchApp"><code>launchApp()</code></a>, <code>checkLaunchedApp()</code></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="makeCoords"></a>
+<h3>makeCoords</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>makeCoords</strong>()
+	</dt>
+	<dd>
+		<div class="desc">The maximum value for either coordinate (x or y) is 1023,
+thus making the number of bits for each coordinate 10.
+<p>
+
+When both coordinates are packed together,
+the bit usage becomes double that, 20 bits or 2.5 bytes.
+<p>
+
+Note: so we don't have to repeat documentation</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="makeCoordsDir"></a>
+<h3>makeCoordsDir</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>makeCoordsDir</strong>(<span class="type">r_hash,</span> rawCoords, bodyDir)
+	</dt>
+	<dd>
+		<div class="desc">Read <a href="Utils.html#makeCoords"><code>makeCoords()</code></a>
+<p>
+
+Another 0.5 bytes or 4 bits are reserved for body direction.
+<p>
+
+ex. stand/spawn packet (4 + 10 + 10 = 24 bits = 3 bytes = a3)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="makeCoordsFromTo"></a>
+<h3>makeCoordsFromTo</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>makeCoordsFromTo</strong>(<span class="type">r_hashFrom,</span> r_hashTo, rawCoords)
+	</dt>
+	<dd>
+		<div class="desc">Read <a href="Utils.html#makeCoords"><code>makeCoords()</code></a>
+<p>
+
+Coordinates for From & To packed together require 5 bytes.
+<p>
+
+Another 1 byte or 2*4 bits are reserved for a clientside feature:
+x0+=sx0*0.0625-0.5 and y0+=sy0*0.0625-0.5
+Note: if sx0/sy0 is 8, this will respectively add 0 to x0/y0
+<p>
+
+ex. walk packet (4 + 4 + 10 + 10 + 10 + 10 = 48 bits = 6 bytes = a6)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="makeCoordsXY"></a>
+<h3>makeCoordsXY</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>makeCoordsXY</strong>(<span class="type">r_hashFrom,</span> r_hashRawCoords)
+	</dt>
+	<dd>
+		<div class="desc">Read <a href="Utils.html#makeCoords"><code>makeCoords()</code></a>
+<p>
+
+Note: this function is used as a help function for: makeCoordsDir, makeCoordsFromTo</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="makeDistMap"></a>
+<h3>makeDistMap</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>makeDistMap</strong>(<span class="type">data,</span> width, height)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>data</code> : the raw field data.</dd>
+			<dd class="param"><code>width</code> : the field's width.</dd>
+			<dd class="param"><code>height</code> : the field's height.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the raw data of the distance map.</dd>
+		</dl><p>
+
+		<div class="desc">Create a distance map from raw field data. This distance map data is used by pathfinding
+for wall avoidance support.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="max"></a>
+<h3>max</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>max</strong>(<span class="type">$a,</span> $b)
+	</dt>
+	<dd>
+		<div class="desc">Returns the greater of <code>$a</code> or <code>$b</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="min"></a>
+<h3>min</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>min</strong>(<span class="type">$a,</span> $b)
+	</dt>
+	<dd>
+		<div class="desc">Returns the lesser of <code>$a</code> or <code>$b</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="moveAlong"></a>
+<h3>moveAlong</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>moveAlong</strong>(<span class="type">pos,</span> pos_to, step)
+	</dt>
+	<dd>
+		<div class="desc">Returns: the position where an actor will be after <code>$step</code> steps
+while walking from <code>$pos</code> to <code>$pos_to</code>.
+Walls are not considered.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="moveAlongVector"></a>
+<h3>moveAlongVector</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>moveAlongVector</strong>(<span class="type">result,</span> r_pos, r_vec, dist)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>result</code> : reference to a hash, in which the destination position is stored.</dd>
+			<dd class="param"><code>r_pos</code> : the source position.</dd>
+			<dd class="param"><code>r_vec</code> : a vector object, as created by <a href="Utils.html#getVector"><code>getVector()</code></a></dd>
+			<dd class="param"><code>dist</code> : the distance to move from the source position.</dd>
+		</dl><p>
+
+		<div class="desc">Calculate where you will end up to, if you walk <code>$dist</code> blocks from <code>%r_pos</code>
+into the direction specified by <code>%r_vec</code>.
+<p>
+
+See also: <a href="Utils.html#getVector"><code>getVector()</code></a></div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">%from</span> <span class="hl sym">= (</span>x <span class="hl sym">=&gt;</span> <span class="hl num">100</span><span class="hl sym">,</span> y <span class="hl sym">=&gt;</span> <span class="hl num">100</span><span class="hl sym">);</span>
+<span class="hl kwc">my</span> <span class="hl kwb">%to</span> <span class="hl sym">= (</span>x <span class="hl sym">=&gt;</span> <span class="hl num">120</span><span class="hl sym">,</span> y <span class="hl sym">=&gt;</span> <span class="hl num">120</span><span class="hl sym">);</span>
+<span class="hl kwc">my</span> <span class="hl kwb">%vec</span><span class="hl sym">;</span>
+<span class="hl kwd">getVector</span><span class="hl sym">(</span>\<span class="hl kwb">%vec</span><span class="hl sym">,</span> \<span class="hl kwb">%to</span><span class="hl sym">,</span> \<span class="hl kwb">%from</span><span class="hl sym">);</span>
+<span class="hl kwc">my</span> <span class="hl kwb">%result</span><span class="hl sym">;</span>
+<span class="hl kwd">moveAlongVector</span><span class="hl sym">(</span>\<span class="hl kwb">%result</span><span class="hl sym">,</span> \<span class="hl kwb">%from</span><span class="hl sym">,</span> \<span class="hl kwb">%vec</span><span class="hl sym">,</span> <span class="hl num">10</span><span class="hl sym">);</span>
+<span class="hl kwc">print</span> <span class="hl str">&quot;You are at $from{x},$from{y}.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl kwc">print</span> <span class="hl str">&quot;If you walk $dist blocks into the direction of $to{x},$to{y}, you will end up at:</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl kwc">print</span> <span class="hl str">&quot;$result{x},$result{y}</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="parseArgs"></a>
+<h3>parseArgs</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Array&lt;String&gt;</span> <strong>parseArgs</strong>(<span class="type">String</span> command, [int max], [String delimiters = &#39; &#39;], [int* last_arg_pos])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>command</code> : a command string.</dd>
+			<dd class="param"><code>max</code> : maximum number of arguments.</dd>
+			<dd class="param"><code>delimiters</code> : a character array of delimiters for arguments.</dd>
+			<dd class="param"><code>last_arg_pos</code> : reference to a scalar. The position of the start of the last argument is stored here.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an array of arguments.</dd>
+		</dl><p>
+
+		<div class="desc">Parse a command string and split it into an array of arguments.
+Quoted parts inside the command strings are considered one argument.
+Backslashes can be used to escape a special character (like quotes).
+Leadingand trailing whitespaces are ignored, unless quoted.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwd">parseArgs</span><span class="hl sym">(</span><span class="hl str">&quot;guild members&quot;</span><span class="hl sym">);</span>		<span class="hl slc"># =&gt; (&quot;guild&quot;, &quot;members&quot;)</span>
+<span class="hl kwd">parseArgs</span><span class="hl sym">(</span><span class="hl str">&quot;c hello there&quot;</span><span class="hl sym">,</span> <span class="hl num">2</span><span class="hl sym">);</span>	<span class="hl slc"># =&gt; (&quot;c&quot;, &quot;hello there&quot;)</span>
+<span class="hl kwd">parseArgs</span><span class="hl sym">(</span><span class="hl str">&quot;pm 'My Friend' hey there&quot;</span><span class="hl sym">,</span> <span class="hl num">3</span><span class="hl sym">);</span>	<span class="hl slc"># (&quot;pm&quot;, &quot;My Friend&quot;, &quot;hey there&quot;)</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="pin_encode"></a>
+<h3>pin_encode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>pin_encode</strong>(<span class="type">int</span> pin, int key)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>pin</code> : the PIN code</dd>
+			<dd class="param"><code>key</code> : the encryption key</dd>
+		</dl><p>
+
+		<div class="desc">PIN Encode Function, used to hide the real PIN code, using KEY.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="quarkToString"></a>
+<h3>quarkToString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>quarkToString</strong>(quark)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>quark</code> : A quark as returned by <a href="Utils.html#stringToQuark"><code>stringToQuark()</code></a></dd>
+		</dl><p>
+
+		<div class="desc">Convert a quark back into a string. See <a href="Utils.html#stringToQuark"><code>stringToQuark()</code></a> for details.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="round"></a>
+<h3>round</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>round</strong>($number)
+	</dt>
+	<dd>
+		<div class="desc">Returns the rounded number</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="shiftPack"></a>
+<h3>shiftPack</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>shiftPack</strong>(<span class="type">data,</span> value, bits)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>data</code> : reference to existing data in which to pack onto</dd>
+			<dd class="param"><code>value</code> : value to pack</dd>
+			<dd class="param"><code>bits</code> : maximum number of bits used by value</dd>
+		</dl><p>
+
+		<div class="desc">Packs a value onto a set of data using bitwise shifts</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="stringToQuark"></a>
+<h3>stringToQuark</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>stringToQuark</strong>(string)
+	</dt>
+	<dd>
+		<div class="desc">Convert a string into a so-called quark. Each string will be converted to a unique quark.
+This can be used to save memory, if your application uses many identical strings.
+<p>
+
+For example, consider the following:
+<pre class="example">
+<span class="hl kwc">my</span> <span class="hl kwb">&#64;array</span><span class="hl sym">;</span>
+<span class="hl kwa">for</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">.</span><span class="hl num">.10000</span><span class="hl sym">) {</span>
+    push <span class="hl kwb">&#64;array</span><span class="hl sym">,</span> <span class="hl str">&quot;this is a string&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre>
+The above example will store 10000 different copies of the string "this is my string" into
+the array. Even though each string has the same content, each string uses its own memory.
+<p>
+
+By using quarks, one can save a lot of memory:
+<pre class="example">
+<span class="hl kwc">my</span> <span class="hl kwb">&#64;array</span><span class="hl sym">;</span>
+<span class="hl kwa">for</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">.</span><span class="hl num">.10000</span><span class="hl sym">) {</span>
+    push <span class="hl kwb">&#64;array</span><span class="hl sym">,</span> <span class="hl kwd">stringToQuark</span><span class="hl sym">(</span><span class="hl str">&quot;this is a string&quot;</span><span class="hl sym">);</span>
+<span class="hl sym">}</span>
+</pre>
+The array will now contain 10000 instances of the same quark, so very little memory is wasted.
+<p>
+
+To convert a quark back to a string, use <a href="Utils.html#quarkToString"><code>quarkToString()</code></a>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="timeConvert"></a>
+<h3>timeConvert</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>timeConvert</strong>(seconds)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>seconds</code> : number of seconds.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">a human-readable version of $seconds.</dd>
+		</dl><p>
+
+		<div class="desc">Converts <code>$seconds</code> into a string in the form of "x hours y minutes z seconds".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="timeOut"></a>
+<h3>timeOut</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>timeOut</strong>(<span class="type">r_time,</span> [timeout])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_time</code> : a time value, or a hash.</dd>
+			<dd class="param"><code>timeout</code> : the timeout value to use if <code>$r_time</code> is a time value.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">a boolean.</dd>
+		</dl><p>
+
+		<div class="desc">If r_time is a time value:
+Check whether <code>$timeout</code> seconds have passed since <code>$r_time</code>.
+<p>
+
+If r_time is a hash:
+Check whether <code>$r_time</code>->{timeout} seconds have passed since <code>$r_time</code>->{time}.
+<p>
+
+This function is usually used to handle timeouts in a loop.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">%time</span><span class="hl sym">;</span>
+<span class="hl kwb">$time</span><span class="hl sym">{</span>time<span class="hl sym">} =</span> <span class="hl kwd">time</span><span class="hl sym">;</span>
+<span class="hl kwb">$time</span><span class="hl sym">{</span>timeout<span class="hl sym">} =</span> <span class="hl num">10</span><span class="hl sym">;</span>
+
+<span class="hl kwa">while</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">) {</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwd">timeOut</span><span class="hl sym">(</span>\<span class="hl kwb">%time</span><span class="hl sym">)) {</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;10 seconds have passed since this loop was started.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl kwa">last</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+<span class="hl sym">}</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$startTime</span> <span class="hl sym">=</span> <span class="hl kwd">time</span><span class="hl sym">;</span>
+<span class="hl kwa">while</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">) {</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwd">timeOut</span><span class="hl sym">(</span><span class="hl kwb">$startTime</span><span class="hl sym">,</span> <span class="hl num">6</span><span class="hl sym">)) {</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;6 seconds have passed since this loop was started.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl kwa">last</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+<span class="hl sym">}</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="unShiftPack"></a>
+<h3>unShiftPack</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>unShiftPack</strong>(<span class="type">data,</span> reference, bits)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>data</code> : data to unpack a value from</dd>
+			<dd class="param"><code>reference</code> : reference to store the value in</dd>
+			<dd class="param"><code>bits</code> : number of bits value requires</dd>
+		</dl><p>
+
+		<div class="desc">This is the reverse operation of shiftPack.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="urldecode"></a>
+<h3>urldecode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>urldecode</strong>(encoded_string)
+	</dt>
+	<dd>
+		<div class="desc">Decode an URL-encoded string.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="urlencode"></a>
+<h3>urlencode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>urlencode</strong>(str)
+	</dt>
+	<dd>
+		<div class="desc">URL-encodes a string.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="vectorToDegree"></a>
+<h3>vectorToDegree</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>vectorToDegree</strong>(vector)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>vector</code> : a reference to a vector hash, as created by <a href="Utils.html#getVector"><code>getVector()</code></a>.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the degree as a number.</dd>
+		</dl><p>
+
+		<div class="desc">Converts a vector into a degree number.
+<p>
+
+See also: <a href="Utils.html#getVector"><code>getVector()</code></a></div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">%from</span> <span class="hl sym">= (</span>x <span class="hl sym">=&gt;</span> <span class="hl num">100</span><span class="hl sym">,</span> y <span class="hl sym">=&gt;</span> <span class="hl num">100</span><span class="hl sym">);</span>
+<span class="hl kwc">my</span> <span class="hl kwb">%to</span> <span class="hl sym">= (</span>x <span class="hl sym">=&gt;</span> <span class="hl num">120</span><span class="hl sym">,</span> y <span class="hl sym">=&gt;</span> <span class="hl num">120</span><span class="hl sym">);</span>
+<span class="hl kwc">my</span> <span class="hl kwb">%vec</span><span class="hl sym">;</span>
+<span class="hl kwd">getVector</span><span class="hl sym">(</span>\<span class="hl kwb">%vec</span><span class="hl sym">,</span> \<span class="hl kwb">%to</span><span class="hl sym">,</span> \<span class="hl kwb">%from</span><span class="hl sym">);</span>
+<span class="hl kwd">vectorToDegree</span><span class="hl sym">(</span>\<span class="hl kwb">%vec</span><span class="hl sym">);</span>	<span class="hl slc"># =&gt; 45</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="vocalString"></a>
+<h3>vocalString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>vocalString</strong>(<span class="type">letter_length,</span> [r_string])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>letter_length</code> : the requested length of the result.</dd>
+			<dd class="param"><code>r_string</code> : a reference to a scalar. If given, the result will be stored here.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the resulting string.</dd>
+		</dl><p>
+
+		<div class="desc">Creates a random string of <code>$letter_length</code> long. The resulting string is pronouncable.
+This function can be used to generate a random password.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwa">for</span> <span class="hl sym">(</span><span class="hl kwc">my</span> <span class="hl kwb">$i</span> <span class="hl sym">=</span> <span class="hl num">0</span><span class="hl sym">;</span> <span class="hl kwb">$i</span> <span class="hl sym">&lt;</span> <span class="hl num">5</span><span class="hl sym">;</span> <span class="hl kwb">$i</span><span class="hl sym">++) {</span>
+    <span class="hl kwd">printf</span><span class="hl sym">(</span><span class="hl str">&quot;%s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">,</span> <span class="hl kwd">vocalString</span><span class="hl sym">(</span><span class="hl num">10</span><span class="hl sym">));</span>
+<span class="hl sym">}</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="wrapText"></a>
+<h3>wrapText</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>wrapText</strong>(<span class="type">String</span> text, int maxLineLength)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>text</code> : The text to wrap.</dd>
+			<dd class="param"><code>maxLineLength</code> : The maximum length of a line.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($text) && $maxLineLength > 1</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Wrap the given text at the given length.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

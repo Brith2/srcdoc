@@ -1,0 +1,431 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::DataStructures - Utility functions for data structure manipulation : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::DataStructures</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::DataStructures - Utility functions for data structure manipulation</h1>
+
+Various functions for manipulating data structures.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#binAdd';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#binAdd">binAdd</a></td>
+	<td class="decl">(<span class="type">Array*</span> array, ID)</td>
+</tr><tr onclick="location.href='#binFind';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#binFind">binFind</a></td>
+	<td class="decl">(<span class="type">Array</span> *array, ID)</td>
+</tr><tr onclick="location.href='#binFindReverse';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#binFindReverse">binFindReverse</a></td>
+	<td class="decl">(<span class="type">Array</span> *array, ID)</td>
+</tr><tr onclick="location.href='#binRemove';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#binRemove">binRemove</a></td>
+	<td class="decl">(<span class="type">Array</span> *array, ID)</td>
+</tr><tr onclick="location.href='#binSize';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#binSize">binSize</a></td>
+	<td class="decl">(<span class="type">Array</span> *array)</td>
+</tr><tr onclick="location.href='#compactArray';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#compactArray">compactArray</a></td>
+	<td class="decl">(<span class="type">Array</span> *array)</td>
+</tr><tr onclick="location.href='#existsInList';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#existsInList">existsInList</a></td>
+	<td class="decl">(<span class="type">list,</span> val)</td>
+</tr><tr onclick="location.href='#findIndex';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#findIndex">findIndex</a></td>
+	<td class="decl">(<span class="type">r_array,</span> key, [num])</td>
+</tr><tr onclick="location.href='#findIndexString';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#findIndexString">findIndexString</a></td>
+	<td class="decl">(<span class="type">r_array,</span> key, [str])</td>
+</tr><tr onclick="location.href='#findIndexString_lc';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#findIndexString_lc">findIndexString_lc</a></td>
+	<td class="decl">(<span class="type">r_array,</span> key, [str])</td>
+</tr><tr onclick="location.href='#findIndexString_lc_not_equip';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#findIndexString_lc_not_equip">findIndexString_lc_not_equip</a></td>
+	<td class="decl">(<span class="type">r_array,</span> key, [str])</td>
+</tr><tr onclick="location.href='#hashCopyByKey';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#hashCopyByKey">hashCopyByKey</a></td>
+	<td class="decl">(<span class="type">Hash*</span> target, Hash* source, keys...)</td>
+</tr><tr onclick="location.href='#shuffleArray';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#shuffleArray">shuffleArray</a></td>
+	<td class="decl">(<span class="type">Array*</span> array)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="binAdd"></a>
+<h3>binAdd</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>binAdd</strong>(<span class="type">Array*</span> array, ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>array</code> : a reference to an array.</dd>
+			<dd class="param"><code>ID</code> : the element to add to <code>@array</code>.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($array)</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the index of the added element.</dd>
+		</dl><p>
+
+		<div class="desc">Add <code>$ID</code> to the first empty slot (that is, a slot which is set to undef)
+in <code>@array</code>, or append it to the end of <code>@array</code> if there are no empty
+slots.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwb">&#64;list</span> <span class="hl sym">= (</span><span class="hl str">&quot;ID1&quot;</span><span class="hl sym">,</span> undef<span class="hl sym">,</span> <span class="hl str">&quot;ID2&quot;</span><span class="hl sym">);</span>
+<span class="hl kwd">binAdd</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;list</span><span class="hl sym">,</span> <span class="hl str">&quot;New&quot;</span><span class="hl sym">);</span>   <span class="hl slc"># --&gt; Returns: 1</span>
+<span class="hl slc"># Result:</span>
+<span class="hl slc"># $list[0] eq &quot;ID1&quot;</span>
+<span class="hl slc"># $list[1] eq &quot;New&quot;</span>
+<span class="hl slc"># $list[2] eq &quot;ID2&quot;</span>
+
+<span class="hl kwb">&#64;list</span> <span class="hl sym">= (</span><span class="hl str">&quot;ID1&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;ID2&quot;</span><span class="hl sym">);</span>
+<span class="hl kwd">binAdd</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;list</span><span class="hl sym">,</span> <span class="hl str">&quot;New&quot;</span><span class="hl sym">);</span>   <span class="hl slc"># --&gt; Returns: 2</span>
+<span class="hl slc"># Result:</span>
+<span class="hl slc"># $list[0] eq &quot;ID1&quot;</span>
+<span class="hl slc"># $list[1] eq &quot;ID2&quot;</span>
+<span class="hl slc"># $list[2] eq &quot;New&quot;</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="binFind"></a>
+<h3>binFind</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>binFind</strong>(<span class="type">Array</span> *array, ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>array</code> : a reference to an array.</dd>
+			<dd class="param"><code>ID</code> : the element to search for.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the index of the element for $ID, or undef is $ID         is not an element in $array.</dd>
+		</dl><p>
+
+		<div class="desc">Look for element <code>$ID</code> in <code>$array</code>.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre>our <span class="hl kwb">&#64;array</span> <span class="hl sym">= (</span><span class="hl str">&quot;hello&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;world&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;!&quot;</span><span class="hl sym">);</span>
+<span class="hl kwd">binFind</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;array</span><span class="hl sym">,</span> <span class="hl str">&quot;world&quot;</span><span class="hl sym">);</span>   <span class="hl slc"># =&gt; 1</span>
+<span class="hl kwd">binFind</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;array</span><span class="hl sym">,</span> <span class="hl str">&quot;?&quot;</span><span class="hl sym">);</span>       <span class="hl slc"># =&gt; undef</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="binFindReverse"></a>
+<h3>binFindReverse</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>binFindReverse</strong>(<span class="type">Array</span> *array, ID)
+	</dt>
+	<dd>
+		<div class="desc">Same as <a href="Utils--DataStructures.html#binFind"><code>binFind()</code></a> but starts looking from the end of the array
+instead of from the beginning.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="binRemove"></a>
+<h3>binRemove</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>binRemove</strong>(<span class="type">Array</span> *array, ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>array</code> : a reference to an array</dd>
+			<dd class="param"><code>ID</code> : the element to remove.</dd>
+		</dl><p>
+
+		<div class="desc">Find a value in <code>$array</code> which has the same value as <code>$ID</code>,
+and remove it.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre>our <span class="hl kwb">&#64;array</span> <span class="hl sym">= (</span><span class="hl str">&quot;hello&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;world&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;!&quot;</span><span class="hl sym">);</span>
+<span class="hl slc"># Same as: delete $array[1];</span>
+<span class="hl kwd">binRemove</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;array</span><span class="hl sym">,</span> <span class="hl str">&quot;world&quot;</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="binSize"></a>
+<h3>binSize</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>binSize</strong>(<span class="type">Array</span> *array)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_array</code> : a reference to an array.</dd>
+		</dl><p>
+
+		<div class="desc">Calculates the size of <code>$array</code>, excluding undefined values.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre>our <span class="hl kwb">&#64;array</span> <span class="hl sym">= (</span><span class="hl str">&quot;hello&quot;</span><span class="hl sym">,</span> undef<span class="hl sym">,</span> <span class="hl str">&quot;world&quot;</span><span class="hl sym">);</span>
+scalar <span class="hl kwb">&#64;array</span><span class="hl sym">;</span>        <span class="hl slc"># -&gt; 3</span>
+<span class="hl kwd">binSize</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;array</span><span class="hl sym">);</span>     <span class="hl slc"># -&gt; 2</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="compactArray"></a>
+<h3>compactArray</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>compactArray</strong>(<span class="type">Array</span> *array)
+	</dt>
+	<dd>
+		<div class="desc">Resize an array by removing undefined items.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="existsInList"></a>
+<h3>existsInList</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>existsInList</strong>(<span class="type">list,</span> val)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>list</code> : a string containing a list of comma-seperated items.</dd>
+			<dd class="param"><code>val</code> : the value to check for.</dd>
+		</dl><p>
+
+		<div class="desc">Check whether <code>$val</code> exists in <code>$list</code>. This function is case-insensitive.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">$list</span> <span class="hl sym">=</span> <span class="hl str">&quot;Apple,Orange Juice&quot;</span><span class="hl sym">;</span>
+<span class="hl kwd">existsInList</span><span class="hl sym">(</span><span class="hl kwb">$list</span><span class="hl sym">,</span> <span class="hl str">&quot;apple&quot;</span><span class="hl sym">);</span>		<span class="hl slc"># =&gt; 1</span>
+<span class="hl kwd">existsInList</span><span class="hl sym">(</span><span class="hl kwb">$list</span><span class="hl sym">,</span> <span class="hl str">&quot;Orange Juice&quot;</span><span class="hl sym">);</span>	<span class="hl slc"># =&gt; 1</span>
+<span class="hl kwd">existsInList</span><span class="hl sym">(</span><span class="hl kwb">$list</span><span class="hl sym">,</span> <span class="hl str">&quot;juice&quot;</span><span class="hl sym">);</span>		<span class="hl slc"># =&gt; 0</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="findIndex"></a>
+<h3>findIndex</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>findIndex</strong>(<span class="type">r_array,</span> key, [num])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_array</code> : A reference to an array, which contains a hash in each element.</dd>
+			<dd class="param"><code>key</code> : The name of the key to lookup.</dd>
+			<dd class="param"><code>num</code> : The number to compare with.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The index in r_array of the found item, or undef if not found. Or, if not found and $num is not given: returns the index of first undefined array element, or the index of the last array element + 1.</dd>
+		</dl><p>
+
+		<div class="desc">This function loops through the entire array, looking for a hash item whose
+value equals <code>$num</code>.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">&#64;inventory</span><span class="hl sym">;</span>
+<span class="hl kwb">$inventory</span><span class="hl sym">[</span><span class="hl num">0</span><span class="hl sym">]{</span>amount<span class="hl sym">} =</span> <span class="hl num">50</span><span class="hl sym">;</span>
+<span class="hl kwb">$inventory</span><span class="hl sym">[</span><span class="hl num">1</span><span class="hl sym">]{</span>amount<span class="hl sym">} =</span> <span class="hl num">100</span><span class="hl sym">;</span>
+<span class="hl kwb">$inventory</span><span class="hl sym">[</span><span class="hl num">2</span><span class="hl sym">] =</span> <span class="hl kwd">undef</span><span class="hl sym">;</span>
+<span class="hl kwb">$inventory</span><span class="hl sym">[</span><span class="hl num">3</span><span class="hl sym">]{</span>amount<span class="hl sym">} =</span> <span class="hl num">200</span><span class="hl sym">;</span>
+<span class="hl kwd">findIndex</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;inventory</span><span class="hl sym">,</span> <span class="hl str">&quot;amount&quot;</span><span class="hl sym">,</span> <span class="hl num">100</span><span class="hl sym">);</span>    <span class="hl slc"># 1</span>
+<span class="hl kwd">findIndex</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;inventory</span><span class="hl sym">,</span> <span class="hl str">&quot;amount&quot;</span><span class="hl sym">,</span> <span class="hl num">99</span><span class="hl sym">);</span>     <span class="hl slc"># undef</span>
+<span class="hl kwd">findIndex</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;inventory</span><span class="hl sym">,</span> <span class="hl str">&quot;amount&quot;</span><span class="hl sym">);</span>         <span class="hl slc"># 2</span>
+
+<span class="hl kwb">&#64;inventory</span> <span class="hl sym">= ();</span>
+<span class="hl kwb">$inventory</span><span class="hl sym">[</span><span class="hl num">0</span><span class="hl sym">]{</span>amount<span class="hl sym">} =</span> <span class="hl num">50</span><span class="hl sym">;</span>
+<span class="hl kwd">findIndex</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;inventory</span><span class="hl sym">,</span> <span class="hl str">&quot;amount&quot;</span><span class="hl sym">);</span>         <span class="hl slc"># 1</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="findIndexString"></a>
+<h3>findIndexString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>findIndexString</strong>(<span class="type">r_array,</span> key, [str])
+	</dt>
+	<dd>
+		<div class="desc">Same as <a href="Utils--DataStructures.html#findIndex"><code>findIndex()</code></a>, except this function compares strings, not numbers.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="findIndexString_lc"></a>
+<h3>findIndexString_lc</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>findIndexString_lc</strong>(<span class="type">r_array,</span> key, [str])
+	</dt>
+	<dd>
+		<div class="desc">Same has <a href="Utils--DataStructures.html#findIndexString"><code>findIndexString()</code></a>, except this function does case-insensitive string comparisons.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="findIndexString_lc_not_equip"></a>
+<h3>findIndexString_lc_not_equip</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>findIndexString_lc_not_equip</strong>(<span class="type">r_array,</span> key, [str])
+	</dt>
+	<dd>
+		<div class="desc">Same has <a href="Utils--DataStructures.html#findIndexString"><code>findIndexString()</code></a>, except this function does case-insensitive string comparisons.
+It only finds items which are not equipped AND are able to be equipped (identified).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="hashCopyByKey"></a>
+<h3>hashCopyByKey</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>hashCopyByKey</strong>(<span class="type">Hash*</span> target, Hash* source, keys...)
+	</dt>
+	<dd>
+		<div class="desc">Copies each key from the target to the source.
+<p>
+
+For example,
+<pre class="example">
+<span class="hl kwd">hashCopyByKey</span><span class="hl sym">(</span>\<span class="hl kwb">%target</span><span class="hl sym">,</span> \<span class="hl kwb">%source</span><span class="hl sym">,</span> <span class="hl kwd">qw</span><span class="hl sym">(</span>some keys<span class="hl sym">));</span>
+</pre>
+would copy 'some' and 'keys' from the source hash to the
+target hash.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="shuffleArray"></a>
+<h3>shuffleArray</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>shuffleArray</strong>(<span class="type">Array*</span> array)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>array</code> : A reference to an array.</dd>
+		</dl><p>
+
+		<div class="desc">Randomize the order of the items in the array.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

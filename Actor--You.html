@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Actor::You - You actor object : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Actor::You</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Actor::You - You actor object</h1>
+
+<code>$char</code> is of the Actor::You class. This class represents the your own character.
+<p>
+
+<a href="Actor.html"><code>Actor</code></a> is the base class for this class.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#$char->getSkillLevel';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$char->getSkillLevel">$char->getSkillLevel</a></td>
+	<td class="decl">(<span class="type"><a href="Skill.html">Skill</a></span> skill)</td>
+</tr><tr onclick="location.href='#$char->hp_percent';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$char->hp_percent">$char->hp_percent</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$char->inventory';">
+	<td class="return-type"><a href="InventoryList.html">InventoryList</a></td>
+	<td class="func"><a href="#$char->inventory">$char->inventory</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$char->master';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$char->master">$char->master</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$char->sp_percent';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$char->sp_percent">$char->sp_percent</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$char->weight_percent';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$char->weight_percent">$char->weight_percent</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$char->{charID}';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$char->{charID}">$char->{charID}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$char->{homunculus}';">
+	<td class="return-type">Actor::Homunculus</td>
+	<td class="func"><a href="#$char->{homunculus}">$char->{homunculus}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$char->{permitSkill}';">
+	<td class="return-type"><a href="Skill.html">Skill</a></td>
+	<td class="func"><a href="#$char->{permitSkill}">$char->{permitSkill}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#Hash<String, Hash> $char->{skills}';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Hash<String, Hash> $char->{skills}">Hash<String, Hash> $char->{skills}</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$char-&gt;getSkillLevel"></a>
+<h3>$char-&gt;getSkillLevel</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$char-&gt;getSkillLevel</strong>(<span class="type"><a href="Skill.html">Skill</a></span> skill)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">result >= 0</dd>
+		</dl><p>
+
+		<div class="desc">Returns the maximum level of the specified skill. If the character doesn't
+have that skill, the 0 is returned.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;hp_percent"></a>
+<h3>$char-&gt;hp_percent</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$char-&gt;hp_percent</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns your HP percentage (between 0 and 100).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;inventory"></a>
+<h3>$char-&gt;inventory</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="InventoryList.html">InventoryList</a></span> <strong>$char-&gt;inventory</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Get the inventory list for this character.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;master"></a>
+<h3>$char-&gt;master</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$char-&gt;master</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns your master (if any).
+<p>
+
+FIXME: Should eventually ensure that either an <code>Actor::Party</code> (party member who
+is not near you) or <a href="Actor--Player.html"><code>Actor::Player</code></a> (would be ensured if <code>%players</code> hash was
+guaranteed to be clean) is returned.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;sp_percent"></a>
+<h3>$char-&gt;sp_percent</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$char-&gt;sp_percent</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns your SP percentage (between 0 and 100).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;weight_percent"></a>
+<h3>$char-&gt;weight_percent</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$char-&gt;weight_percent</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns your weight percentage (between 0 and 100).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;{charID}"></a>
+<h3>$char-&gt;{charID}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$char-&gt;{charID}</strong>
+	</dt>
+	<dd>
+		<div class="desc">A unique character ID for this character (not the same as the account ID, or <code>$char</code>->{ID}).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;{homunculus}"></a>
+<h3>$char-&gt;{homunculus}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Actor::Homunculus</span> <strong>$char-&gt;{homunculus}</strong>
+	</dt>
+	<dd>
+		<div class="desc">If the character has a homunculus, and the homunculus is currently online, then this
+member points to character's homunculus object.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$char-&gt;{permitSkill}"></a>
+<h3>$char-&gt;{permitSkill}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Skill.html">Skill</a></span> <strong>$char-&gt;{permitSkill}</strong>
+	</dt>
+	<dd>
+		<div class="desc">When you use certain items, the server temporarily permits you to use a skill.
+For example, when you use an Yggdrasil Leaf, the server temporarily lets you
+to use Resurrection.
+<p>
+
+This member specifies which skill is currently temporarily permitted. It is undef
+when there is no temporarily permitted skill.
+The temporary permission is removed once you have used the skill, or when you have
+changed map server. (TODO: are these really all the cases?)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Hash&lt;String, Hash&gt; $char-&gt;{skills}"></a>
+<h3>Hash&lt;String, Hash&gt; $char-&gt;{skills}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Hash&lt;String, Hash&gt; $char-&gt;{skills}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Contains a set of skills that the character has. The keys of the hash
+are the skill handles, and the values are a hash containing the following
+items:
+<ul>
+<li>ID - The skill ID.</li>
+<li>lv - The maximum level of this skill.</li>
+<li>sp - The amount of SP that this skill needs, when used at the maximum level.</li>
+<li>range - The range of this skill, in blocks.</li>
+<li>up - Whether this skill can be leveled up further.</li>
+<li>targetType - This skill's target type.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

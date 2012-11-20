@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Skill - Character skill model. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Skill</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Skill - Character skill model.</h1>
+
+This class models a character skill (for example, Heal, Bash, Flee, Twohand Quicken, etc.).
+In our model, a skill always has the following properties:
+<ul>
+<li>
+    A skill identifier. This identifier has multiple forms:
+    <ul>
+    <li>A full name, e.g. "Increase AGI".</li>
+    <li>A handle, or internal name, e.g. "AL_INCAGI".</li>
+    <li>A skill Identifier Number (IDN). In case case of Increase AGI, this is 29.</li>
+    </ul>
+</li>
+<li>
+   A skill level. This may not always be necessary, depending on the situation.
+   For example, when you want to use a skill, then it's necessary to know the associated level.
+   But when the programmer just wants to query the maximum level of a skill, only
+   a skill identifier is required.
+</li>
+</ul>
+<p>
+
+A skill may also have the following properties, which is updated on-the-fly as the RO
+server sends us the information:
+<ul>
+<li>The SP usage.</li>
+<li>The maximum available skill level at the moment.</li>
+<li>The skill range.</li>
+<li>The skill's target type (whether it's used on yourself, on a location, on a monster, etc.)</li>
+<li>The skill's owner type: whether the skill is a character skill or homunculus skill.
+</li>
+</ul>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Skill->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Skill->new">Skill->new</a></td>
+	<td class="decl">(options...)</td>
+</tr><tr onclick="location.href='#$Skill->getHandle';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Skill->getHandle">$Skill->getHandle</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Skill->getIDN';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Skill->getIDN">$Skill->getIDN</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Skill->getLevel';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Skill->getLevel">$Skill->getLevel</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Skill->getName';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Skill->getName">$Skill->getName</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Skill->getOwnerType';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Skill->getOwnerType">$Skill->getOwnerType</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Skill->getRange';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Skill->getRange">$Skill->getRange</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Skill->getSP';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Skill->getSP">$Skill->getSP</a></td>
+	<td class="decl">(<span class="type">int</span> level)</td>
+</tr><tr onclick="location.href='#$Skill->getTargetType';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Skill->getTargetType">$Skill->getTargetType</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Skill-&gt;getHandle"></a>
+<h3>$Skill-&gt;getHandle</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Skill-&gt;getHandle</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the skill's handle.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Skill-&gt;getIDN"></a>
+<h3>$Skill-&gt;getIDN</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Skill-&gt;getIDN</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns this skill's Identifier Number (IDN).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Skill-&gt;getLevel"></a>
+<h3>$Skill-&gt;getLevel</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Skill-&gt;getLevel</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the skill level. The value may be undef, if no skill level was set.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Skill-&gt;getName"></a>
+<h3>$Skill-&gt;getName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Skill-&gt;getName</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the skill's name.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Skill-&gt;getOwnerType"></a>
+<h3>$Skill-&gt;getOwnerType</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Skill-&gt;getOwnerType</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the skill's owner type, which specifies whether this skill belongs to the character
+or to the homunculus. Returns one of:
+<ul>
+<li>Skill::OWNER_CHAR  - This skill belongs to the character.</li>
+<li>Skill::OWNER_HOMUN - This skill belongs to the character's homunculus.</li>
+<li>Skill::OWNER_MERC - This skill belongs to the character's mercenary.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Skill-&gt;getRange"></a>
+<h3>$Skill-&gt;getRange</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Skill-&gt;getRange</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the skill's range.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Skill-&gt;getSP"></a>
+<h3>$Skill-&gt;getSP</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Skill-&gt;getSP</strong>(<span class="type">int</span> level)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$level > 0</dd>
+		</dl><p>
+
+		<div class="desc">Returns the SP required for level <code>$level</code> of this skill, or undef if that's unknown.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Skill-&gt;getTargetType"></a>
+<h3>$Skill-&gt;getTargetType</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Skill-&gt;getTargetType</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the skill's target type, which specifies on what kind of target
+this skill can be used. Returns one of:
+<ul>
+<li>Skill::TARGET_PASSIVE  - Passive skill; cannot be used.</li>
+<li>Skill::TARGET_ENEMY    - Used on enemies (i.e. monsters, and also people when in WoE/PVP).</li>
+<li>Skill::TARGET_LOCATION - Used on locations.</li>
+<li>Skill::TARGET_SELF     - Always used on yourself, there's no targeting involved. Though
+                           some of these skills (like Gloria) have effect on the entire party.</li>
+<li>Skill::TARGET_ACTORS   - Can be used on all actors.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Skill-&gt;new"></a>
+<h3>Skill-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Skill-&gt;new</strong>(options...)
+	</dt>
+	<dd>
+		<div class="desc">Creates a new Skills object. In the options, you must specify an identifier
+for a skill.
+<p>
+
+To specificy a skill identifier, use one of the following keys:
+<ul>
+<li>idn - A skill Identifier Number (IDN).</li>
+<li>name - A skill name. This is case-<b>in</b>sensitive.</li>
+<li>handle - A skill handle. This is case-sensitive.</li>
+<li>auto - Attempt to autodetect the value.
+</li>
+</ul>
+<p>
+
+For example, all of the following constructors create identical Skill objects:
+<pre class="example">
+<span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>idn <span class="hl sym">=&gt;</span> <span class="hl num">28</span><span class="hl sym">);</span>
+<span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>handle <span class="hl sym">=&gt;</span> <span class="hl str">'AL_HEAL'</span><span class="hl sym">);</span>
+<span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>name <span class="hl sym">=&gt;</span> <span class="hl str">'heal'</span><span class="hl sym">);</span>
+<span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>auto <span class="hl sym">=&gt;</span> <span class="hl str">'Heal'</span><span class="hl sym">);</span>
+<span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>auto <span class="hl sym">=&gt;</span> <span class="hl str">'AL_HEAL'</span><span class="hl sym">);</span>
+<span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>auto <span class="hl sym">=&gt;</span> <span class="hl num">28</span><span class="hl sym">);</span>
+
+<span class="hl kwb">$heal</span><span class="hl sym">-&gt;</span><span class="hl kwd">getIDN</span><span class="hl sym">();</span>        <span class="hl slc"># returns 28</span>
+<span class="hl kwb">$heal</span><span class="hl sym">-&gt;</span><span class="hl kwd">getHandle</span><span class="hl sym">();</span>     <span class="hl slc"># returns 'AL_HEAL'</span>
+<span class="hl kwb">$heal</span><span class="hl sym">-&gt;</span><span class="hl kwd">getName</span><span class="hl sym">();</span>       <span class="hl slc"># returns 'Heal'</span>
+</pre>
+<p>
+
+You may also specify a 'level' option to set the skill level.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>name <span class="hl sym">=&gt;</span> <span class="hl str">'Heal'</span><span class="hl sym">);</span>
+<span class="hl kwb">$heal</span><span class="hl sym">-&gt;</span><span class="hl kwd">getLevel</span><span class="hl sym">;</span>  <span class="hl slc"># returns undef</span>
+
+<span class="hl kwb">$heal</span> <span class="hl sym">=</span> new <span class="hl kwd">Skill</span><span class="hl sym">(</span>name <span class="hl sym">=&gt;</span> <span class="hl str">'Heal'</span><span class="hl sym">,</span> level <span class="hl sym">=&gt;</span> <span class="hl num">5</span><span class="hl sym">);</span>
+<span class="hl kwb">$heal</span><span class="hl sym">-&gt;</span><span class="hl kwd">getLevel</span><span class="hl sym">;</span>  <span class="hl slc"># returns 5</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

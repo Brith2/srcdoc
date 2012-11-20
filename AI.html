@@ -1,0 +1,352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>AI - Helper functions for managing @ai_seq : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>AI</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>AI - Helper functions for managing @ai_seq</h1>
+
+<del>
+Eventually, <code>@ai_seq</code> should never be referenced directly, and then it can be
+moved into this package.
+</del>
+<p>
+
+Eventually, all AI managing functions can be moved to various packages such as Actor.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">AI state constants</th></tr><tr onclick="location.href='#AI::AUTO';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#AI::AUTO">AI::AUTO</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#AI::MANUAL';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#AI::MANUAL">AI::MANUAL</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#AI::OFF';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#AI::OFF">AI::OFF</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions</th></tr><tr onclick="location.href='#ai_drop';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#ai_drop">ai_drop</a></td>
+	<td class="decl">(<span class="type">items,</span> max)</td>
+</tr><tr onclick="location.href='#ai_getAggressives';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#ai_getAggressives">ai_getAggressives</a></td>
+	<td class="decl">(<span class="type">[check_mon_control],</span> [party])</td>
+</tr><tr onclick="location.href='#ai_getMonstersAttacking';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#ai_getMonstersAttacking">ai_getMonstersAttacking</a></td>
+	<td class="decl">($ID)</td>
+</tr><tr onclick="location.href='#ai_skillUse2';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#ai_skillUse2">ai_skillUse2</a></td>
+	<td class="decl">(<span class="type">$skill,</span> $lvl, $maxCastTime, $minCastTime, $target)</td>
+</tr><tr onclick="location.href='#ai_storageAutoCheck';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#ai_storageAutoCheck">ai_storageAutoCheck</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#ai_talkNPC';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#ai_talkNPC">ai_talkNPC</a></td>
+	<td class="decl">(<span class="type">x,</span> y, sequence)</td>
+</tr><tr onclick="location.href='#cartAdd';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#cartAdd">cartAdd</a></td>
+	<td class="decl">(items)</td>
+</tr><tr onclick="location.href='#cartGet';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#cartGet">cartGet</a></td>
+	<td class="decl">(items)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="AI::AUTO"></a>
+<h3>AI::AUTO</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>AI::AUTO</strong>
+	</dt>
+	<dd>
+		<div class="desc">AI is turned on.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="AI::MANUAL"></a>
+<h3>AI::MANUAL</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>AI::MANUAL</strong>
+	</dt>
+	<dd>
+		<div class="desc">AI is set to manual mode.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="AI::OFF"></a>
+<h3>AI::OFF</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>AI::OFF</strong>
+	</dt>
+	<dd>
+		<div class="desc">AI is turned off.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ai_drop"></a>
+<h3>ai_drop</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>ai_drop</strong>(<span class="type">items,</span> max)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>items</code> : reference to an array of inventory item numbers.</dd>
+			<dd class="param"><code>max</code> : the maximum amount to drop, for each item, or 0 for unlimited.</dd>
+		</dl><p>
+
+		<div class="desc">Drop one or more items.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># Drop inventory items 2 and 5.</span>
+<span class="hl kwd">ai_drop</span><span class="hl sym">([</span><span class="hl num">2</span><span class="hl sym">,</span> <span class="hl num">5</span><span class="hl sym">]);</span>
+<span class="hl slc"># Drop inventory items 2 and 5, but at most 30 of each item.</span>
+<span class="hl kwd">ai_drop</span><span class="hl sym">([</span><span class="hl num">2</span><span class="hl sym">,</span> <span class="hl num">5</span><span class="hl sym">],</span> <span class="hl num">30</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ai_getAggressives"></a>
+<h3>ai_getAggressives</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>ai_getAggressives</strong>(<span class="type">[check_mon_control],</span> [party])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an array of monster IDs, or a number.</dd>
+		</dl><p>
+
+		<div class="desc">Get a list of all aggressive monsters on screen.
+The definition of "aggressive" is: a monster who has hit or missed me.
+<p>
+
+If <code>$check_mon_control</code> is set, then all monsters in mon_control.txt
+with the 'attack_auto' flag set to 2, will be considered as aggressive.
+See also the manual for more information about this.
+<p>
+
+If <code>$party</code> is set, then monsters that have fought with party members
+(not just you) will be considered as aggressive.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ai_getMonstersAttacking"></a>
+<h3>ai_getMonstersAttacking</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>ai_getMonstersAttacking</strong>($ID)
+	</dt>
+	<dd>
+		<div class="desc">Get the monsters who are attacking player <code>$ID</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ai_skillUse2"></a>
+<h3>ai_skillUse2</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>ai_skillUse2</strong>(<span class="type">$skill,</span> $lvl, $maxCastTime, $minCastTime, $target)
+	</dt>
+	<dd>
+		<div class="desc">Calls <code>ai_skillUse()</code>,
+resolving <code>$target</code> to ($x, <code>$y</code>) if <code>$skill</code> is an area skill,
+or to <code>$skill</code>->getOwner if <code>$skill</code> is a self skill.
+<p>
+
+FIXME: Finish and use Task::UseSkill instead.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ai_storageAutoCheck"></a>
+<h3>ai_storageAutoCheck</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>ai_storageAutoCheck</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns 1 if it is time to perform storageAuto sequence.
+Returns 0 otherwise.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ai_talkNPC"></a>
+<h3>ai_talkNPC</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>ai_talkNPC</strong>(<span class="type">x,</span> y, sequence)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>x, y</code> : the position of the NPC to talk to.</dd>
+			<dd class="param"><code>sequence</code> : A string containing the NPC talk sequences.</dd>
+		</dl><p>
+
+		<div class="desc">Talks to an NPC.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="cartAdd"></a>
+<h3>cartAdd</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>cartAdd</strong>(items)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>items</code> : a reference to an array of hashes.</dd>
+		</dl><p>
+
+		<div class="desc">Put one or more items in cart.
+\@items is a list of hashes; each has must have an "index" key, and may optionally have an "amount" key.
+"index" is the index of the inventory item number. If "amount" is given, only the given amount of items will be put in cart.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># You want to add 5 Apples (inventory item 2) and all</span>
+<span class="hl slc"># Fly Wings (inventory item 5) to cart.</span>
+<span class="hl kwc">my</span> <span class="hl kwb">&#64;items</span><span class="hl sym">;</span>
+push <span class="hl kwb">&#64;items</span><span class="hl sym">, {</span>index <span class="hl sym">=&gt;</span> <span class="hl num">2</span><span class="hl sym">,</span> amount <span class="hl sym">=&gt;</span> <span class="hl num">5</span><span class="hl sym">};</span>
+push <span class="hl kwb">&#64;items</span><span class="hl sym">, {</span>index <span class="hl sym">=&gt;</span> <span class="hl num">5</span><span class="hl sym">};</span>
+<span class="hl kwd">cartAdd</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;items</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="cartGet"></a>
+<h3>cartGet</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>cartGet</strong>(items)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>items</code> : a reference to an array of indices.</dd>
+		</dl><p>
+
+		<div class="desc">Get one or more items from cart.
+\@items is a list of hashes; each has must have an "index" key, and may optionally have an "amount" key.
+"index" is the index of the cart inventory item number. If "amount" is given, only the given amount of
+items will retrieved from cart.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># You want to get 5 Apples (inventory item 2) and all</span>
+<span class="hl slc"># Fly Wings (inventory item 5) from cart.</span>
+<span class="hl kwc">my</span> <span class="hl kwb">&#64;items</span><span class="hl sym">;</span>
+push <span class="hl kwb">&#64;items</span><span class="hl sym">, {</span>index <span class="hl sym">=&gt;</span> <span class="hl num">2</span><span class="hl sym">,</span> amount <span class="hl sym">=&gt;</span> <span class="hl num">5</span><span class="hl sym">};</span>
+push <span class="hl kwb">&#64;items</span><span class="hl sym">, {</span>index <span class="hl sym">=&gt;</span> <span class="hl num">5</span><span class="hl sym">};</span>
+<span class="hl kwd">cartGet</span><span class="hl sym">(</span>\<span class="hl kwb">&#64;items</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

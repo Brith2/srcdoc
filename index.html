@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Index : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<style type="text/css">
+	<!--
+	ul a {
+		text-decoration: none;
+	}
+	ul a:hover {
+		text-decoration: underline;
+	}
+	-->
+	</style>
+
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><b>Table of contents</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Table of contents</h1>
+
+<h3>This is work in progress!</h3>
+
+
+<h2>Introduction</h2>
+
+<img src="development.png" style="float: left; margin-right: 0.25cm;">
+This is the source code documentation page for OpenKore.<br>
+If you're new to OpenKore development, please read the <a href="http://www.openkore.com/wiki/index.php/Developers_Introduction_Guide">OpenKore Development Introduction Guide</a>.
+<div style="clear: left;"></div>
+
+
+<h2>Quick source code overview (not finished)</h2>
+
+<ul>
+<li><a href="init.html">Initialization &amp; main loop</a></li>
+<li><a href="http://www.openkore.com/wiki/index.php/Network_subsystem">Network subsystem overview</a></li>
+<li><a href="artificial-intelligence.html">AI ("Artificial Intelligence")</a></li>
+<li>Important global variables</li>
+</ul>
+
+
+<h2>Special guides</h2>
+
+<ul>
+<li><a href="plugin-tut.html">Plugin Writing Tutorial</a></li>
+</ul>
+
+
+<h2>Modules (not everything is documented)</h2>
+<table id="moduleIndex">
+<tr onclick="location.href='Actor.html';">
+	<td class="moduleName"><a href="Actor.html">Actor</a></td>
+	<td class="moduleDesc">Base class for all actor objects</td>
+</tr><tr onclick="location.href='Actor--Monster.html';">
+	<td class="moduleName"><a href="Actor--Monster.html">Actor::Monster</a></td>
+	<td class="moduleDesc">Monsters actor object</td>
+</tr><tr onclick="location.href='Actor--Player.html';">
+	<td class="moduleName"><a href="Actor--Player.html">Actor::Player</a></td>
+	<td class="moduleDesc">Player actor object</td>
+</tr><tr onclick="location.href='Actor--You.html';">
+	<td class="moduleName"><a href="Actor--You.html">Actor::You</a></td>
+	<td class="moduleDesc">You actor object</td>
+</tr><tr onclick="location.href='Actor--Item.html';">
+	<td class="moduleName"><a href="Actor--Item.html">Actor::Item</a></td>
+	<td class="moduleDesc">Inventory item object</td>
+</tr><tr onclick="location.href='ActorList.html';">
+	<td class="moduleName"><a href="ActorList.html">ActorList</a></td>
+	<td class="moduleDesc">List of actors</td>
+</tr><tr onclick="location.href='AI.html';">
+	<td class="moduleName"><a href="AI.html">AI</a></td>
+	<td class="moduleDesc">Helper functions for managing @ai_seq</td>
+</tr><tr onclick="location.href='I18N.html';">
+	<td class="moduleName"><a href="I18N.html">I18N</a></td>
+	<td class="moduleDesc">Internationalization support</td>
+</tr><tr onclick="location.href='Interface.html';">
+	<td class="moduleName"><a href="Interface.html">Interface</a></td>
+	<td class="moduleDesc">User interface system.</td>
+</tr><tr onclick="location.href='InventoryList.html';">
+	<td class="moduleName"><a href="InventoryList.html">InventoryList</a></td>
+	<td class="moduleDesc">Inventory model</td>
+</tr><tr onclick="location.href='ChatQueue.html';">
+	<td class="moduleName"><a href="ChatQueue.html">ChatQueue</a></td>
+	<td class="moduleDesc">Processing of incoming chat commands</td>
+</tr><tr onclick="location.href='Commands.html';">
+	<td class="moduleName"><a href="Commands.html">Commands</a></td>
+	<td class="moduleDesc">Commandline input processing</td>
+</tr><tr onclick="location.href='Log.html';">
+	<td class="moduleName"><a href="Log.html">Log</a></td>
+	<td class="moduleDesc">Message Logging framework</td>
+</tr><tr onclick="location.href='Field.html';">
+	<td class="moduleName"><a href="Field.html">Field</a></td>
+	<td class="moduleDesc">Field model.</td>
+</tr><tr onclick="location.href='Settings.html';">
+	<td class="moduleName"><a href="Settings.html">Settings</a></td>
+	<td class="moduleDesc">Settings and configuration files management.</td>
+</tr><tr onclick="location.href='Translation.html';">
+	<td class="moduleName"><a href="Translation.html">Translation</a></td>
+	<td class="moduleDesc">Message translation framework</td>
+</tr><tr onclick="location.href='Task.html';">
+	<td class="moduleName"><a href="Task.html">Task</a></td>
+	<td class="moduleDesc">Abstract task base class.</td>
+</tr><tr onclick="location.href='Task--Chained.html';">
+	<td class="moduleName"><a href="Task--Chained.html">Task::Chained</a></td>
+	<td class="moduleDesc">Easy chaining of different tasks.</td>
+</tr><tr onclick="location.href='Task--Function.html';">
+	<td class="moduleName"><a href="Task--Function.html">Task::Function</a></td>
+	<td class="moduleDesc">Task which accept a function as iterate method.</td>
+</tr><tr onclick="location.href='Task--Timeout.html';">
+	<td class="moduleName"><a href="Task--Timeout.html">Task::Timeout</a></td>
+	<td class="moduleDesc">Delayed function call.</td>
+</tr><tr onclick="location.href='Task--Wait.html';">
+	<td class="moduleName"><a href="Task--Wait.html">Task::Wait</a></td>
+	<td class="moduleDesc"></td>
+</tr><tr onclick="location.href='TaskManager.html';">
+	<td class="moduleName"><a href="TaskManager.html">TaskManager</a></td>
+	<td class="moduleDesc">Task manager.</td>
+</tr><tr onclick="location.href='Modules.html';">
+	<td class="moduleName"><a href="Modules.html">Modules</a></td>
+	<td class="moduleDesc">Module support system</td>
+</tr><tr onclick="location.href='Network--ClientReceive.html';">
+	<td class="moduleName"><a href="Network--ClientReceive.html">Network::ClientReceive</a></td>
+	<td class="moduleDesc">Outgoing client messages handling</td>
+</tr><tr onclick="location.href='Network--DirectConnection.html';">
+	<td class="moduleName"><a href="Network--DirectConnection.html">Network::DirectConnection</a></td>
+	<td class="moduleDesc">Connection handling</td>
+</tr><tr onclick="location.href='Network--PacketParser.html';">
+	<td class="moduleName"><a href="Network--PacketParser.html">Network::PacketParser</a></td>
+	<td class="moduleDesc">Server message parsing</td>
+</tr><tr onclick="location.href='Network--Receive.html';">
+	<td class="moduleName"><a href="Network--Receive.html">Network::Receive</a></td>
+	<td class="moduleDesc">Server message parsing</td>
+</tr><tr onclick="location.href='Network--Send.html';">
+	<td class="moduleName"><a href="Network--Send.html">Network::Send</a></td>
+	<td class="moduleDesc">Sending messages to RO server</td>
+</tr><tr onclick="location.href='Network--XKore.html';">
+	<td class="moduleName"><a href="Network--XKore.html">Network::XKore</a></td>
+	<td class="moduleDesc"></td>
+</tr><tr onclick="location.href='Network--XKore2.html';">
+	<td class="moduleName"><a href="Network--XKore2.html">Network::XKore2</a></td>
+	<td class="moduleDesc">X-Kore 2.</td>
+</tr><tr onclick="location.href='Network--XKoreProxy.html';">
+	<td class="moduleName"><a href="Network--XKoreProxy.html">Network::XKoreProxy</a></td>
+	<td class="moduleDesc"></td>
+</tr><tr onclick="location.href='Plugins.html';">
+	<td class="moduleName"><a href="Plugins.html">Plugins</a></td>
+	<td class="moduleDesc">Plugin system</td>
+</tr><tr onclick="location.href='Skill.html';">
+	<td class="moduleName"><a href="Skill.html">Skill</a></td>
+	<td class="moduleDesc">Character skill model.</td>
+</tr><tr onclick="location.href='Match.html';">
+	<td class="moduleName"><a href="Match.html">Match</a></td>
+	<td class="moduleDesc">Entity lookup and matching</td>
+</tr><tr onclick="location.href='Misc.html';">
+	<td class="moduleName"><a href="Misc.html">Misc</a></td>
+	<td class="moduleDesc">Miscellaneous functions</td>
+</tr><tr onclick="location.href='Utils.html';">
+	<td class="moduleName"><a href="Utils.html">Utils</a></td>
+	<td class="moduleDesc">Utility functions</td>
+</tr><tr onclick="location.href='Bus--Messages.html';">
+	<td class="moduleName"><a href="Bus--Messages.html">Bus::Messages</a></td>
+	<td class="moduleDesc">Bus message (de)serializer</td>
+</tr>
+</table>
+
+
+<h2>Independent utility modules</h2>
+These utility modules are generic can be used independently from OpenKore.
+<table id="moduleIndex">
+<tr onclick="location.href='Base--Server.html';">
+	<td class="moduleName"><a href="Base--Server.html">Base::Server</a></td>
+	<td class="moduleDesc">Basic implementation of a TCP/IP server</td>
+</tr><tr onclick="location.href='Base--Server--Client.html';">
+	<td class="moduleName"><a href="Base--Server--Client.html">Base::Server::Client</a></td>
+	<td class="moduleDesc">A client within a Base::Server</td>
+</tr><tr onclick="location.href='Base--WebServer.html';">
+	<td class="moduleName"><a href="Base--WebServer.html">Base::WebServer</a></td>
+	<td class="moduleDesc">Basic implementation of a HTTP 1.1 server</td>
+</tr><tr onclick="location.href='Base--WebServer--Process.html';">
+	<td class="moduleName"><a href="Base--WebServer--Process.html">Base::WebServer::Process</a></td>
+	<td class="moduleDesc">Object for obtaining web server request info and sending response messages</td>
+</tr><tr onclick="location.href='Utils--AppLauncher.html';">
+	<td class="moduleName"><a href="Utils--AppLauncher.html">Utils::AppLauncher</a></td>
+	<td class="moduleDesc">Abstraction layer for launching applications</td>
+</tr><tr onclick="location.href='Utils--Benchmark.html';">
+	<td class="moduleName"><a href="Utils--Benchmark.html">Utils::Benchmark</a></td>
+	<td class="moduleDesc">Performance benchmarking</td>
+</tr><tr onclick="location.href='Utils--CallbackList.html';">
+	<td class="moduleName"><a href="Utils--CallbackList.html">Utils::CallbackList</a></td>
+	<td class="moduleDesc">Callback functions holder</td>
+</tr><tr onclick="location.href='Utils--Crypton.html';">
+	<td class="moduleName"><a href="Utils--Crypton.html">Utils::Crypton</a></td>
+	<td class="moduleDesc">Crypton encryption algorithm implementation.</td>
+</tr><tr onclick="location.href='Utils--DataStructures.html';">
+	<td class="moduleName"><a href="Utils--DataStructures.html">Utils::DataStructures</a></td>
+	<td class="moduleDesc">Utility functions for data structure manipulation</td>
+</tr><tr onclick="location.href='Utils--Exceptions.html';">
+	<td class="moduleName"><a href="Utils--Exceptions.html">Utils::Exceptions</a></td>
+	<td class="moduleDesc">Exception utility functions and common exception objects.</td>
+</tr><tr onclick="location.href='Utils--LockFile.html';">
+	<td class="moduleName"><a href="Utils--LockFile.html">Utils::LockFile</a></td>
+	<td class="moduleDesc">Lock files.</td>
+</tr><tr onclick="location.href='Utils--PerlLauncher.html';">
+	<td class="moduleName"><a href="Utils--PerlLauncher.html">Utils::PerlLauncher</a></td>
+	<td class="moduleDesc">Abstraction layer for launching Perl scripts</td>
+</tr><tr onclick="location.href='Utils--ObjectList.html';">
+	<td class="moduleName"><a href="Utils--ObjectList.html">Utils::ObjectList</a></td>
+	<td class="moduleDesc">List class with constant item indices and event support</td>
+</tr><tr onclick="location.href='Utils--Set.html';">
+	<td class="moduleName"><a href="Utils--Set.html">Utils::Set</a></td>
+	<td class="moduleDesc">Indexed set</td>
+</tr><tr onclick="location.href='Utils--StartupNotification--Launcher.html';">
+	<td class="moduleName"><a href="Utils--StartupNotification--Launcher.html">Utils::StartupNotification::Launcher</a></td>
+	<td class="moduleDesc">Startup notification: launcher</td>
+</tr><tr onclick="location.href='Utils--StartupNotification--Launchee.html';">
+	<td class="moduleName"><a href="Utils--StartupNotification--Launchee.html">Utils::StartupNotification::Launchee</a></td>
+	<td class="moduleDesc">Startup notification: launchee</td>
+</tr><tr onclick="location.href='Utils--StartupNotification--CreateSocketException.html';">
+	<td class="moduleName"><a href="Utils--StartupNotification--CreateSocketException.html">Utils::StartupNotification::CreateSocketException</a></td>
+	<td class="moduleDesc">Exception object</td>
+</tr><tr onclick="location.href='Utils--TextReader.html';">
+	<td class="moduleName"><a href="Utils--TextReader.html">Utils::TextReader</a></td>
+	<td class="moduleDesc">UTF-8 text reader.</td>
+</tr><tr onclick="location.href='Utils--PathFinding.html';">
+	<td class="moduleName"><a href="Utils--PathFinding.html">Utils::PathFinding</a></td>
+	<td class="moduleDesc">Pathfinding algorithm.</td>
+</tr><tr onclick="location.href='Utils--Unix.html';">
+	<td class="moduleName"><a href="Utils--Unix.html">Utils::Unix</a></td>
+	<td class="moduleDesc">Unix-specific utility functions.</td>
+</tr><tr onclick="location.href='Utils--Whirlpool.html';">
+	<td class="moduleName"><a href="Utils--Whirlpool.html">Utils::Whirlpool</a></td>
+	<td class="moduleDesc">Whirlpool hashing algorithm</td>
+</tr><tr onclick="location.href='Utils--Win32.html';">
+	<td class="moduleName"><a href="Utils--Win32.html">Utils::Win32</a></td>
+	<td class="moduleDesc">Windows-specific utility functions.</td>
+</tr>
+</table>
+
+
+<h2>The Wx interface</h2>
+OpenKore has a graphical user interface written with WxWidgets.
+In short, it's called the Wx interface. It uses many custom controls.
+Here's a list of some of the documented custom controls.
+<table id="moduleIndex">
+<tr onclick="location.href='Interface--Wx--Console.html';">
+	<td class="moduleName"><a href="Interface--Wx--Console.html">Interface::Wx::Console</a></td>
+	<td class="moduleDesc">Console control.</td>
+</tr><tr onclick="location.href='Interface--Wx--DockNotebook.html';">
+	<td class="moduleName"><a href="Interface--Wx--DockNotebook.html">Interface::Wx::DockNotebook</a></td>
+	<td class="moduleDesc">Notebook control which supports undocking of its children</td>
+</tr><tr onclick="location.href='Interface--Wx--DockNotebook--Page.html';">
+	<td class="moduleName"><a href="Interface--Wx--DockNotebook--Page.html">Interface::Wx::DockNotebook::Page</a></td>
+	<td class="moduleDesc">Notebook page child used by DockNotebook</td>
+</tr>
+</table>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

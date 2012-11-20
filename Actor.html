@@ -1,0 +1,1462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Actor - Base class for all actor objects : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Actor</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Actor - Base class for all actor objects</h1>
+
+The Actor class is a base class for all actor objects.
+An actor object is a monster or player (all members of <code>%monsters</code> and
+<code>%players</code>). Do not create an object of this class; use one of the
+subclasses instead.
+<p>
+
+An actor object is also a hash.
+<p>
+
+Child classes: <a href="Actor--Monster.html"><code>Actor::Monster</code></a>, <a href="Actor--Player.html"><code>Actor::Player</code></a>, <a href="Actor--You.html"><code>Actor::You</code></a>,
+<a href="Actor--Item.html"><code>Actor::Item</code></a>, <code>Actor::Pet</code>, <code>Actor::Party</code>, <code>Actor::NPC</code>,
+<code>Actor::Portal</code>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class methods</th></tr><tr onclick="location.href='#Actor::get';">
+	<td class="return-type"><a href="Actor.html">Actor</a></td>
+	<td class="func"><a href="#Actor::get">Actor::get</a></td>
+	<td class="decl">(<span class="type">Bytes</span> ID)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Hash members</th></tr><tr onclick="location.href='#$Actor->{ID}';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$Actor->{ID}">$Actor->{ID}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{actorType}';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->{actorType}">$Actor->{actorType}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{appear_time}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{appear_time}">$Actor->{appear_time}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{attackedYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{attackedYou}">$Actor->{attackedYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{binID}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{binID}">$Actor->{binID}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{castOnByMonster}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{castOnByMonster}">$Actor->{castOnByMonster}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{castOnByPlayer}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{castOnByPlayer}">$Actor->{castOnByPlayer}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{castOnByYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{castOnByYou}">$Actor->{castOnByYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{castOnToMonster}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{castOnToMonster}">$Actor->{castOnToMonster}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{castOnToPlayer}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{castOnToPlayer}">$Actor->{castOnToPlayer}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{castOnToYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{castOnToYou}">$Actor->{castOnToYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{deltaHp}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{deltaHp}">$Actor->{deltaHp}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgFromMonster}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{dmgFromMonster}">$Actor->{dmgFromMonster}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgFromParty}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{dmgFromParty}">$Actor->{dmgFromParty}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgFromPlayer}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{dmgFromPlayer}">$Actor->{dmgFromPlayer}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgFromYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{dmgFromYou}">$Actor->{dmgFromYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgFrom}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{dmgFrom}">$Actor->{dmgFrom}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgToMonster}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{dmgToMonster}">$Actor->{dmgToMonster}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgToParty}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{dmgToParty}">$Actor->{dmgToParty}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgToPlayer}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{dmgToPlayer}">$Actor->{dmgToPlayer}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgToYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{dmgToYou}">$Actor->{dmgToYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{dmgTo}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{dmgTo}">$Actor->{dmgTo}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{lastAttackFrom}';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$Actor->{lastAttackFrom}">$Actor->{lastAttackFrom}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedFromMonster}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{missedFromMonster}">$Actor->{missedFromMonster}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedFromParty}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{missedFromParty}">$Actor->{missedFromParty}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedFromPlayer}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{missedFromPlayer}">$Actor->{missedFromPlayer}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedFromYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{missedFromYou}">$Actor->{missedFromYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedToMonster}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{missedToMonster}">$Actor->{missedToMonster}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedToParty}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{missedToParty}">$Actor->{missedToParty}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedToPlayer}';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->{missedToPlayer}">$Actor->{missedToPlayer}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{missedYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{missedYou}">$Actor->{missedYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{nameID}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{nameID}">$Actor->{nameID}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{name}';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->{name}">$Actor->{name}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{numAtkFromYou}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$Actor->{numAtkFromYou}">$Actor->{numAtkFromYou}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{pos_to}';">
+	<td class="return-type">Hash*</td>
+	<td class="func"><a href="#$Actor->{pos_to}">$Actor->{pos_to}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{pos}';">
+	<td class="return-type">Hash*</td>
+	<td class="func"><a href="#$Actor->{pos}">$Actor->{pos}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{time_move_calc}';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$Actor->{time_move_calc}">$Actor->{time_move_calc}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{time_move}';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$Actor->{time_move}">$Actor->{time_move}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Actor->{walk_speed}';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$Actor->{walk_speed}">$Actor->{walk_speed}</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Methods</th></tr><tr onclick="location.href='#$Actor->action';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->action">$Actor->action</a></td>
+	<td class="decl">(<span class="type">[int</span> index])</td>
+</tr><tr onclick="location.href='#$Actor->args';">
+	<td class="return-type">Hash*</td>
+	<td class="func"><a href="#$Actor->args">$Actor->args</a></td>
+	<td class="decl">(<span class="type">[int</span> index])</td>
+</tr><tr onclick="location.href='#$Actor->attack';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Actor->attack">$Actor->attack</a></td>
+	<td class="decl">(<span class="type">Bytes</span> target_ID)</td>
+</tr><tr onclick="location.href='#$Actor->blockDistance';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$Actor->blockDistance">$Actor->blockDistance</a></td>
+	<td class="decl">(<span class="type">[Actor</span> otherActor])</td>
+</tr><tr onclick="location.href='#$Actor->cartActive';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Actor->cartActive">$Actor->cartActive</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->deepCopy';">
+	<td class="return-type"><a href="Actor.html">Actor</a></td>
+	<td class="func"><a href="#$Actor->deepCopy">$Actor->deepCopy</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->dequeue';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->dequeue">$Actor->dequeue</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->distance';">
+	<td class="return-type">float</td>
+	<td class="func"><a href="#$Actor->distance">$Actor->distance</a></td>
+	<td class="decl">(<span class="type">[Actor</span> otherActor])</td>
+</tr><tr onclick="location.href='#$Actor->move';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->move">$Actor->move</a></td>
+	<td class="decl">(<span class="type">int</span> x, int y)</td>
+</tr><tr onclick="location.href='#$Actor->name';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->name">$Actor->name</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->nameIdx';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->nameIdx">$Actor->nameIdx</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->nameString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->nameString">$Actor->nameString</a></td>
+	<td class="decl">(<span class="type">[Actor</span> otherActor])</td>
+</tr><tr onclick="location.href='#$Actor->onNameChange';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$Actor->onNameChange">$Actor->onNameChange</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->onUpdate';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$Actor->onUpdate">$Actor->onUpdate</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->position';">
+	<td class="return-type">Hash</td>
+	<td class="func"><a href="#$Actor->position">$Actor->position</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->queue';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->queue">$Actor->queue</a></td>
+	<td class="decl">(<span class="type">String</span> name, [Hash* args])</td>
+</tr><tr onclick="location.href='#$Actor->route';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->route">$Actor->route</a></td>
+	<td class="decl">(<span class="type">String</span> map, int x, int y)</td>
+</tr><tr onclick="location.href='#$Actor->selfString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->selfString">$Actor->selfString</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->sendAttackStop';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->sendAttackStop">$Actor->sendAttackStop</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->sendMove';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->sendMove">$Actor->sendMove</a></td>
+	<td class="decl">(<span class="type">int</span> x, int y)</td>
+</tr><tr onclick="location.href='#$Actor->sendSit';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->sendSit">$Actor->sendSit</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->sendStand';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->sendStand">$Actor->sendStand</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->sendStandBy';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->sendStandBy">$Actor->sendStandBy</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->setName';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->setName">$Actor->setName</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr><tr onclick="location.href='#$Actor->setStatus';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Actor->setStatus">$Actor->setStatus</a></td>
+	<td class="decl">(<span class="type">String</span> status_handle, boolean state, [float duration])</td>
+</tr><tr onclick="location.href='#$Actor->snipable';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Actor->snipable">$Actor->snipable</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->statusActive';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Actor->statusActive">$Actor->statusActive</a></td>
+	<td class="decl">(<span class="type">String</span> statuses)</td>
+</tr><tr onclick="location.href='#$Actor->statusesString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->statusesString">$Actor->statusesString</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Actor->verb';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Actor->verb">$Actor->verb</a></td>
+	<td class="decl">(<span class="type">String</span> you, String other)</td>
+</tr><tr onclick="location.href='#ai_clientSuspend';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#ai_clientSuspend">ai_clientSuspend</a></td>
+	<td class="decl">(<span class="type">packet_switch,</span> duration, args...)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Actor-&gt;action"></a>
+<h3>$Actor-&gt;action</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;action</strong>(<span class="type">[int</span> index])
+	</dt>
+	<dd>
+		<div class="desc">Returns the name of the specified action from AI sequence.
+With no index specified, returns the name of the current action.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;args"></a>
+<h3>$Actor-&gt;args</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash*</span> <strong>$Actor-&gt;args</strong>(<span class="type">[int</span> index])
+	</dt>
+	<dd>
+		<div class="desc">Returns arguments of the specified action from AI sequence.
+With no index specified, returns arguments of the current action.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;attack"></a>
+<h3>$Actor-&gt;attack</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Actor-&gt;attack</strong>(<span class="type">Bytes</span> target_ID)
+	</dt>
+	<dd>
+		<div class="desc">Instruct AI to attack the specified enemy.
+<p>
+
+TODO: replace "Bytes target_ID" with "Actor otherActor".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;blockDistance"></a>
+<h3>$Actor-&gt;blockDistance</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$Actor-&gt;blockDistance</strong>(<span class="type">[Actor</span> otherActor])
+	</dt>
+	<dd>
+		<div class="desc">Returns the block distance to another actor (defaults to yourself).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;cartActive"></a>
+<h3>$Actor-&gt;cartActive</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Actor-&gt;cartActive</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns whether the cart is present.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;deepCopy"></a>
+<h3>$Actor-&gt;deepCopy</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Actor.html">Actor</a></span> <strong>$Actor-&gt;deepCopy</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Create a deep copy of this actor object.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;dequeue"></a>
+<h3>$Actor-&gt;dequeue</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;dequeue</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Removes the current action from AI sequence.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;distance"></a>
+<h3>$Actor-&gt;distance</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$Actor-&gt;distance</strong>(<span class="type">[Actor</span> otherActor])
+	</dt>
+	<dd>
+		<div class="desc">Returns the distance to another actor (defaults to yourself).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;move"></a>
+<h3>$Actor-&gt;move</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;move</strong>(<span class="type">int</span> x, int y)
+	</dt>
+	<dd>
+		<div class="desc">Instruct AI to move to the specified point using a single motion.
+That point should be in LOS and be relatively nearby.
+<p>
+
+See also: <a href="Actor.html#$Actor->route"><code>$Actor->route()</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;name"></a>
+<h3>$Actor-&gt;name</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;name</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the name of an actor, e.g. "pmak" or "Unknown #300001".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;nameIdx"></a>
+<h3>$Actor-&gt;nameIdx</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;nameIdx</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the name and index of an actor, e.g. "pmak (0)" or "Unknown #300001 (1)".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;nameString"></a>
+<h3>$Actor-&gt;nameString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;nameString</strong>(<span class="type">[Actor</span> otherActor])
+	</dt>
+	<dd>
+		<div class="desc">Returns the name string of an actor, e.g. "Player pmak (3)",
+"Monster Poring (0)" or "You".
+<p>
+
+If <code>$otherActor</code> is specified and is equal to <code>$actor</code>, then it will
+return 'self' or 'yourself' instead.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;onNameChange"></a>
+<h3>$Actor-&gt;onNameChange</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$Actor-&gt;onNameChange</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the onNameChange event callback list.
+This event is triggered when the name of this actor has changed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;onUpdate"></a>
+<h3>$Actor-&gt;onUpdate</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$Actor-&gt;onUpdate</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the onUpdate event callback list.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;position"></a>
+<h3>$Actor-&gt;position</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;position</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns the position of the actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;queue"></a>
+<h3>$Actor-&gt;queue</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;queue</strong>(<span class="type">String</span> name, [Hash* args])
+	</dt>
+	<dd>
+		<div class="desc">Adds action with specified name and arguments to AI sequence.
+New action would become the current.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;route"></a>
+<h3>$Actor-&gt;route</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;route</strong>(<span class="type">String</span> map, int x, int y)
+	</dt>
+	<dd>
+		<div class="desc">Instruct AI to move to the specified point using pathfinding.
+<p>
+
+TODO: wouldn't it be better to place map in the end of arguments and make it optional?</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;selfString"></a>
+<h3>$Actor-&gt;selfString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;selfString</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns 'itself' for monsters, or 'himself/herself' for players.
+('yourself' is handled by Actor::You.nameString.)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;sendAttackStop"></a>
+<h3>$Actor-&gt;sendAttackStop</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;sendAttackStop</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Send "stop attacking" to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;sendMove"></a>
+<h3>$Actor-&gt;sendMove</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;sendMove</strong>(<span class="type">int</span> x, int y)
+	</dt>
+	<dd>
+		<div class="desc">Send "move to the specified point" to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;sendSit"></a>
+<h3>$Actor-&gt;sendSit</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;sendSit</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Send "sit" to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;sendStand"></a>
+<h3>$Actor-&gt;sendStand</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;sendStand</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Send "stand" to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;sendStandBy"></a>
+<h3>$Actor-&gt;sendStandBy</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;sendStandBy</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Send "standby" to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;setName"></a>
+<h3>$Actor-&gt;setName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;setName</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : A few name for this actor. Can be undef to indicate that this actor has lost its previous name.</dd>
+		</dl><p>
+
+		<div class="desc">Assign a name to this actor. An 'onNameChange' and 'onUpdate' event will
+be triggered after the name is set.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;setStatus"></a>
+<h3>$Actor-&gt;setStatus</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Actor-&gt;setStatus</strong>(<span class="type">String</span> status_handle, boolean state, [float duration])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>status_handle</code> : handle of the status</dd>
+			<dd class="param"><code>state</code> : whether to set (true) or unset (false) that status</dd>
+			<dd class="param"><code>duration</code> : delay before automatically unsetting that status</dd>
+		</dl><p>
+
+		<div class="desc">Set or unset specified status. Display the corresponding message.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;snipable"></a>
+<h3>$Actor-&gt;snipable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Actor-&gt;snipable</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns whether or not you have snipable LOS to the actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;statusActive"></a>
+<h3>$Actor-&gt;statusActive</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Actor-&gt;statusActive</strong>(<span class="type">String</span> statuses)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>statuses</code> : comma-separated list of status handles and/or names</dd>
+		</dl><p>
+
+		<div class="desc">Returns false if all statuses from the list are inactive, true otherwise.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;statusesString"></a>
+<h3>$Actor-&gt;statusesString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;statusesString</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns human-readable list of currently active statuses.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;verb"></a>
+<h3>$Actor-&gt;verb</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;verb</strong>(<span class="type">String</span> you, String other)
+	</dt>
+	<dd>
+		<div class="desc">Returns <code>$you</code> if <code>$actor</code> is you; <code>$other</code> otherwise.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{ID}"></a>
+<h3>$Actor-&gt;{ID}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$Actor-&gt;{ID}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">length(value) == 4</dd>
+		</dl><p>
+
+		<div class="desc">The server's internal unique ID for this actor (the actor's account ID).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{actorType}"></a>
+<h3>$Actor-&gt;{actorType}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;{actorType}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">defined(value)</dd>
+		</dl><p>
+
+		<div class="desc">A human-friendly name which describes this actor type.
+For instance, "Player", "Monster", "NPC", "You", etc.
+Do not confuse this with <code>$Actor</code>->{type}</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{appear_time}"></a>
+<h3>$Actor-&gt;{appear_time}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{appear_time}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">value >= 0</dd>
+		</dl><p>
+
+		<div class="desc">The time when this actor first appeared on screen.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{attackedYou}"></a>
+<h3>$Actor-&gt;{attackedYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{attackedYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of attacks done by this actor to <code>$char</code>, including misses.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{binID}"></a>
+<h3>$Actor-&gt;{binID}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{binID}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">value >= 0</dd>
+		</dl><p>
+
+		<div class="desc">The index of this actor inside its associated actor list.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{castOnByMonster}"></a>
+<h3>$Actor-&gt;{castOnByMonster}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{castOnByMonster}</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{castOnByPlayer}"></a>
+<h3>$Actor-&gt;{castOnByPlayer}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{castOnByPlayer}</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{castOnByYou}"></a>
+<h3>$Actor-&gt;{castOnByYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{castOnByYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{castOnToMonster}"></a>
+<h3>$Actor-&gt;{castOnToMonster}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{castOnToMonster}</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{castOnToPlayer}"></a>
+<h3>$Actor-&gt;{castOnToPlayer}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{castOnToPlayer}</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{castOnToYou}"></a>
+<h3>$Actor-&gt;{castOnToYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{castOnToYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{deltaHp}"></a>
+<h3>$Actor-&gt;{deltaHp}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{deltaHp}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">deltaHp <= 0</dd>
+		</dl><p>
+
+		<div class="desc">Total amount of healed HP, minus total amount of damage done to this actor.
+<p>
+
+deltaHp initially starts at 0.
+When actor takes damage, the damage is subtracted from his deltaHp.
+When actor is healed, the healed amount is added to the deltaHp.
+If the deltaHp becomes positive, it is reset to 0.
+<p>
+
+Someone with a lot of negative deltaHp is probably in need of healing.
+This allows to intelligently heal non-party members.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgFromMonster}"></a>
+<h3>$Actor-&gt;{dmgFromMonster}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{dmgFromMonster}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by the actor whose ID is used as a hash key to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgFromParty}"></a>
+<h3>$Actor-&gt;{dmgFromParty}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{dmgFromParty}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by the party to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgFromPlayer}"></a>
+<h3>$Actor-&gt;{dmgFromPlayer}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{dmgFromPlayer}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by the actor whose ID is used as a hash key to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgFromYou}"></a>
+<h3>$Actor-&gt;{dmgFromYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{dmgFromYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by <code>$char</code> to this actor. </div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgFrom}"></a>
+<h3>$Actor-&gt;{dmgFrom}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{dmgFrom}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgToMonster}"></a>
+<h3>$Actor-&gt;{dmgToMonster}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{dmgToMonster}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by this actor to the actor whose ID is used as a hash key.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgToParty}"></a>
+<h3>$Actor-&gt;{dmgToParty}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{dmgToParty}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by this actor to the party.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgToPlayer}"></a>
+<h3>$Actor-&gt;{dmgToPlayer}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{dmgToPlayer}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by this actor to the actor whose ID is used as a hash key.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgToYou}"></a>
+<h3>$Actor-&gt;{dmgToYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{dmgToYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done by this actor to <code>$char</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{dmgTo}"></a>
+<h3>$Actor-&gt;{dmgTo}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{dmgTo}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Total damage done to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{lastAttackFrom}"></a>
+<h3>$Actor-&gt;{lastAttackFrom}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$Actor-&gt;{lastAttackFrom}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The ID of the actor who had done the last attack to this actor, including misses.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedFromMonster}"></a>
+<h3>$Actor-&gt;{missedFromMonster}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{missedFromMonster}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by the actor whose ID is used as a hash key to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedFromParty}"></a>
+<h3>$Actor-&gt;{missedFromParty}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{missedFromParty}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by the party to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedFromPlayer}"></a>
+<h3>$Actor-&gt;{missedFromPlayer}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{missedFromPlayer}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by the actor whose ID is used as a hash key to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedFromYou}"></a>
+<h3>$Actor-&gt;{missedFromYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{missedFromYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by <code>$char</code> to this actor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedToMonster}"></a>
+<h3>$Actor-&gt;{missedToMonster}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{missedToMonster}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by this actor to the actor whose ID is used as a hash key.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedToParty}"></a>
+<h3>$Actor-&gt;{missedToParty}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{missedToParty}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by this actor to the party.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedToPlayer}"></a>
+<h3>$Actor-&gt;{missedToPlayer}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash</span> <strong>$Actor-&gt;{missedToPlayer}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by this actor to the actor whose ID is used as a hash key.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{missedYou}"></a>
+<h3>$Actor-&gt;{missedYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{missedYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of misses done by this actor to <code>$char</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{nameID}"></a>
+<h3>$Actor-&gt;{nameID}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{nameID}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">value >= 0</dd>
+		</dl><p>
+
+		<div class="desc"><code>$Actor</code>->{ID} decoded into an 32-bit little endian integer.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{name}"></a>
+<h3>$Actor-&gt;{name}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Actor-&gt;{name}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The name of the actor, e.g. "Joe", "Jane", "Poring", etc.
+This field is undefined if the name for this actor isn't known yet,
+so generally you use use <a href="Actor.html#$Actor->name"><code>$Actor->name()</code></a> instead, which automatically
+takes care of actor objects that don't have a name yet.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{numAtkFromYou}"></a>
+<h3>$Actor-&gt;{numAtkFromYou}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$Actor-&gt;{numAtkFromYou}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Number of attacks done by <code>$char</code> to this actor, including misses.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{pos_to}"></a>
+<h3>$Actor-&gt;{pos_to}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash*</span> <strong>$Actor-&gt;{pos_to}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The position where this actor is moving to, or (if the actor has finished moving),
+where it currently is. This is a reference to a hash, containing the items 'x' and 'y'.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{pos}"></a>
+<h3>$Actor-&gt;{pos}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash*</span> <strong>$Actor-&gt;{pos}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The position where this actor was, before its last movement.
+This is a reference to a hash, containing the items 'x' and 'y'.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{time_move_calc}"></a>
+<h3>$Actor-&gt;{time_move_calc}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$Actor-&gt;{time_move_calc}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The time (in seconds) that the actor needs to move from <code>$Actor</code>->{pos} to <code>$Actor</code>->{pos_to}.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{time_move}"></a>
+<h3>$Actor-&gt;{time_move}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$Actor-&gt;{time_move}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The time (as timestamp) at which the actor last moved.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Actor-&gt;{walk_speed}"></a>
+<h3>$Actor-&gt;{walk_speed}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> float</span> <strong>$Actor-&gt;{walk_speed}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The actor's walking speed, in blocks per second.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::get"></a>
+<h3>Actor::get</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Actor.html">Actor</a></span> <strong>Actor::get</strong>(<span class="type">Bytes</span> ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : an actor ID, in binary format.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($ID)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the associated Actor object, or a new Actor::Unknown object if not found.</dd>
+		</dl><p>
+
+		<div class="desc">Returns the Actor object for <code>$ID</code>. This function will look at the various
+actor lists. If <code>$ID</code> is not in any of the actor lists, it will return
+a new Actor::Unknown object.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ai_clientSuspend"></a>
+<h3>ai_clientSuspend</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>ai_clientSuspend</strong>(<span class="type">packet_switch,</span> duration, args...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>initTimeout</code> : a number of seconds.</dd>
+		</dl><p>
+
+		<div class="desc">Freeze the AI for <code>$duration</code> seconds. <code>$packet_switch</code> and <code>@args</code> are only
+used internally and are ignored unless XKore mode is turned on.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Interface::Wx::Console - Console control. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Interface::Wx::Console</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Interface::Wx::Console - Console control.</h1>
+
+This control emulates a console, similar to xterm/gnome-terminal/the DOS box.
+It supports automatic scrolling, colored text, and a bounded scrollback buffer.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Interface::Wx::Console->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Interface::Wx::Console->new">Interface::Wx::Console->new</a></td>
+	<td class="decl">(<span class="type">Wx::Window</span> parent)</td>
+</tr><tr onclick="location.href='#$Interface_Wx_Console->add';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Interface_Wx_Console->add">$Interface_Wx_Console->add</a></td>
+	<td class="decl">(<span class="type">String</span> type, String message, String domain)</td>
+</tr><tr onclick="location.href='#$Interface_Wx_Console->setFont';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Interface_Wx_Console->setFont">$Interface_Wx_Console->setFont</a></td>
+	<td class="decl">(<span class="type">Wx::Font</span> font)</td>
+</tr><tr onclick="location.href='#$Wx_Interface_Console->selectFont';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Wx_Interface_Console->selectFont">$Wx_Interface_Console->selectFont</a></td>
+	<td class="decl">(<span class="type">Wx::Window</span> parent)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Interface_Wx_Console-&gt;add"></a>
+<h3>$Interface_Wx_Console-&gt;add</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Interface_Wx_Console-&gt;add</strong>(<span class="type">String</span> type, String message, String domain)
+	</dt>
+	<dd>
+		<div class="desc">Print a text to this console, with the given type and domain. See the
+logging framework (<a href="Log.html"><code>Log</code></a>) for more information about message
+types and message domains.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Interface_Wx_Console-&gt;setFont"></a>
+<h3>$Interface_Wx_Console-&gt;setFont</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Interface_Wx_Console-&gt;setFont</strong>(<span class="type">Wx::Font</span> font)
+	</dt>
+	<dd>
+		<div class="desc">Set the font used in this console.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Wx_Interface_Console-&gt;selectFont"></a>
+<h3>$Wx_Interface_Console-&gt;selectFont</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Wx_Interface_Console-&gt;selectFont</strong>(<span class="type">Wx::Window</span> parent)
+	</dt>
+	<dd>
+		<div class="desc">Show a font dialog and let the user pick a font. This font
+will be used in this console.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Interface::Wx::Console-&gt;new"></a>
+<h3>Interface::Wx::Console-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Interface::Wx::Console-&gt;new</strong>(<span class="type">Wx::Window</span> parent)
+	</dt>
+	<dd>
+		<div class="desc">Create a new Interface::Wx::Console control, with <code>$parent</code> as its parent
+control.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

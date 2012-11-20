@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Base::Server::Client - A client within a Base::Server : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Base::Server::Client</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Base::Server::Client - A client within a Base::Server</h1>
+
+The three abstract functions in <a href="Base--Server.html"><code>Base::Server</code></a> all have
+an <code>$client</code> object as parameter, which is of this type.
+This class represents a client which the server handles.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#$BaseServerClient->close';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$BaseServerClient->close">$BaseServerClient->close</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServerClient->getFD';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$BaseServerClient->getFD">$BaseServerClient->getFD</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServerClient->getIP';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$BaseServerClient->getIP">$BaseServerClient->getIP</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServerClient->getIndex';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$BaseServerClient->getIndex">$BaseServerClient->getIndex</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServerClient->getSocket';">
+	<td class="return-type">IO::Socket::INET</td>
+	<td class="func"><a href="#$BaseServerClient->getSocket">$BaseServerClient->getSocket</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseServerClient->send';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$BaseServerClient->send">$BaseServerClient->send</a></td>
+	<td class="decl">(<span class="type">Bytes</span> data)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$BaseServerClient-&gt;close"></a>
+<h3>$BaseServerClient-&gt;close</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$BaseServerClient-&gt;close</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Disconnect this client. In the next <a href="Base--Server.html#$BaseServer->iterate"><code>$BaseServer->iterate()</code></a> call, this Base::Server::Client
+object will be removed from the <a href="Base--Server.html"><code>Base::Server</code></a> object's internal list.
+<p>
+
+You must not call <a href="Base--Server--Client.html#$BaseServerClient->send"><code>$BaseServerClient->send()</code></a> anymore after having called this function.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServerClient-&gt;getFD"></a>
+<h3>$BaseServerClient-&gt;getFD</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$BaseServerClient-&gt;getFD</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the client's file descriptor.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServerClient-&gt;getIP"></a>
+<h3>$BaseServerClient-&gt;getIP</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$BaseServerClient-&gt;getIP</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">result ne ''</dd>
+		</dl><p>
+
+		<div class="desc">Returns the client's IP address in text form.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServerClient-&gt;getIndex"></a>
+<h3>$BaseServerClient-&gt;getIndex</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$BaseServerClient-&gt;getIndex</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the index of this object in the <a href="Base--Server.html"><code>Base::Server</code></a> object's internal list.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServerClient-&gt;getSocket"></a>
+<h3>$BaseServerClient-&gt;getSocket</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> IO::Socket::INET</span> <strong>$BaseServerClient-&gt;getSocket</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Return the client's socket.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseServerClient-&gt;send"></a>
+<h3>$BaseServerClient-&gt;send</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$BaseServerClient-&gt;send</strong>(<span class="type">Bytes</span> data)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>data</code> : The data to send.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($data)</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 on success, 0 on failure.</dd>
+		</dl><p>
+
+		<div class="desc">Send data to the client.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

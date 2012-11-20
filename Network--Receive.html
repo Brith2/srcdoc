@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Network::Receive - Server message parsing : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Network::Receive</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Network::Receive - Server message parsing</h1>
+
+This class is responsible for parsing messages that are sent by the RO
+server to Kore. Information in the messages are stored in global variables
+(in the module Globals).
+<p>
+
+Please also read <a href="http://wiki.openkore.com/index.php/Network_subsystem">the
+network subsystem overview.</a>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class methods</th></tr><tr onclick="location.href='#Network::Receive->decrypt';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Network::Receive->decrypt">Network::Receive->decrypt</a></td>
+	<td class="decl">(<span class="type">r_msg,</span> themsg)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Private class methods</th></tr><tr onclick="location.href='#Network::Receive->queryAndSaveLoginPinCode';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#Network::Receive->queryAndSaveLoginPinCode">Network::Receive->queryAndSaveLoginPinCode</a></td>
+	<td class="decl">(<span class="type">[String</span> message])</td>
+</tr><tr onclick="location.href='#Network::Receive::queryLoginPinCode';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#Network::Receive::queryLoginPinCode">Network::Receive::queryLoginPinCode</a></td>
+	<td class="decl">(<span class="type">[String</span> message])</td>
+</tr><tr onclick="location.href='#account_id';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#account_id">account_id</a></td>
+	<td class="decl">({accountID})</td>
+</tr><tr onclick="location.href='#marriage_partner_name';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#marriage_partner_name">marriage_partner_name</a></td>
+	<td class="decl">(<span class="type">{String</span> name})</td>
+</tr><tr onclick="location.href='#minimap_indicator';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#minimap_indicator">minimap_indicator</a></td>
+	<td class="decl">(<span class="type">{bool</span> show, Actor actor, int x, int y, int red, int green, int blue, int alpha [, int effect]})</td>
+</tr><tr onclick="location.href='#sage_autospell';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#sage_autospell">sage_autospell</a></td>
+	<td class="decl">(<span class="type">{arrayref</span> skills, int why})</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Network::Receive-&gt;decrypt"></a>
+<h3>Network::Receive-&gt;decrypt</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Network::Receive-&gt;decrypt</strong>(<span class="type">r_msg,</span> themsg)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_msg</code> : a reference to a scalar.</dd>
+			<dd class="param"><code>themsg</code> : the message to decrypt.</dd>
+		</dl><p>
+
+		<div class="desc">Decrypts the packets in <code>$themsg</code> and put the result in the scalar
+referenced by <code>$r_msg</code>.
+<p>
+
+This is an old method used back in the iRO beta 2 days when iRO had encrypted packets.
+At the moment (December 20 2006) there are no servers that still use encrypted packets.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl sym">}</span> <span class="hl kwa">elsif</span> <span class="hl sym">(</span><span class="hl kwb">$switch</span> <span class="hl kwa">eq</span> <span class="hl str">&quot;ABCD&quot;</span><span class="hl sym">) {</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$level</span><span class="hl sym">;</span>
+	Network<span class="hl sym">::</span>Receive<span class="hl sym">-&gt;</span><span class="hl kwd">decrypt</span><span class="hl sym">(</span>\<span class="hl kwb">$level</span><span class="hl sym">,</span> <span class="hl kwd">substr</span><span class="hl sym">(</span><span class="hl kwb">$msg</span><span class="hl sym">,</span> <span class="hl num">0</span><span class="hl sym">,</span> <span class="hl num">2</span><span class="hl sym">));</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Network::Receive-&gt;queryAndSaveLoginPinCode"></a>
+<h3>Network::Receive-&gt;queryAndSaveLoginPinCode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>Network::Receive-&gt;queryAndSaveLoginPinCode</strong>(<span class="type">[String</span> message])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">true on success</dd>
+		</dl><p>
+
+		<div class="desc">Request login PIN code from user and save it in config.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Network::Receive::queryLoginPinCode"></a>
+<h3>Network::Receive::queryLoginPinCode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>Network::Receive::queryLoginPinCode</strong>(<span class="type">[String</span> message])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">length(result) in 4..8</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">login PIN code, or undef if cancelled</dd>
+		</dl><p>
+
+		<div class="desc">Request login PIN code from user.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="account_id"></a>
+<h3>account_id</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>account_id</strong>({accountID})
+	</dt>
+	<dd>
+		<div class="desc">This is for what eA calls PacketVersion 9, they send the AID in a 'proper' packet</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="marriage_partner_name"></a>
+<h3>marriage_partner_name</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>marriage_partner_name</strong>(<span class="type">{String</span> name})
+	</dt>
+	<dd>
+		<div class="desc">Name of the partner character, sent to everyone around right before casting "I miss you".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="minimap_indicator"></a>
+<h3>minimap_indicator</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>minimap_indicator</strong>(<span class="type">{bool</span> show, Actor actor, int x, int y, int red, int green, int blue, int alpha [, int effect]})
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>show</code> : whether indicator is shown or cleared</dd>
+			<dd class="param"><code>actor</code> : <a href="Actor.html"><code>Actor</code></a> who issued the indicator; or which Actor it's binded to</dd>
+			<dd class="param"><code>x, y</code> : indicator coordinates</dd>
+			<dd class="param"><code>red, green, blue, alpha</code> : indicator color</dd>
+			<dd class="param"><code>effect</code> : unknown, may be missing</dd>
+		</dl><p>
+
+		<div class="desc">Minimap indicator.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="sage_autospell"></a>
+<h3>sage_autospell</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>sage_autospell</strong>(<span class="type">{arrayref</span> skills, int why})
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>skills</code> : list of <a href="Skill.html"><code>Skill</code></a> instances</dd>
+			<dd class="param"><code>why</code> : unknown</dd>
+		</dl><p>
+
+		<div class="desc">Skill list for Sage's Hindsight and Shadow Chaser's Auto Shadow Spell.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

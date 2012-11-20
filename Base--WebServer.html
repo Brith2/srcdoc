@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Base::WebServer - Basic implementation of a HTTP 1.1 server : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Base::WebServer</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Base::WebServer - Basic implementation of a HTTP 1.1 server</h1>
+
+<b>Derived from <a href="Base--Server.html">Base::Server.pm</a></b>
+<p>
+
+This class implements a basic HTTP 1.1 server. It is probably not entirely
+RFC 2616-compliant, but it works well, especially with modern browsers.
+This implementation can be easily integrated into Perl applications.
+Persistent connections and pipelining are supported. HTTP 1.0 and 0.9 are
+<i>not</i> supported.
+<p>
+
+You are supposed to create a child class of this class, and override the
+<code>request()</code> function. That is the function in which you handle all HTTP requests.
+See <code>$webserver->request()</code>.
+<p>
+
+<h3>Example</h3>
+First, create a child class derived from Base::WebServer (MyWebServer.pm):
+<pre class="example">
+<span class="hl kwa">package</span> <span class="hl kwd">MyWebServer</span><span class="hl sym">;</span>
+
+<span class="hl kwa">use</span> <span class="hl kwd">strict</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> Base<span class="hl sym">::</span><span class="hl kwd">WebServer</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> base <span class="hl kwd">qw</span><span class="hl sym">(</span>Base<span class="hl sym">::</span>WebServer<span class="hl sym">);</span>
+
+<span class="hl kwa">sub</span> request <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$self</span><span class="hl sym">,</span> <span class="hl kwb">$process</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$process</span><span class="hl sym">-&gt;</span>file <span class="hl kwa">eq</span> <span class="hl str">'/'</span><span class="hl sym">) {</span>
+        <span class="hl kwb">$process</span><span class="hl sym">-&gt;</span><span class="hl kwd">shortResponse</span><span class="hl sym">(</span><span class="hl str">&quot;&lt;b&gt;Hello browser.&lt;/b&gt; You requested the toplevel file.&quot;</span><span class="hl sym">);</span>
+
+    <span class="hl sym">}</span> <span class="hl kwa">elsif</span> <span class="hl sym">(</span><span class="hl kwb">$process</span><span class="hl sym">-&gt;</span>file <span class="hl kwa">eq</span> <span class="hl str">'/random.txt'</span><span class="hl sym">) {</span>
+        <span class="hl kwb">$process</span><span class="hl sym">-&gt;</span><span class="hl kwd">header</span><span class="hl sym">(</span><span class="hl str">&quot;Content-Type&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;text/plain&quot;</span><span class="hl sym">);</span>
+        <span class="hl kwa">for</span> <span class="hl sym">(</span><span class="hl kwc">my</span> <span class="hl kwb">$i</span> <span class="hl sym">=</span> <span class="hl num">0</span><span class="hl sym">;</span> <span class="hl kwb">$i</span> <span class="hl sym">&lt;</span> <span class="hl num">100</span><span class="hl sym">;</span> <span class="hl kwb">$i</span><span class="hl sym">++) {</span>
+            <span class="hl kwb">$process</span><span class="hl sym">-&gt;</span><span class="hl kwc">print</span><span class="hl sym">(</span><span class="hl kwd">rand</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">);</span>
+        <span class="hl sym">}</span>
+
+    <span class="hl sym">}</span> <span class="hl kwa">else</span> <span class="hl sym">{</span>
+        <span class="hl kwb">$process</span><span class="hl sym">-&gt;</span><span class="hl kwd">status</span><span class="hl sym">(</span><span class="hl num">404</span><span class="hl sym">,</span> <span class="hl str">&quot;File Not Found&quot;</span><span class="hl sym">);</span>
+        <span class="hl kwb">$process</span><span class="hl sym">-&gt;</span><span class="hl kwd">shortResponse</span><span class="hl sym">(</span><span class="hl str">&quot;&lt;h1&gt;File &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$process</span><span class="hl sym">-&gt;</span>file <span class="hl sym">.</span> <span class="hl str">&quot; not found.&lt;/h1&gt;&quot;</span><span class="hl sym">);</span>
+    <span class="hl sym">}</span>
+<span class="hl sym">}</span>
+
+<span class="hl num">1</span><span class="hl sym">;</span>
+</pre>
+<p>
+
+In the main script, you write:
+<pre class="example">
+<span class="hl kwa">use</span> <span class="hl kwd">strict</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> <span class="hl kwd">MyWebServer</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> Time<span class="hl sym">::</span>HiRes <span class="hl kwd">qw</span><span class="hl sym">(</span>sleep<span class="hl sym">);</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$webserver</span> <span class="hl sym">=</span> new <span class="hl kwd">MyWebServer</span><span class="hl sym">(</span><span class="hl num">1025</span><span class="hl sym">);</span>
+<span class="hl kwa">while</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">) {</span>
+    <span class="hl kwb">$webserver</span><span class="hl sym">-&gt;</span><span class="hl kwd">iterate</span><span class="hl sym">;</span>
+    sleep <span class="hl num">0.01</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre>
+You can test the web server by going to <a href="http://localhost:1025/">http://localhost:1025/</a>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Base::WebServer->new';">
+	<td class="return-type"><a href="Base--WebServer.html">Base::WebServer</a></td>
+	<td class="func"><a href="#Base::WebServer->new">Base::WebServer->new</a></td>
+	<td class="decl">(<span class="type">[int</span> port, String bind])</td>
+</tr><tr onclick="location.href='#$BaseWebServer->request';">
+	<td class="return-type">abstract&nbsp;void</td>
+	<td class="func"><a href="#$BaseWebServer->request">$BaseWebServer->request</a></td>
+	<td class="decl">(<span class="type"><a href="Base--WebServer--Process.html">Base::WebServer::Process</a></span> process)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$BaseWebServer-&gt;request"></a>
+<h3>$BaseWebServer-&gt;request</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type">abstract  void</span> <strong>$BaseWebServer-&gt;request</strong>(<span class="type"><a href="Base--WebServer--Process.html">Base::WebServer::Process</a></span> process)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>process</code> : the process object associated with this request. This object contains information about the current request (like the file the client requested, or the HTTP headers sent byt he client), and allows you to send responses to the client (with a PHP-like API).</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($process)</dd>
+		</dl><p>
+
+		<div class="desc">This virtual method will be called every time a web browser requests
+a page from this web server. You should override this function in a
+child class. This is where you respond to requests.
+<p>
+
+See also: <a href="Base--WebServer--Process.html"><code>Base::WebServer::Process</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Base::WebServer-&gt;new"></a>
+<h3>Base::WebServer-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Base--WebServer.html">Base::WebServer</a></span> <strong>Base::WebServer-&gt;new</strong>(<span class="type">[int</span> port, String bind])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>port</code> : the port to bind the server socket to. If unspecified, the first available port (as returned by the operating system) will be used.</dd>
+			<dd class="param"><code>bind</code> : the IP address to bind the server socket to. If unspecified, the socket will be bound to "localhost". Specify "0.0.0.0" to not bind to any address.</dd>
+		</dl><p>
+
+		<div class="desc">Create a new Base::WebServer object at the specified port and IP address.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

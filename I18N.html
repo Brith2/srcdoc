@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>I18N - Internationalization support : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>I18N</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>I18N - Internationalization support</h1>
+
+This module provides functions for internationalization support
+(conversion between character sets).
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#I18N::UTF8ToString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#I18N::UTF8ToString">I18N::UTF8ToString</a></td>
+	<td class="decl">(<span class="type">Utf8Bytes</span> data)</td>
+</tr><tr onclick="location.href='#I18N::bytesToString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#I18N::bytesToString">I18N::bytesToString</a></td>
+	<td class="decl">(<span class="type">Bytes</span> data)</td>
+</tr><tr onclick="location.href='#I18N::isUTF8';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#I18N::isUTF8">I18N::isUTF8</a></td>
+	<td class="decl">(str)</td>
+</tr><tr onclick="location.href='#I18N::stringToBytes';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#I18N::stringToBytes">I18N::stringToBytes</a></td>
+	<td class="decl">(<span class="type">String</span> str)</td>
+</tr><tr onclick="location.href='#I18N::stringToUTF8';">
+	<td class="return-type">UtfBytes</td>
+	<td class="func"><a href="#I18N::stringToUTF8">I18N::stringToUTF8</a></td>
+	<td class="decl">(<span class="type">String</span> str)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="I18N::UTF8ToString"></a>
+<h3>I18N::UTF8ToString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>I18N::UTF8ToString</strong>(<span class="type">Utf8Bytes</span> data)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>    I18N</code> : :isUTF8(result)</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($data) && I18N::isUTF8($data)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">    defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Convert UTF-8 data into a String.
+<p>
+
+This symbol is exportable.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="I18N::bytesToString"></a>
+<h3>I18N::bytesToString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>I18N::bytesToString</strong>(<span class="type">Bytes</span> data)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>data</code> : The data to convert.</dd>
+			<dd class="param"><code>    I18N</code> : :isUTF8(result)</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">    defined($data)    $config{serverEncoding} must be a correct encoding name, or empty.</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">    defined(result)</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">$data converted to a String.</dd>
+		</dl><p>
+
+		<div class="desc">Convert a human-readable message (sent by the RO server) into a String.
+This function uses <code>$config{serverEncoding}</code> to determine the encoding.
+<p>
+
+This function should only be used for strings sent by the RO server.
+<p>
+
+This symbol is exportable.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="I18N::isUTF8"></a>
+<h3>I18N::isUTF8</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>I18N::isUTF8</strong>(str)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>str</code> : A binary string containing UTF-8 data, or a UTF-8 character string.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($str)</dd>
+		</dl><p>
+
+		<div class="desc">Checks whether <code>$str</code> is a valid UTF-8 string.
+<p>
+
+This symbol is exportable.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="I18N::stringToBytes"></a>
+<h3>I18N::stringToBytes</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>I18N::stringToBytes</strong>(<span class="type">String</span> str)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>str</code> : The string to convert.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">    defined($str)    $config{serverEncoding} must be a correct encoding name, or empty.</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Convert a String into a text encoding used by the RO server.
+This function should be used before sending a string to the RO server.
+<p>
+
+This symbol is exportable.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="I18N::stringToUTF8"></a>
+<h3>I18N::stringToUTF8</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> UtfBytes</span> <strong>I18N::stringToUTF8</strong>(<span class="type">String</span> str)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>    I18N</code> : :isUTF8(result)</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($str)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">    defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Convert a String into UTF-8 data.
+<p>
+
+This symbol is exportable.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

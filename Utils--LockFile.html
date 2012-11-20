@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::LockFile - Lock files. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::LockFile</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::LockFile - Lock files.</h1>
+
+This class provides an easy interface for lock files. A lock file is
+like a mutex or critical section, but it can be used between different
+processes. It's used to synchronize processes with each other.
+<p>
+
+Lock files should not be used for file I/O: they should not be read
+from or written to. On Unix it will work, but on Windows it will fail.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Utils::LockFile->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Utils::LockFile->new">Utils::LockFile->new</a></td>
+	<td class="decl">(<span class="type">String</span> file)</td>
+</tr><tr onclick="location.href='#$Utils_LockFile->lock';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Utils_LockFile->lock">$Utils_LockFile->lock</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Utils_LockFile->locked';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Utils_LockFile->locked">$Utils_LockFile->locked</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Utils_LockFile->tryLock';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$Utils_LockFile->tryLock">$Utils_LockFile->tryLock</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Utils_LockFile->unlock';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Utils_LockFile->unlock">$Utils_LockFile->unlock</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Utils_LockFile-&gt;lock"></a>
+<h3>$Utils_LockFile-&gt;lock</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Utils_LockFile-&gt;lock</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">!$self->locked()</dd>
+		</dl><p>
+
+		<div class="desc">Lock this file. If it's already locked, wait until the file is unlocked.
+The lock is automatically released if this Utils::LockFile instance is
+destroyed.
+<p>
+
+Throws IOException if the lockfile cannot be opened or if
+locking fails.
+<p>
+
+Throws Utils::LockFile::AlreadyLocked if the precondition is not satisfied.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Utils_LockFile-&gt;locked"></a>
+<h3>$Utils_LockFile-&gt;locked</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Utils_LockFile-&gt;locked</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether the file is locked.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Utils_LockFile-&gt;tryLock"></a>
+<h3>$Utils_LockFile-&gt;tryLock</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$Utils_LockFile-&gt;tryLock</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">!$self->locked()</dd>
+		</dl><p>
+
+		<div class="desc">Attempt to lock this file. If it's already locked, returns 0. If it's
+not already locked, then our lock has succeeded, and 1 is returned.
+The lock is automatically released if this Utils::LockFile instance is
+destroyed.
+<p>
+
+Throws IOException if the lockfile cannot be opened or if
+locking fails.
+<p>
+
+Throws Utils::LockFile::AlreadyLocked if the precondition is not satisfied.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Utils_LockFile-&gt;unlock"></a>
+<h3>$Utils_LockFile-&gt;unlock</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Utils_LockFile-&gt;unlock</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->locked()</dd>
+		</dl><p>
+
+		<div class="desc">Unlock this file.
+<p>
+
+Throws Utils::LockFile::NotLocked if the precondition is not satisfied.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Utils::LockFile-&gt;new"></a>
+<h3>Utils::LockFile-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Utils::LockFile-&gt;new</strong>(<span class="type">String</span> file)
+	</dt>
+	<dd>
+		<div class="desc">Create a new Utils::LockFile object, using the specified file as lock.
+The default state is unlocked.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

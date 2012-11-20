@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Bus::Messages - Bus message (de)serializer : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Bus::Messages</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Bus::Messages - Bus message (de)serializer</h1>
+
+The core element of the OpenKore Bus System's protocol is the <b>message</b>.
+This module provides functions for easily serializing Perl data structures into
+a message, and to deserialize a message into Perl data structures.
+<p>
+
+This module is used internally by the rest of the bus system framework.
+<p>
+
+<h3>Protocol description</h3>
+I call the message format the "Simple Serializable Message" (SSM). This message
+format is binary.
+<p>
+
+A message contains the following information:
+<ul>
+<li>A message identifier (MID). This is a string, which can be anything.</li>
+<li>A list of arguments. This is either a list of key-value pairs (a key-value map),
+  or a list of scalars (an array).
+</li>
+</ul>
+<p>
+
+A message is very comparable to a function call. Imagine the following C++ function:
+<p>
+
+<pre>void <span class="hl kwd">copyFile</span><span class="hl sym">(</span>string from<span class="hl sym">,</span> string to<span class="hl sym">);</span>
+<span class="hl kwd">copyFile</span><span class="hl sym">(</span><span class="hl str">&quot;foo.txt&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;bar.txt&quot;</span><span class="hl sym">);</span>
+</pre>
+<p>
+
+<ul>
+<li>The message ID would be "copyFile".</li>
+<li>The key/value pairs would look like this:
+<pre>from <span class="hl sym">=</span> foo<span class="hl sym">.</span>txt
+  to <span class="hl sym">=</span> bar<span class="hl sym">.</span>txt
+</pre>
+</li>
+</ul>
+<p>
+
+<h3>Message structure</h3>
+Note that all integers are big-endian.
+<p>
+
+<h4>Header</h4>
+Each message starts with a header:
+<pre>struct <span class="hl sym">{</span>
+    <span class="hl kwc">//</span> Header
+    uint32 <span class="hl kwd">length</span><span class="hl sym">;</span>           <span class="hl kwc">//</span> The length of the entire message<span class="hl sym">,</span> in bytes<span class="hl sym">.</span>
+    uint8  <span class="hl kwd">options</span><span class="hl sym">;</span>          <span class="hl kwc">//</span> The message type<span class="hl sym">:</span> <span class="hl num">0</span> <span class="hl sym">=</span> key<span class="hl sym">-</span>value map<span class="hl sym">,</span> <span class="hl num">1</span> <span class="hl sym">=</span> array<span class="hl sym">.</span>
+    uint8  <span class="hl kwd">MID_length</span><span class="hl sym">;</span>       <span class="hl kwc">//</span> The message ID<span class="hl str">'s length.</span>
+<span class="hl str">    char   MID[MID_length];  // The message ID, as a UTF-8 string.</span>
+<span class="hl str">} Header;</span>
+</pre>
+<p>
+
+The <tt>options</tt> field allows you to
+If <tt>options</tt> is set to 0, then what comes after the header
+is a list of MapEntry structures, until the end of the message.<br>
+If <tt>options</tt> is set to 1, then what comes after the header
+is a list of ArrayEntry structures, until the end of the message.
+<p>
+
+<h4>Key-value map entry</h4>
+<pre>struct <span class="hl sym">{</span>
+    uint8  <span class="hl kwd">key_length</span><span class="hl sym">;</span>           <span class="hl kwc">//</span> Length of the key<span class="hl sym">.</span>
+    char   key<span class="hl sym">[</span>key_length<span class="hl sym">];</span>      <span class="hl kwc">//</span> UTF<span class="hl sym">-</span><span class="hl num">8</span> string<span class="hl sym">.</span>
+
+    uint8  <span class="hl kwd">value_type</span><span class="hl sym">;</span>           <span class="hl kwc">//</span> Value type<span class="hl sym">:</span> <span class="hl num">0</span> <span class="hl sym">=</span> binary<span class="hl sym">,</span> <span class="hl num">1</span> <span class="hl sym">=</span> UTF<span class="hl sym">-</span><span class="hl num">8</span> string<span class="hl sym">,</span> <span class="hl num">2</span> <span class="hl sym">=</span> unsigned integer
+    uint24 <span class="hl kwd">value_length</span><span class="hl sym">;</span>         <span class="hl kwc">//</span> Length of the value<span class="hl sym">.</span>
+    char   value<span class="hl sym">[</span>value_length<span class="hl sym">];</span>  <span class="hl kwc">//</span> The value data<span class="hl sym">.</span>
+<span class="hl sym">}</span> <span class="hl kwd">MapEntry</span><span class="hl sym">;</span>
+</pre>
+<p>
+
+<h4>Array entry</h4>
+<pre>struct <span class="hl sym">{</span>
+    uint8  <span class="hl kwd">type</span><span class="hl sym">;</span>                 <span class="hl kwc">//</span> Like MapEntry<span class="hl sym">.</span>value_type
+    uint24 <span class="hl kwd">length</span><span class="hl sym">;</span>
+    char   value<span class="hl sym">[</span>length<span class="hl sym">];</span>
+<span class="hl sym">}</span> <span class="hl kwd">ArrayEntry</span><span class="hl sym">;</span>
+</pre>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Bus::Messages::serialize';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#Bus::Messages::serialize">Bus::Messages::serialize</a></td>
+	<td class="decl">(<span class="type">String</span> ID, arguments)</td>
+</tr><tr onclick="location.href='#Bus::Messages::unserialize';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Bus::Messages::unserialize">Bus::Messages::unserialize</a></td>
+	<td class="decl">(<span class="type">Bytes</span> data, String* ID, [int* processed])</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Bus::Messages::serialize"></a>
+<h3>Bus::Messages::serialize</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>Bus::Messages::serialize</strong>(<span class="type">String</span> ID, arguments)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : The message ID.</dd>
+			<dd class="param"><code>arguments</code> : Reference to either a hash or an array, as the message arguments.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The raw data for the message.</dd>
+		</dl><p>
+
+		<div class="desc">Serialize a Perl data structure into a message.
+<p>
+
+This symbol is exportable.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Bus::Messages::unserialize"></a>
+<h3>Bus::Messages::unserialize</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Bus::Messages::unserialize</strong>(<span class="type">Bytes</span> data, String* ID, [int* processed])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>data</code> : The raw message data.</dd>
+			<dd class="param"><code>ID</code> : A reference to a scalar. The message ID will be stored here.</dd>
+			<dd class="param"><code>processed</code> : A reference to a scalar. The number of bytes processed will be stored in           here. This argument may be undef.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">A reference to a hash or an array. These are the arguments of the message.         Returns undef if $data is not a complete message.</dd>
+		</dl><p>
+
+		<div class="desc">Unserialize a message into a Perl data structure.
+<p>
+
+Note that the return values for <code>$ID</code> and <code>$processed</code> are only meaningful if
+the function's return value is not undef.
+<p>
+
+This symbol is exportable.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

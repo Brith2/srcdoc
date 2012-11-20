@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Modules - Module support system : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Modules</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Modules - Module support system</h1>
+
+The OpenKore source code is split into various files: openkore.pl,
+functions.pl, and some .pm files. These .pm files are modules: source
+code that's part of OpenKore.  Modules implement various subsystems.
+<p>
+
+One of the features of OpenKore is "dynamic code reloading". This
+means that if you've modified source code, you can reload it at
+runtime, without restarting Kore.
+<p>
+
+This module, <a href="Modules.html">Modules.pm</a>, is what makes it possible. It "glues" all the
+other modules together. openkore.pl registers all the other modules,
+and this modules will save that list in memory.
+<p>
+
+Modules must put initialization code in a function called <code>MODINIT()</code>.
+This function is called at startup. Initialization code must not be
+put elsewhere, because that code will be called again every time the
+module is reloaded, and will overwrite existing values of variables.
+<code>MODINIT()</code> is only called once at startup (during registration), and is
+never called again.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Modules::addToReloadQueue';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Modules::addToReloadQueue">Modules::addToReloadQueue</a></td>
+	<td class="decl">(<span class="type">String</span> namepart)</td>
+</tr><tr onclick="location.href='#Modules::checkSyntax';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#Modules::checkSyntax">Modules::checkSyntax</a></td>
+	<td class="decl">(<span class="type">String</span> file)</td>
+</tr><tr onclick="location.href='#Modules::register';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Modules::register">Modules::register</a></td>
+	<td class="decl">(names...)</td>
+</tr><tr onclick="location.href='#Modules::reloadAllInQueue';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Modules::reloadAllInQueue">Modules::reloadAllInQueue</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#Modules::reloadFile';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Modules::reloadFile">Modules::reloadFile</a></td>
+	<td class="decl">(<span class="type">String</span> filename)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Modules::addToReloadQueue"></a>
+<h3>Modules::addToReloadQueue</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Modules::addToReloadQueue</strong>(<span class="type">String</span> namepart)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>namepart</code> : A part of the name of a registered Perl module.</dd>
+		</dl><p>
+
+		<div class="desc">All registered Perl module whose name contain <code>$namepart</code> will be put into the reload queue.
+Those modules are actually reloaded when <a href="Modules.html#Modules::reloadAllInQueue"><code>Modules::reloadAllInQueue()</code></a> is called.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Modules::checkSyntax"></a>
+<h3>Modules::checkSyntax</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>Modules::checkSyntax</strong>(<span class="type">String</span> file)
+	</dt>
+	<dd>
+		<div class="desc">Check whether the file's syntax is correct.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Modules::register"></a>
+<h3>Modules::register</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Modules::register</strong>(names...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>names</code> : the names of the modules to register.</dd>
+		</dl><p>
+
+		<div class="desc">Register modules. Registered modules can be dynamically reloaded.
+Upon registration, the module's <code>MODINIT()</code> function is called.
+<p>
+
+Nothing will happen on attempts to re-register an already
+registered module.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre>Modules<span class="hl sym">::</span><span class="hl kwd">register</span><span class="hl sym">(</span><span class="hl str">&quot;Log&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;Interface&quot;</span><span class="hl sym">);</span>  <span class="hl slc"># Registers Log.pm and Interface.pm</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Modules::reloadAllInQueue"></a>
+<h3>Modules::reloadAllInQueue</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Modules::reloadAllInQueue</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Reload all modules in the reload queue. This function is meant to be run in
+Kore's main loop. Do not call this function directly in any other places.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Modules::reloadFile"></a>
+<h3>Modules::reloadFile</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Modules::reloadFile</strong>(<span class="type">String</span> filename)
+	</dt>
+	<dd>
+		<div class="desc">Executes "do <code>$filename</code>" if <code>$filename</code> exists and does not contain syntax
+errors. This function is used internally by <a href="Modules.html#Modules::reloadAllInQueue"><code>Modules::reloadAllInQueue()</code></a>, do not
+use this directly.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

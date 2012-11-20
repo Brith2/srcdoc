@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::StartupNotification::Launchee - Startup notification: launchee : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::StartupNotification::Launchee</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::StartupNotification::Launchee - Startup notification: launchee</h1>
+
+This class implements you to notify the launcher about
+your application's startup progress. See
+<a href="Utils--StartupNotification--Launcher.html">StartupNotification::Launcher</a> for details.
+<p>
+
+<h3>Launchee example</h3>
+<pre class="example">
+<span class="hl kwa">use</span> Utils<span class="hl sym">::</span>StartupNotification<span class="hl sym">::</span><span class="hl kwd">Launchee</span><span class="hl sym">;</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$sn</span> <span class="hl sym">=</span> new StartupNotification<span class="hl sym">::</span><span class="hl kwd">Launchee</span><span class="hl sym">();</span>
+
+<span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">setProgress</span><span class="hl sym">(</span><span class="hl num">40</span><span class="hl sym">);</span>
+<span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">setStatus</span><span class="hl sym">(</span><span class="hl str">&quot;Starting database&quot;</span><span class="hl sym">);</span>
+sleep <span class="hl num">1</span><span class="hl sym">;</span>
+
+<span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">setProgress</span><span class="hl sym">(</span><span class="hl num">80</span><span class="hl sym">);</span>
+<span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">setStatus</span><span class="hl sym">(</span><span class="hl str">&quot;Starting user interface&quot;</span><span class="hl sym">);</span>
+sleep <span class="hl num">1</span><span class="hl sym">;</span>
+
+<span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">setProgress</span><span class="hl sym">(</span><span class="hl num">100</span><span class="hl sym">);</span>
+<span class="hl kwb">$sn</span><span class="hl sym">-&gt;</span><span class="hl kwd">setStatus</span><span class="hl sym">(</span><span class="hl str">&quot;Done&quot;</span><span class="hl sym">);</span>
+sleep <span class="hl num">5</span><span class="hl sym">;</span>
+</pre>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class StartupNotification::Launchee</th></tr><tr onclick="location.href='#StartupNotification::Launchee->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#StartupNotification::Launchee->new">StartupNotification::Launchee->new</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$StartupNotificationLaunchee->setError';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$StartupNotificationLaunchee->setError">$StartupNotificationLaunchee->setError</a></td>
+	<td class="decl">(<span class="type">String</span> message, int errorCode = 0)</td>
+</tr><tr onclick="location.href='#$StartupNotificationLaunchee->setProgress';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$StartupNotificationLaunchee->setProgress">$StartupNotificationLaunchee->setProgress</a></td>
+	<td class="decl">(<span class="type">float</span> progress)</td>
+</tr><tr onclick="location.href='#$StartupNotificationLaunchee->setStatus';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$StartupNotificationLaunchee->setStatus">$StartupNotificationLaunchee->setStatus</a></td>
+	<td class="decl">(<span class="type">String</span> status)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$StartupNotificationLaunchee-&gt;setError"></a>
+<h3>$StartupNotificationLaunchee-&gt;setError</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$StartupNotificationLaunchee-&gt;setError</strong>(<span class="type">String</span> message, int errorCode = 0)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>message</code> : The error message.</dd>
+			<dd class="param"><code>errorCode</code> : The associated error code.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($message)</dd>
+		</dl><p>
+
+		<div class="desc">Notify the launcher that the launcher failed to initialize.
+After calling this method, you must not call any of the
+methods in this class anymore.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$StartupNotificationLaunchee-&gt;setProgress"></a>
+<h3>$StartupNotificationLaunchee-&gt;setProgress</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$StartupNotificationLaunchee-&gt;setProgress</strong>(<span class="type">float</span> progress)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>progress</code> : The current startup progress, in percentage.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">0 <= $progress <= 100</dd>
+		</dl><p>
+
+		<div class="desc">Notify the launcher about the launchee's startup progress.
+<p>
+
+If you pass 100 to this method, then you have indicated that
+initialization is complete. You must then not call
+any of the methods in this class anymore.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$StartupNotificationLaunchee-&gt;setStatus"></a>
+<h3>$StartupNotificationLaunchee-&gt;setStatus</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$StartupNotificationLaunchee-&gt;setStatus</strong>(<span class="type">String</span> status)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>status</code> : A status message. For example, "starting database".</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($status)</dd>
+		</dl><p>
+
+		<div class="desc">Notify the launcher about the launchee's startup status.
+status.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="StartupNotification::Launchee-&gt;new"></a>
+<h3>StartupNotification::Launchee-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>StartupNotification::Launchee-&gt;new</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Create a new StartupNotification::Launchee object.
+This constructor checks whether the first argument passed to the
+current application is a startup notification parameter. (see
+<a href="Utils--StartupNotification--Launcher.html#$StartupNotificationLauncher->getArg"><code>$StartupNotificationLauncher->getArg()</code></a> for details)
+If it is, that argument is removed from the argument stack,
+so your application won't have to worry about that.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

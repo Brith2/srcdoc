@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>TaskManager - Task manager. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>TaskManager</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>TaskManager - Task manager.</h1>
+
+Please read
+<a href="http://wiki.openkore.com/index.php/AI_subsystem_and_task_framework_overview">
+the AI subsystem and task framework overview
+</a>
+for an overview.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#TaskManager->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#TaskManager->new">TaskManager->new</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$TaskManager->activeMutexesString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$TaskManager->activeMutexesString">$TaskManager->activeMutexesString</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$TaskManager->activeTasksString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$TaskManager->activeTasksString">$TaskManager->activeTasksString</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$TaskManager->add';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$TaskManager->add">$TaskManager->add</a></td>
+	<td class="decl">(<span class="type"><a href="Task.html">Task</a></span> task)</td>
+</tr><tr onclick="location.href='#$TaskManager->checkValidity';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$TaskManager->checkValidity">$TaskManager->checkValidity</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$TaskManager->countTasksByName';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$TaskManager->countTasksByName">$TaskManager->countTasksByName</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr><tr onclick="location.href='#$TaskManager->iterate';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$TaskManager->iterate">$TaskManager->iterate</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$TaskManager->onTaskFinished';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$TaskManager->onTaskFinished">$TaskManager->onTaskFinished</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$Taskmanager->stopAll';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$Taskmanager->stopAll">$Taskmanager->stopAll</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$TaskManager-&gt;activeMutexesString"></a>
+<h3>$TaskManager-&gt;activeMutexesString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$TaskManager-&gt;activeMutexesString</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns a string which describes the currently active mutexes.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$TaskManager-&gt;activeTasksString"></a>
+<h3>$TaskManager-&gt;activeTasksString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$TaskManager-&gt;activeTasksString</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns a string which describes the currently inactive tasks.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$TaskManager-&gt;add"></a>
+<h3>$TaskManager-&gt;add</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$TaskManager-&gt;add</strong>(<span class="type"><a href="Task.html">Task</a></span> task)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$task->getStatus() == Task::INACTIVE</dd>
+		</dl><p>
+
+		<div class="desc">Add a new task to this task manager.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$TaskManager-&gt;checkValidity"></a>
+<h3>$TaskManager-&gt;checkValidity</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$TaskManager-&gt;checkValidity</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether the internal invariants are correct. Dies if that is not the case.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$TaskManager-&gt;countTasksByName"></a>
+<h3>$TaskManager-&gt;countTasksByName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$TaskManager-&gt;countTasksByName</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">result >= 0</dd>
+		</dl><p>
+
+		<div class="desc">Count the number of tasks that have the specified name.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$TaskManager-&gt;iterate"></a>
+<h3>$TaskManager-&gt;iterate</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$TaskManager-&gt;iterate</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Reschedule tasks if necessary, and run one iteration of every active task.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$TaskManager-&gt;onTaskFinished"></a>
+<h3>$TaskManager-&gt;onTaskFinished</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$TaskManager-&gt;onTaskFinished</strong>()
+	</dt>
+	<dd>
+		<div class="desc">This event is triggered when a task is finished, either successfully
+or with an error.
+<p>
+
+The event argument is a hash containing this item:<br>
+<tt>task</tt> - The task that was finished.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Taskmanager-&gt;stopAll"></a>
+<h3>$Taskmanager-&gt;stopAll</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$Taskmanager-&gt;stopAll</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Tell all tasks (whether active or inactive) to stop.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="TaskManager-&gt;new"></a>
+<h3>TaskManager-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>TaskManager-&gt;new</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Create a new TaskManager.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

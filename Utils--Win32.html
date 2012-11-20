@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::Win32 - Windows-specific utility functions. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::Win32</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::Win32 - Windows-specific utility functions.</h1>
+
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Utils::Win32::ShellExecute';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#Utils::Win32::ShellExecute">Utils::Win32::ShellExecute</a></td>
+	<td class="decl">(<span class="type">int</span> windowHandle, String operation, String file)</td>
+</tr><tr onclick="location.href='#Utils::Win32::codepageToUTF8';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#Utils::Win32::codepageToUTF8">Utils::Win32::codepageToUTF8</a></td>
+	<td class="decl">(<span class="type">int</span> codepage, Bytes str)</td>
+</tr><tr onclick="location.href='#Utils::Win32::playSound';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Utils::Win32::playSound">Utils::Win32::playSound</a></td>
+	<td class="decl">(<span class="type">String</span> file)</td>
+</tr><tr onclick="location.href='#Utils::Win32::printConsole';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Utils::Win32::printConsole">Utils::Win32::printConsole</a></td>
+	<td class="decl">(<span class="type">String</span> message)</td>
+</tr><tr onclick="location.href='#Utils::Win32::setConsoleTitle';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Utils::Win32::setConsoleTitle">Utils::Win32::setConsoleTitle</a></td>
+	<td class="decl">(<span class="type">String</span> title)</td>
+</tr><tr onclick="location.href='#Utils::Win32::utf8ToCodepage';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#Utils::Win32::utf8ToCodepage">Utils::Win32::utf8ToCodepage</a></td>
+	<td class="decl">(<span class="type">int</span> codepage, String str)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Utils::Win32::ShellExecute"></a>
+<h3>Utils::Win32::ShellExecute</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>Utils::Win32::ShellExecute</strong>(<span class="type">int</span> windowHandle, String operation, String file)
+	</dt>
+	<dd>
+		<div class="desc">Open a file.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Utils::Win32::codepageToUTF8"></a>
+<h3>Utils::Win32::codepageToUTF8</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>Utils::Win32::codepageToUTF8</strong>(<span class="type">int</span> codepage, Bytes str)
+	</dt>
+	<dd>
+		<div class="desc">Convert a multibyte string, encoded in the specified codepage, into a UTF-8 string.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Utils::Win32::playSound"></a>
+<h3>Utils::Win32::playSound</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Utils::Win32::playSound</strong>(<span class="type">String</span> file)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($file)</dd>
+		</dl><p>
+
+		<div class="desc">Play a .wav file.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Utils::Win32::printConsole"></a>
+<h3>Utils::Win32::printConsole</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Utils::Win32::printConsole</strong>(<span class="type">String</span> message)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($message)</dd>
+		</dl><p>
+
+		<div class="desc">Print a message to the console. This function supports Unicode.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Utils::Win32::setConsoleTitle"></a>
+<h3>Utils::Win32::setConsoleTitle</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Utils::Win32::setConsoleTitle</strong>(<span class="type">String</span> title)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($title)</dd>
+		</dl><p>
+
+		<div class="desc">Sets the current console's title. This function supports Unicode.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Utils::Win32::utf8ToCodepage"></a>
+<h3>Utils::Win32::utf8ToCodepage</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>Utils::Win32::utf8ToCodepage</strong>(<span class="type">int</span> codepage, String str)
+	</dt>
+	<dd>
+		<div class="desc">Convert a UTF-8 string into a multibyte string, encoded in the specified codepage.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Misc - Miscellaneous functions : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Misc</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Misc - Miscellaneous functions</h1>
+
+This module contains functions that do not belong in any other modules.
+The difference between <a href="Misc.html">Misc.pm</a> and <a href="Utils.html">Utils.pm</a> is that <a href="Misc.html">Misc.pm</a> can have
+dependencies on other Kore modules.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Configuration modifiers</th></tr><tr onclick="location.href='#configModify';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#configModify">configModify</a></td>
+	<td class="decl">(<span class="type">String</span> key, String value, ...)</td>
+</tr><tr onclick="location.href='#saveConfigFile';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#saveConfigFile">saveConfigFile</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#visualDump';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#visualDump">visualDump</a></td>
+	<td class="decl">(<span class="type">data</span> [, label])</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Field math</th></tr><tr onclick="location.href='#calcRectArea';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#calcRectArea">calcRectArea</a></td>
+	<td class="decl">(<span class="type">$x,</span> $y, $radius)</td>
+</tr><tr onclick="location.href='#calcRectArea2';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#calcRectArea2">calcRectArea2</a></td>
+	<td class="decl">(<span class="type">$x,</span> $y, $radius, $minRange)</td>
+</tr><tr onclick="location.href='#checkLineSnipable';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#checkLineSnipable">checkLineSnipable</a></td>
+	<td class="decl">(<span class="type">from,</span> to)</td>
+</tr><tr onclick="location.href='#checkLineWalkable';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#checkLineWalkable">checkLineWalkable</a></td>
+	<td class="decl">(<span class="type">from,</span> to, [min_obstacle_size = 5])</td>
+</tr><tr onclick="location.href='#closestWalkableSpot';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#closestWalkableSpot">closestWalkableSpot</a></td>
+	<td class="decl">(<span class="type">r_field,</span> pos)</td>
+</tr><tr onclick="location.href='#objectInsideSpell';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#objectInsideSpell">objectInsideSpell</a></td>
+	<td class="decl">(<span class="type">object,</span> [ignore_party_members = 1])</td>
+</tr><tr onclick="location.href='#objectIsMovingTowards';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#objectIsMovingTowards">objectIsMovingTowards</a></td>
+	<td class="decl">(<span class="type">object1,</span> object2, [max_variance])</td>
+</tr><tr onclick="location.href='#objectIsMovingTowardsPlayer';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#objectIsMovingTowardsPlayer">objectIsMovingTowardsPlayer</a></td>
+	<td class="decl">(<span class="type">object,</span> [ignore_party_members = 1])</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Operating system specific</th></tr><tr onclick="location.href='#launchURL';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#launchURL">launchURL</a></td>
+	<td class="decl">(url)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Other functions</th></tr><tr onclick="location.href='#attack_string';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#attack_string">attack_string</a></td>
+	<td class="decl">(<span class="type"><a href="Actor.html">Actor</a></span> source, Actor target, int damage, int delay)</td>
+</tr><tr onclick="location.href='#avoidList_near';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#avoidList_near">avoidList_near</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#center';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#center">center</a></td>
+	<td class="decl">(<span class="type">string,</span> width, [fill])</td>
+</tr><tr onclick="location.href='#checkAllowedMap';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#checkAllowedMap">checkAllowedMap</a></td>
+	<td class="decl">($map)</td>
+</tr><tr onclick="location.href='#checkFollowMode';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#checkFollowMode">checkFollowMode</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#checkMonsterCleanness';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#checkMonsterCleanness">checkMonsterCleanness</a></td>
+	<td class="decl">(<span class="type">Bytes</span> ID)</td>
+</tr><tr onclick="location.href='#createCharacter';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#createCharacter">createCharacter</a></td>
+	<td class="decl">(<span class="type">int</span> slot, String name, int [str,agi,vit,int,dex,luk] = 5)</td>
+</tr><tr onclick="location.href='#deal';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#deal">deal</a></td>
+	<td class="decl">(<span class="type"><a href="Actor--Player.html">Actor::Player</a></span> player)</td>
+</tr><tr onclick="location.href='#dealAddItem';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#dealAddItem">dealAddItem</a></td>
+	<td class="decl">(<span class="type">$item,</span> $amount)</td>
+</tr><tr onclick="location.href='#drop';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#drop">drop</a></td>
+	<td class="decl">(<span class="type">itemIndex,</span> amount)</td>
+</tr><tr onclick="location.href='#findCartItem';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#findCartItem">findCartItem</a></td>
+	<td class="decl">(<span class="type">$name</span> [, $found [, $nounid]])</td>
+</tr><tr onclick="location.href='#findCartItemInit';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#findCartItemInit">findCartItemInit</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#getBestTarget';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#getBestTarget">getBestTarget</a></td>
+	<td class="decl">(<span class="type">possibleTargets,</span> nonLOSNotAllowed)</td>
+</tr><tr onclick="location.href='#getNPCName';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#getNPCName">getNPCName</a></td>
+	<td class="decl">(ID)</td>
+</tr><tr onclick="location.href='#getPlayerNameFromCache';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#getPlayerNameFromCache">getPlayerNameFromCache</a></td>
+	<td class="decl">(player)</td>
+</tr><tr onclick="location.href='#headgearName';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#headgearName">headgearName</a></td>
+	<td class="decl">(lookID)</td>
+</tr><tr onclick="location.href='#inInventory';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#inInventory">inInventory</a></td>
+	<td class="decl">(<span class="type">$itemName,</span> $quantity = 1)</td>
+</tr><tr onclick="location.href='#inLockMap';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#inLockMap">inLockMap</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#initUserSeed';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#initUserSeed">initUserSeed</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#inventoryItemRemoved';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#inventoryItemRemoved">inventoryItemRemoved</a></td>
+	<td class="decl">(<span class="type">$invIndex,</span> $amount)</td>
+</tr><tr onclick="location.href='#isSafe';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#isSafe">isSafe</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#isSafeActorQuery';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#isSafeActorQuery">isSafeActorQuery</a></td>
+	<td class="decl">(ID)</td>
+</tr><tr onclick="location.href='#itemName';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#itemName">itemName</a></td>
+	<td class="decl">($item)</td>
+</tr><tr onclick="location.href='#items_control';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#items_control">items_control</a></td>
+	<td class="decl">($name)</td>
+</tr><tr onclick="location.href='#look';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#look">look</a></td>
+	<td class="decl">(<span class="type">bodydir,</span> [headdir])</td>
+</tr><tr onclick="location.href='#lookAtPosition';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#lookAtPosition">lookAtPosition</a></td>
+	<td class="decl">(<span class="type">pos,</span> [headdir])</td>
+</tr><tr onclick="location.href='#makeShop';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#makeShop">makeShop</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#manualMove';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#manualMove">manualMove</a></td>
+	<td class="decl">(<span class="type">dx,</span> dy)</td>
+</tr><tr onclick="location.href='#meetingPosition';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#meetingPosition">meetingPosition</a></td>
+	<td class="decl">(<span class="type">ID,</span> attackMaxDistance)</td>
+</tr><tr onclick="location.href='#mon_control';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#mon_control">mon_control</a></td>
+	<td class="decl">($name)</td>
+</tr><tr onclick="location.href='#pickupitems';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#pickupitems">pickupitems</a></td>
+	<td class="decl">($name)</td>
+</tr><tr onclick="location.href='#printItemDesc';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#printItemDesc">printItemDesc</a></td>
+	<td class="decl">(itemID)</td>
+</tr><tr onclick="location.href='#sendMessage';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#sendMessage">sendMessage</a></td>
+	<td class="decl">(<span class="type">String</span> type, String msg, String user)</td>
+</tr><tr onclick="location.href='#setStatus';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#setStatus">setStatus</a></td>
+	<td class="decl">(<span class="type"><a href="Actor.html">Actor</a></span> actor, opt1, opt2, option)</td>
+</tr><tr onclick="location.href='#storageGet';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#storageGet">storageGet</a></td>
+	<td class="decl">(<span class="type">items,</span> max)</td>
+</tr><tr onclick="location.href='#stripLanguageCode';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#stripLanguageCode">stripLanguageCode</a></td>
+	<td class="decl">(<span class="type">String*</span> msg)</td>
+</tr><tr onclick="location.href='#switchConf';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#switchConf">switchConf</a></td>
+	<td class="decl">(<span class="type">String</span> filename)</td>
+</tr><tr onclick="location.href='#top10Listing';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#top10Listing">top10Listing</a></td>
+	<td class="decl">(args)</td>
+</tr><tr onclick="location.href='#updatePlayerNameCache';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#updatePlayerNameCache">updatePlayerNameCache</a></td>
+	<td class="decl">(player)</td>
+</tr><tr onclick="location.href='#useTeleport';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#useTeleport">useTeleport</a></td>
+	<td class="decl">(level)</td>
+</tr><tr onclick="location.href='#whenGroundStatus';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#whenGroundStatus">whenGroundStatus</a></td>
+	<td class="decl">(<span class="type">target,</span> statuses, mine)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="attack_string"></a>
+<h3>attack_string</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>attack_string</strong>(<span class="type"><a href="Actor.html">Actor</a></span> source, Actor target, int damage, int delay)
+	</dt>
+	<dd>
+		<div class="desc">Generates a proper message string for when actor <code>$source</code> attacks actor <code>$target</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="avoidList_near"></a>
+<h3>avoidList_near</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>avoidList_near</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if someone was detected, 0 if no one was detected.</dd>
+		</dl><p>
+
+		<div class="desc">Checks if any of the surrounding players are on the avoid.txt avoid list.
+Disconnects / teleports if a player is detected.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="calcRectArea"></a>
+<h3>calcRectArea</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>calcRectArea</strong>(<span class="type">$x,</span> $y, $radius)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an array with position hashes. Each has contains an x and a y key.</dd>
+		</dl><p>
+
+		<div class="desc">Creates a rectangle with center ($x,$y) and radius <code>$radius</code>,
+and returns a list of positions of the border of the rectangle.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="calcRectArea2"></a>
+<h3>calcRectArea2</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>calcRectArea2</strong>(<span class="type">$x,</span> $y, $radius, $minRange)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an array with position hashes. Each has contains an x and a y key.</dd>
+		</dl><p>
+
+		<div class="desc">Creates a rectangle with center ($x,$y) and radius <code>$radius</code>,
+and returns a list of positions inside the rectangle that are
+not closer than <code>$minRange</code> to the center.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="center"></a>
+<h3>center</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>center</strong>(<span class="type">string,</span> width, [fill])
+	</dt>
+	<dd>
+		<div class="desc">This function will center <code>$string</code> within a field <code>$width</code> characters wide,
+using <code>$fill</code> characters for padding on either end of the string for
+centering. If <code>$fill</code> is not specified, a space will be used.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="checkAllowedMap"></a>
+<h3>checkAllowedMap</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>checkAllowedMap</strong>($map)
+	</dt>
+	<dd>
+		<div class="desc">Checks whether <code>$map</code> is in <code>$config{allowedMaps}</code>.
+Disconnects if it is not, and <code>$config{allowedMaps_reaction}</code> != 0.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="checkFollowMode"></a>
+<h3>checkFollowMode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>checkFollowMode</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if in follow mode, 0 if not.</dd>
+		</dl><p>
+
+		<div class="desc">Check whether we're current in follow mode.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="checkLineSnipable"></a>
+<h3>checkLineSnipable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>checkLineSnipable</strong>(<span class="type">from,</span> to)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>from, to</code> : references to position hashes.</dd>
+		</dl><p>
+
+		<div class="desc">Check whether you can snipe a target standing at <code>$to</code>,
+from the position <code>$from</code>, without being blocked by any
+obstacles.
+TODO: move to Field?</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="checkLineWalkable"></a>
+<h3>checkLineWalkable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>checkLineWalkable</strong>(<span class="type">from,</span> to, [min_obstacle_size = 5])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>from, to</code> : references to position hashes.</dd>
+		</dl><p>
+
+		<div class="desc">Check whether you can walk from <code>$from</code> to <code>$to</code> in an (almost)
+straight line, without obstacles that are too large.
+Obstacles are considered too large, if they are at least
+the size of a rectangle with "radius" <code>$min_obstacle_size</code>.
+TODO: move to Field?</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="checkMonsterCleanness"></a>
+<h3>checkMonsterCleanness</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>checkMonsterCleanness</strong>(<span class="type">Bytes</span> ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : the monster's ID.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$ID is a valid monster ID.</dd>
+		</dl><p>
+
+		<div class="desc">Checks whether a monster is "clean" (not being attacked by anyone).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="closestWalkableSpot"></a>
+<h3>closestWalkableSpot</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>closestWalkableSpot</strong>(<span class="type">r_field,</span> pos)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_field</code> : a reference to a field hash.</dd>
+			<dd class="param"><code>pos</code> : reference to a position hash (which contains 'x' and 'y' keys).</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if %pos has been modified, 0 of not.</dd>
+		</dl><p>
+
+		<div class="desc">If the position specified in <code>$pos</code> is walkable, this function will do nothing.
+If it's not walkable, this function will find the closest position that is walkable (up to N blocks away),
+and modify the x and y values in <code>$pos</code>.
+TODO: move to Field?</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="configModify"></a>
+<h3>configModify</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>configModify</strong>(<span class="type">String</span> key, String value, ...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>key</code> : a key name.</dd>
+			<dd class="param"><code>value</code> : the new value.</dd>
+		</dl><p>
+
+		<div class="desc">Changes the value of the configuration option <code>$key</code> to <code>$value</code>.
+Both <code>%config</code> and config.txt will be updated.
+<p>
+
+You may also call <a href="Misc.html#configModify"><code>configModify()</code></a> with additional optional options:
+<ul>
+<li>autoCreate (boolean): Whether the configuration option <code>$key</code>
+                        should be created if it doesn't already exist.
+                        The default is true.</li>
+<li>silent (boolean): By default, output will be printed, notifying the user
+                    that a config option has been changed. Setting this to
+                    true will surpress that output.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="createCharacter"></a>
+<h3>createCharacter</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>createCharacter</strong>(<span class="type">int</span> slot, String name, int [str,agi,vit,int,dex,luk] = 5)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>slot</code> : The slot in which to create the character (1st slot is 0).</dd>
+			<dd class="param"><code>name</code> : The name of the character to create.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">Whether the parameters are correct. Only a character creation command         will be sent to the server if all parameters are correct.</dd>
+		</dl><p>
+
+		<div class="desc">Create a new character. You must be currently connected to the character login server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="deal"></a>
+<h3>deal</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>deal</strong>(<span class="type"><a href="Actor--Player.html">Actor::Player</a></span> player)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($player)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">exists <code>$outgoingDeal{ID}</code></dd>
+		</dl><p>
+
+		<div class="desc">Sends <code>$player</code> a deal request.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="dealAddItem"></a>
+<h3>dealAddItem</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>dealAddItem</strong>(<span class="type">$item,</span> $amount)
+	</dt>
+	<dd>
+		<div class="desc">Adds <code>$amount</code> of <code>$item</code> to the current deal.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="drop"></a>
+<h3>drop</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>drop</strong>(<span class="type">itemIndex,</span> amount)
+	</dt>
+	<dd>
+		<div class="desc">Drops <code>$amount</code> of the item specified by <code>$itemIndex</code>. If <code>$amount</code> is not specified or too large, it defaults
+to the number of items you have.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="findCartItem"></a>
+<h3>findCartItem</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>findCartItem</strong>(<span class="type">$name</span> [, $found [, $nounid]])
+	</dt>
+	<dd>
+		<div class="desc">Returns the integer index into <code>$cart{inventory}</code> for the cart item matching
+the given name, or undef.
+<p>
+
+If an item is found, the "found" value for that item is set to 1. Items
+cannot be found again until you reset the "found" flags using
+<a href="Misc.html#findCartItemInit"><code>findCartItemInit()</code></a>, if <code>$found</code> is true.
+<p>
+
+Unidentified items will not be returned if <code>$nounid</code> is true.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="findCartItemInit"></a>
+<h3>findCartItemInit</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>findCartItemInit</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Resets all "found" flags in the cart to 0.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="getBestTarget"></a>
+<h3>getBestTarget</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>getBestTarget</strong>(<span class="type">possibleTargets,</span> nonLOSNotAllowed)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>possibleTargets</code> : reference to an array of monsters' IDs</dd>
+			<dd class="param"><code>nonLOSNotAllowed</code> : if set, non-LOS monsters (and monsters that aren't in attackMaxDistance) aren't checked up</dd>
+		</dl><p>
+
+		<div class="desc">Returns ID of the best target</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="getNPCName"></a>
+<h3>getNPCName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>getNPCName</strong>(ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : the packed ID of the NPC</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the name of the NPC</dd>
+		</dl><p>
+
+		<div class="desc">Find the name of an NPC: could be NPC, monster, or unknown.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="getPlayerNameFromCache"></a>
+<h3>getPlayerNameFromCache</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>getPlayerNameFromCache</strong>(player)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>player</code> : an Actor::Player object.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 on success, 0 if the player isn't in cache.</dd>
+		</dl><p>
+
+		<div class="desc">Retrieve a player's name from cache and modify the player object.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="headgearName"></a>
+<h3>headgearName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>headgearName</strong>(lookID)
+	</dt>
+	<dd>
+		<div class="desc">Resolves a lookID of a headgear into a human readable string.
+<p>
+
+A lookID corresponds to a line number in tables/headgears.txt.
+The number on that line is the itemID for the headgear.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="inInventory"></a>
+<h3>inInventory</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>inInventory</strong>(<span class="type">$itemName,</span> $quantity = 1)
+	</dt>
+	<dd>
+		<div class="desc">Returns the item's index (can be 0!) if you have at least <code>$quantity</code> units of the item
+specified by <code>$itemName</code> in your inventory.
+Returns nothing otherwise.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="inLockMap"></a>
+<h3>inLockMap</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>inLockMap</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns 1 (true) if character is located in its lockmap.
+Returns 0 (false) if character is not located in lockmap.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="initUserSeed"></a>
+<h3>initUserSeed</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>initUserSeed</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Generate a unique seed for the current user and save it to
+a file, or load the seed from that file if it exists.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="inventoryItemRemoved"></a>
+<h3>inventoryItemRemoved</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>inventoryItemRemoved</strong>(<span class="type">$invIndex,</span> $amount)
+	</dt>
+	<dd>
+		<div class="desc">Removes <code>$amount</code> of <code>$invIndex</code> from <code>$char</code>->{inventory}.
+Also prints a message saying the item was removed (unless it is an arrow you
+fired).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="isSafe"></a>
+<h3>isSafe</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>isSafe</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns 1 if there is a player nearby (except party and homunculus) or 0 if not</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="isSafeActorQuery"></a>
+<h3>isSafeActorQuery</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>isSafeActorQuery</strong>(ID)
+	</dt>
+	<dd>
+		<div class="desc">Returns 1 if we are safe to query actor name by given actor ID.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="itemName"></a>
+<h3>itemName</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>itemName</strong>($item)
+	</dt>
+	<dd>
+		<div class="desc">Resolve the name of an item. <code>$item</code> should be a hash with these keys:
+nameID  => integer index into <code>%items_lut</code>
+cards   => 8-byte binary data as sent by server
+upgrade => integer upgrade level</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="items_control"></a>
+<h3>items_control</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>items_control</strong>($name)
+	</dt>
+	<dd>
+		<div class="desc">Returns the items_control.txt settings for item name <code>$name</code>.
+If <code>$name</code> has no specific settings, use 'all'.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="launchURL"></a>
+<h3>launchURL</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>launchURL</strong>(url)
+	</dt>
+	<dd>
+		<div class="desc">Open <code>$url</code> in the operating system's preferred web browser.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="look"></a>
+<h3>look</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>look</strong>(<span class="type">bodydir,</span> [headdir])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>bodydir</code> : a number 0-7. See directions.txt.</dd>
+			<dd class="param"><code>headdir</code> : 0 = look directly, 1 = look right, 2 = look left</dd>
+		</dl><p>
+
+		<div class="desc">Look in the given directions.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="lookAtPosition"></a>
+<h3>lookAtPosition</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>lookAtPosition</strong>(<span class="type">pos,</span> [headdir])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>pos</code> : a reference to a coordinate hash.</dd>
+			<dd class="param"><code>headdir</code> : 0 = face directly, 1 = look right, 2 = look left</dd>
+		</dl><p>
+
+		<div class="desc">Turn face and body direction to position <code>%pos</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="makeShop"></a>
+<h3>makeShop</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>makeShop</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns an array of items to sell. The array can be no larger than the
+maximum number of items that the character can vend. Each item is a hash
+reference containing the keys "index", "amount" and "price".
+<p>
+
+If there is a problem with opening a shop, an error message will be printed
+and nothing will be returned.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="manualMove"></a>
+<h3>manualMove</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>manualMove</strong>(<span class="type">dx,</span> dy)
+	</dt>
+	<dd>
+		<div class="desc">Moves the character offset from its current position.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="meetingPosition"></a>
+<h3>meetingPosition</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>meetingPosition</strong>(<span class="type">ID,</span> attackMaxDistance)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : ID of the character to meet.</dd>
+			<dd class="param"><code>attackMaxDistance</code> : attack distance based on attack method.</dd>
+		</dl><p>
+
+		<div class="desc">Returns: the position where the character should go to meet a moving monster.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="mon_control"></a>
+<h3>mon_control</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>mon_control</strong>($name)
+	</dt>
+	<dd>
+		<div class="desc">Returns the mon_control.txt settings for monster name <code>$name</code>.
+If <code>$name</code> has no specific settings, use 'all'.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="objectInsideSpell"></a>
+<h3>objectInsideSpell</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>objectInsideSpell</strong>(<span class="type">object,</span> [ignore_party_members = 1])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>object</code> : reference to a player or monster hash.</dd>
+		</dl><p>
+
+		<div class="desc">Checks whether an object is inside someone else's spell area.
+(Traps are also "area spells").</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="objectIsMovingTowards"></a>
+<h3>objectIsMovingTowards</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>objectIsMovingTowards</strong>(<span class="type">object1,</span> object2, [max_variance])
+	</dt>
+	<dd>
+		<div class="desc">Check whether <code>$object1</code> is moving towards <code>$object2</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="objectIsMovingTowardsPlayer"></a>
+<h3>objectIsMovingTowardsPlayer</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>objectIsMovingTowardsPlayer</strong>(<span class="type">object,</span> [ignore_party_members = 1])
+	</dt>
+	<dd>
+		<div class="desc">Check whether an object is moving towards a player.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="pickupitems"></a>
+<h3>pickupitems</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>pickupitems</strong>($name)
+	</dt>
+	<dd>
+		<div class="desc">Returns the pickupitems.txt settings for item name <code>$name</code>.
+If <code>$name</code> has no specific settings, use 'all'.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="printItemDesc"></a>
+<h3>printItemDesc</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>printItemDesc</strong>(itemID)
+	</dt>
+	<dd>
+		<div class="desc">Print the description for <code>$itemID</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="saveConfigFile"></a>
+<h3>saveConfigFile</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>saveConfigFile</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Writes <code>%config</code> to config.txt.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="sendMessage"></a>
+<h3>sendMessage</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>sendMessage</strong>(<span class="type">String</span> type, String msg, String user)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>type</code> : Specifies what kind of message this is. "c" for public chat, "g" for guild chat,      "p" for party chat, "pm" for private message, "k" for messages that only the RO      client will see (in X-Kore mode.)</dd>
+			<dd class="param"><code>msg</code> : The message to send.</dd>
+			<dd class="param"><code>user</code> : </dd>
+		</dl><p>
+
+		<div class="desc">Send a chat message to a user.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="setStatus"></a>
+<h3>setStatus</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>setStatus</strong>(<span class="type"><a href="Actor.html">Actor</a></span> actor, opt1, opt2, option)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>opt1</code> : the state information of the actor.</dd>
+			<dd class="param"><code>opt2</code> : the ailment information of the actor.</dd>
+			<dd class="param"><code>option</code> : the "look" information of the actor.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">Whether the actor should be removed from the actor list.</dd>
+		</dl><p>
+
+		<div class="desc">Sets the state, ailment, and "look" statuses of the actor.
+Does not include skillsstatus.txt items.
+TODO: move to Actor?</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="storageGet"></a>
+<h3>storageGet</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>storageGet</strong>(<span class="type">items,</span> max)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>items</code> : reference to an array of storage item hashes.</dd>
+			<dd class="param"><code>max</code> : the maximum amount to get, for each item, or 0 for unlimited.</dd>
+		</dl><p>
+
+		<div class="desc">Get one or more items from storage.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># Get items $a and $b from storage.</span>
+<span class="hl kwd">storageGet</span><span class="hl sym">([</span><span class="hl kwb">$a</span><span class="hl sym">,</span> <span class="hl kwb">$b</span><span class="hl sym">]);</span>
+<span class="hl slc"># Get items $a and $b from storage, but at most 30 of each item.</span>
+<span class="hl kwd">storageGet</span><span class="hl sym">([</span><span class="hl kwb">$a</span><span class="hl sym">,</span> <span class="hl kwb">$b</span><span class="hl sym">],</span> <span class="hl num">30</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="stripLanguageCode"></a>
+<h3>stripLanguageCode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>stripLanguageCode</strong>(<span class="type">String*</span> msg)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>msg</code> : a chat message, as sent by the RO server.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">whether the language code was stripped.</dd>
+		</dl><p>
+
+		<div class="desc">Strip the language code character from a chat message.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="switchConf"></a>
+<h3>switchConf</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>switchConf</strong>(<span class="type">String</span> filename)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>filename</code> : a configuration file.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 on success, 0 if $filename does not exist.</dd>
+		</dl><p>
+
+		<div class="desc">Switch to another configuration file.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="top10Listing"></a>
+<h3>top10Listing</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>top10Listing</strong>(args)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>args</code> : a 282 bytes packet representing 10 names followed by 10 ranks</dd>
+		</dl><p>
+
+		<div class="desc">Returns a formatted list of [# ], Name and points</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="updatePlayerNameCache"></a>
+<h3>updatePlayerNameCache</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>updatePlayerNameCache</strong>(player)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>player</code> : a player actor object.</dd>
+		</dl><p>
+
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="useTeleport"></a>
+<h3>useTeleport</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>useTeleport</strong>(level)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>level</code> : 1 to teleport to a random spot, 2 to respawn.</dd>
+		</dl><p>
+
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="visualDump"></a>
+<h3>visualDump</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>visualDump</strong>(<span class="type">data</span> [, label])
+	</dt>
+	<dd>
+		<div class="desc">Show the bytes in <code>$data</code> on screen as hexadecimal.
+Displays the label if provided.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="whenGroundStatus"></a>
+<h3>whenGroundStatus</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>whenGroundStatus</strong>(<span class="type">target,</span> statuses, mine)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>target</code> : coordinates hash</dd>
+			<dd class="param"><code>statuses</code> : a comma-separated list of ground effects e.g. Safety Wall,Pneuma</dd>
+			<dd class="param"><code>mine</code> : if true, only consider ground effects that originated from me</dd>
+		</dl><p>
+
+		<div class="desc">Returns 1 if <code>$target</code> has one of the ground effects specified by <code>$statuses</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

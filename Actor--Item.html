@@ -1,0 +1,662 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Actor::Item - Inventory item object : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Actor::Item</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Actor::Item - Inventory item object</h1>
+
+All members in <code>$char</code>->inventory are of the Actor::Item class.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class Methods</th></tr><tr onclick="location.href='#Actor::Item::bulkEquip';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Actor::Item::bulkEquip">Actor::Item::bulkEquip</a></td>
+	<td class="decl">(list)</td>
+</tr><tr onclick="location.href='#Actor::Item::get';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Actor::Item::get">Actor::Item::get</a></td>
+	<td class="decl">(<span class="type">name,</span> skipIndex, notEquipped)</td>
+</tr><tr onclick="location.href='#Actor::Item::getMultiple';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Actor::Item::getMultiple">Actor::Item::getMultiple</a></td>
+	<td class="decl">(searchPattern)</td>
+</tr><tr onclick="location.href='#Actor::Item::queueEquip';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Actor::Item::queueEquip">Actor::Item::queueEquip</a></td>
+	<td class="decl">(count)</td>
+</tr><tr onclick="location.href='#Actor::Item::scanConfigAndCheck';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Actor::Item::scanConfigAndCheck">Actor::Item::scanConfigAndCheck</a></td>
+	<td class="decl">(prefix)</td>
+</tr><tr onclick="location.href='#Actor::Item::scanConfigAndEquip';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Actor::Item::scanConfigAndEquip">Actor::Item::scanConfigAndEquip</a></td>
+	<td class="decl">(prefix)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Constructor</th></tr><tr onclick="location.href='#Actor::Item->new';">
+	<td class="return-type"><a href="Actor--Item.html">Actor::Item</a></td>
+	<td class="func"><a href="#Actor::Item->new">Actor::Item->new</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Public Members</th></tr><tr onclick="location.href='#$ActorItem->{amount}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ActorItem->{amount}">$ActorItem->{amount}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{equipped}';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ActorItem->{equipped}">$ActorItem->{equipped}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{identified}';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ActorItem->{identified}">$ActorItem->{identified}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{index}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ActorItem->{index}">$ActorItem->{index}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{invIndex}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ActorItem->{invIndex}">$ActorItem->{invIndex}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{nameID}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ActorItem->{nameID}">$ActorItem->{nameID}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{name}';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$ActorItem->{name}">$ActorItem->{name}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{takenBy}';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$ActorItem->{takenBy}">$ActorItem->{takenBy}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$ActorItem->{type}';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ActorItem->{type}">$ActorItem->{type}</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Public Methods</th></tr><tr onclick="location.href='#$ActorItem->equip';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$ActorItem->equip">$ActorItem->equip</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ActorItem->equipInSlot';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$ActorItem->equipInSlot">$ActorItem->equipInSlot</a></td>
+	<td class="decl">(<span class="type">slot</span> dontqueue)</td>
+</tr><tr onclick="location.href='#$ActorItem->equippable';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ActorItem->equippable">$ActorItem->equippable</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ActorItem->equippedInSlot';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$ActorItem->equippedInSlot">$ActorItem->equippedInSlot</a></td>
+	<td class="decl">(slot)</td>
+</tr><tr onclick="location.href='#$ActorItem->mergeable';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ActorItem->mergeable">$ActorItem->mergeable</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ActorItem->nameString';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$ActorItem->nameString">$ActorItem->nameString</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ActorItem->unequip';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$ActorItem->unequip">$ActorItem->unequip</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ActorItem->unequipFromSlot';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$ActorItem->unequipFromSlot">$ActorItem->unequipFromSlot</a></td>
+	<td class="decl">(<span class="type">slot</span> dontqueue)</td>
+</tr><tr onclick="location.href='#$ActorItem->usable';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ActorItem->usable">$ActorItem->usable</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ActorItem->use';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$ActorItem->use">$ActorItem->use</a></td>
+	<td class="decl">(<span class="type">[Bytes</span> target])</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$ActorItem-&gt;equip"></a>
+<h3>$ActorItem-&gt;equip</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$ActorItem-&gt;equip</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Will simply equip the item. If you want more control, use <code>$item->equipInSlot()</code></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;equipInSlot"></a>
+<h3>$ActorItem-&gt;equipInSlot</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$ActorItem-&gt;equipInSlot</strong>(<span class="type">slot</span> dontqueue)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>slot</code> : where item should be equipped.</dd>
+		</dl><p>
+
+		<div class="desc">Equips item in <code>$slot</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;equippable"></a>
+<h3>$ActorItem-&gt;equippable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ActorItem-&gt;equippable</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns true if item can be equipped.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;equippedInSlot"></a>
+<h3>$ActorItem-&gt;equippedInSlot</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$ActorItem-&gt;equippedInSlot</strong>(slot)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>slot</code> : slot to check</dd>
+			<dd class="param"><code>Returns</code> : wheter item is equipped in <code>$slot</code></dd>
+		</dl><p>
+
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;mergeable"></a>
+<h3>$ActorItem-&gt;mergeable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ActorItem-&gt;mergeable</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns true if item can be merged into another item.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;nameString"></a>
+<h3>$ActorItem-&gt;nameString</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$ActorItem-&gt;nameString</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>Returns</code> : the item name, in the form of "My Item [number of slots]".</dd>
+		</dl><p>
+
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;unequip"></a>
+<h3>$ActorItem-&gt;unequip</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$ActorItem-&gt;unequip</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Unequips the item.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;unequipFromSlot"></a>
+<h3>$ActorItem-&gt;unequipFromSlot</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$ActorItem-&gt;unequipFromSlot</strong>(<span class="type">slot</span> dontqueue)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>slot</code> : where item should be unequipped.</dd>
+		</dl><p>
+
+		<div class="desc">Unequips item from <code>$slot</code>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;usable"></a>
+<h3>$ActorItem-&gt;usable</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ActorItem-&gt;usable</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Returns true if item can be used.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;use"></a>
+<h3>$ActorItem-&gt;use</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$ActorItem-&gt;use</strong>(<span class="type">[Bytes</span> target])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>target</code> : ID of the target, if not set then <code>$accountID</code> will be used.</dd>
+		</dl><p>
+
+		<div class="desc">Uses this item on yourself or on a target.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{amount}"></a>
+<h3>$ActorItem-&gt;{amount}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ActorItem-&gt;{amount}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">value >= 0</dd>
+		</dl><p>
+
+		<div class="desc">The amount of this item in the inventory.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{equipped}"></a>
+<h3>$ActorItem-&gt;{equipped}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ActorItem-&gt;{equipped}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Whether this item is currently equipped.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{identified}"></a>
+<h3>$ActorItem-&gt;{identified}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ActorItem-&gt;{identified}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Whether this item is identified.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{index}"></a>
+<h3>$ActorItem-&gt;{index}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ActorItem-&gt;{index}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">value >= 0</dd>
+		</dl><p>
+
+		<div class="desc">The index of this item in the inventory, as stored on the RO server. It is usually
+used when sending item-related commands (such as 'use this item' or 'drop this item')
+to the RO server.
+This index does not necessarily equals the inventory index, as stored by OpenKore.
+<p>
+
+See also: <code>$ActorItem</code>->{invIndex}</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{invIndex}"></a>
+<h3>$ActorItem-&gt;{invIndex}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ActorItem-&gt;{invIndex}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The index of this item in the inventory data structure, as stored by OpenKore.
+This index does not necessarily correspond with the index as stored by the RO server.
+<p>
+
+See also: <code>$ActorItem</code>->{index}</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{nameID}"></a>
+<h3>$ActorItem-&gt;{nameID}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ActorItem-&gt;{nameID}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">value >= 0</dd>
+		</dl><p>
+
+		<div class="desc">The ID of this item. This ID is unique for each item class.
+Use this in combination with <code>%items_lut</code> to retrieve the item name.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{name}"></a>
+<h3>$ActorItem-&gt;{name}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$ActorItem-&gt;{name}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">defined(value)</dd>
+		</dl><p>
+
+		<div class="desc">The name for this item.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{takenBy}"></a>
+<h3>$ActorItem-&gt;{takenBy}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$ActorItem-&gt;{takenBy}</strong>
+	</dt>
+	<dd>
+		<div class="desc">The ID of the actor who has taken this item. This field is set when an
+actor picks up an item.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorItem-&gt;{type}"></a>
+<h3>$ActorItem-&gt;{type}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ActorItem-&gt;{type}</strong>
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="invariant"><strong>Invariant:</strong></dt>
+			<dd class="invariant">value >= 0</dd>
+		</dl><p>
+
+		<div class="desc">The item type (usable, unusable, armor, etc.), as defined by itemtypes.txt.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::Item-&gt;new"></a>
+<h3>Actor::Item-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Actor--Item.html">Actor::Item</a></span> <strong>Actor::Item-&gt;new</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Creates a new Actor::Item object.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::Item::bulkEquip"></a>
+<h3>Actor::Item::bulkEquip</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Actor::Item::bulkEquip</strong>(list)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>list</code> : a hash containing slot => item, where slot is "leftHand" or "rightHand", and item is an item identifier as recognized by <a href="Actor--Item.html#Actor::Item::get"><code>Actor::Item::get()</code></a>.</dd>
+		</dl><p>
+
+		<div class="desc">Equip many items in one batch.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwb">%list</span> <span class="hl sym">= (</span>leftHand <span class="hl sym">=&gt;</span> <span class="hl str">'Katar'</span><span class="hl sym">,</span> rightHand <span class="hl sym">=&gt;</span> <span class="hl num">10</span><span class="hl sym">);</span>
+Actor<span class="hl sym">::</span>Item<span class="hl sym">::</span><span class="hl kwd">bulkEquip</span><span class="hl sym">(</span>\<span class="hl kwb">%list</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::Item::get"></a>
+<h3>Actor::Item::get</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Actor::Item::get</strong>(<span class="type">name,</span> skipIndex, notEquipped)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>item</code> : can be either an object itself, an ID or a name.</dd>
+			<dd class="param"><code>skipIndex</code> : tells this function to not select a certain item (used for getting another item with the same name).</dd>
+			<dd class="param"><code>notEquipped</code> : 1 = not equipped item; 0 = equipped item; undef = all item</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an Actor::Item object, or undef if not found or parameters not matched.</dd>
+		</dl><p>
+
+		<div class="desc">Find an item in the inventory, based on the search criteria specified by the parameters.
+<p>
+
+See also: <a href="Actor--Item.html#Actor::Item::getMultiple"><code>Actor::Item::getMultiple()</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::Item::getMultiple"></a>
+<h3>Actor::Item::getMultiple</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Actor::Item::getMultiple</strong>(searchPattern)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>searchString</code> : a search pattern.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an array of Actor::Item objects.</dd>
+		</dl><p>
+
+		<div class="desc">Select one or more items in the inventory. <code>$searchPattern</code> has the following syntax:
+<pre>index1<span class="hl sym">,</span>index2<span class="hl sym">,...,</span>indexN
+</pre>
+You can also use '-' to indicate a range, like:
+<pre><span class="hl num">1</span><span class="hl sym">-</span><span class="hl num">5</span><span class="hl sym">,</span><span class="hl num">7</span><span class="hl sym">,</span><span class="hl num">9</span>
+</pre></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::Item::queueEquip"></a>
+<h3>Actor::Item::queueEquip</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Actor::Item::queueEquip</strong>(count)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>count</code> : how many items need to be equipped.</dd>
+		</dl><p>
+
+		<div class="desc">Queues equip sequence.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::Item::scanConfigAndCheck"></a>
+<h3>Actor::Item::scanConfigAndCheck</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Actor::Item::scanConfigAndCheck</strong>(prefix)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>prefix</code> : is used to scan for slots.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">whether there is a item that needs to be equipped.</dd>
+		</dl><p>
+
+		<div class="desc">Similiar to <a href="Actor--Item.html#Actor::Item::scanConfigAndEquip"><code>Actor::Item::scanConfigAndEquip()</code></a> but only checks if a Actor::Item needs to be equipped.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Actor::Item::scanConfigAndEquip"></a>
+<h3>Actor::Item::scanConfigAndEquip</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Actor::Item::scanConfigAndEquip</strong>(prefix)
+	</dt>
+	<dd>
+		<div class="desc">prefix: is used to scan for slots
+<p>
+
+e.g.:
+<pre>
+<span class="hl kwb">$prefix</span> <span class="hl sym">=</span> equipAuto_1
+will equip
+equipAuto_1_leftHand Sword
+</pre></div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::Exceptions - Exception utility functions and common exception objects. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::Exceptions</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::Exceptions - Exception utility functions and common exception objects.</h1>
+
+This module provides some exception utility functions, to be used in combination
+with <a href="http://cpan.uwinnipeg.ca/htdocs/Exception-Class/Exception/Class.html">Exeption::Class</a>.
+<p>
+
+It also defines the following commonly-used exception objects:
+<ul>
+<li>ArgumentException - An invalid argument is passed to a function.</li>
+<li>ModuleLoadException - A Perl module cannot be loaded.</li>
+<li>ClassLoadException - A class cannot be created.</li>
+<li>IOException - Input/output exception occured.</li>
+<li>FileNotFoundException - A file is not found.</li>
+<li>SocketException - An error occured during a socket operating, such as connecting to a server.</li>
+<li>BusNotRunningException - The OpenKore bus system is not running.</li>
+<li>DataFormatException - The data format is invalid.</li>
+<li>UTF8MalformedException - Invalid UTF-8 data encountered.
+</li>
+</ul>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#caught';">
+	<td class="return-type">Object</td>
+	<td class="func"><a href="#caught">caught</a></td>
+	<td class="decl">(<span class="type">class1,</span> [class2, class3, ...])</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="caught"></a>
+<h3>caught</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Object</span> <strong>caught</strong>(<span class="type">class1,</span> [class2, class3, ...])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>classN</code> : The class name of an exception object.</dd>
+		</dl><p>
+
+		<div class="desc">Checks whether the currently caught exception ($@) is one of the types
+specified in the parameters. Returns $@ if it is, undef otherwise. This
+function is allows you to write in try-catch-style syntax.
+<p>
+
+This symbol is exported by default.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre>eval <span class="hl sym">{</span>
+    SomeException<span class="hl sym">-&gt;</span><span class="hl kwd">throw</span><span class="hl sym">(</span>error <span class="hl sym">=&gt;</span> <span class="hl str">&quot;foo&quot;</span><span class="hl sym">);</span>
+<span class="hl sym">};</span>
+<span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwc">my</span> <span class="hl kwb">$e</span> <span class="hl sym">=</span> <span class="hl kwd">caught</span><span class="hl sym">(</span><span class="hl str">&quot;SomeException&quot;</span><span class="hl sym">)) {</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;SomeException caught: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$e</span><span class="hl sym">-&gt;</span>error <span class="hl sym">.</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span> <span class="hl kwa">elsif</span> <span class="hl sym">(</span><span class="hl kwc">my</span> <span class="hl kwb">$e</span> <span class="hl sym">=</span> <span class="hl kwd">caught</span><span class="hl sym">(</span><span class="hl str">&quot;OtherException&quot;</span><span class="hl sym">)) {</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;OtherException caught: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$e</span><span class="hl sym">-&gt;</span>error <span class="hl sym">.</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span> <span class="hl kwa">elsif</span> <span class="hl sym">(</span><span class="hl kwc">my</span> <span class="hl kwb">$e</span> <span class="hl sym">=</span> <span class="hl kwd">caught</span><span class="hl sym">(</span><span class="hl str">&quot;YetAnotherException1&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;YetAnotherException2&quot;</span><span class="hl sym">)) {</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;Caught YetAnotherException1 or YetAnotherException1.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span> <span class="hl kwa">elsif</span> <span class="hl sym">($</span>&#64;<span class="hl sym">) {</span>
+    <span class="hl slc"># Rethrow exception.</span>
+    die <span class="hl sym">$</span>&#64;<span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

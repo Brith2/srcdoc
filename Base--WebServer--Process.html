@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Base::WebServer::Process - Object for obtaining web server request info and sending response messages : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Base::WebServer::Process</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Base::WebServer::Process - Object for obtaining web server request info and sending response messages</h1>
+
+This is the object you use for obtaining information about a request, and to reply to a request.
+It has a PHP-like interface.
+<p>
+
+You should also read <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">the HTTP specification</a>.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#$BaseWebServerProcess->GET';">
+	<td class="return-type">Hash&lt;Bytes&gt;*</td>
+	<td class="func"><a href="#$BaseWebServerProcess->GET">$BaseWebServerProcess->GET</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseWebServerProcess->clientHeader';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$BaseWebServerProcess->clientHeader">$BaseWebServerProcess->clientHeader</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr><tr onclick="location.href='#$BaseWebServerProcess->file';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$BaseWebServerProcess->file">$BaseWebServerProcess->file</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$BaseWebServerProcess->header';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$BaseWebServerProcess->header">$BaseWebServerProcess->header</a></td>
+	<td class="decl">(<span class="type">String</span> name, String value)</td>
+</tr><tr onclick="location.href='#$BaseWebServerProcess->print';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$BaseWebServerProcess->print">$BaseWebServerProcess->print</a></td>
+	<td class="decl">(<span class="type">String</span> content)</td>
+</tr><tr onclick="location.href='#$BaseWebServerProcess->shortResponse';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$BaseWebServerProcess->shortResponse">$BaseWebServerProcess->shortResponse</a></td>
+	<td class="decl">(<span class="type">String</span> content)</td>
+</tr><tr onclick="location.href='#$BaseWebServerProcess->status';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$BaseWebServerProcess->status">$BaseWebServerProcess->status</a></td>
+	<td class="decl">(<span class="type">int</span> statusCode, String statusMsg)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$BaseWebServerProcess-&gt;GET"></a>
+<h3>$BaseWebServerProcess-&gt;GET</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash&lt;Bytes&gt;*</span> <strong>$BaseWebServerProcess-&gt;GET</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">a reference to a hash.</dd>
+		</dl><p>
+
+		<div class="desc">Returns a reference to a hash, which contains variables provided via
+the URL query string.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseWebServerProcess-&gt;clientHeader"></a>
+<h3>$BaseWebServerProcess-&gt;clientHeader</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$BaseWebServerProcess-&gt;clientHeader</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : the name of the header you want to lookup.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the value of the header, or undef if the browser didn't send that header.</dd>
+		</dl><p>
+
+		<div class="desc">Lookup the value of a header the browser sent you.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseWebServerProcess-&gt;file"></a>
+<h3>$BaseWebServerProcess-&gt;file</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$BaseWebServerProcess-&gt;file</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the name of the file that the web browser requested.
+The return value does not include the host name and does not include everythign after '?', so it will be something like "/foo/bar.html".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseWebServerProcess-&gt;header"></a>
+<h3>$BaseWebServerProcess-&gt;header</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$BaseWebServerProcess-&gt;header</strong>(<span class="type">String</span> name, String value)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : the name of the header.</dd>
+			<dd class="param"><code>value</code> : the value of the header.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">   defined(name)      <br>   defined(value)     <br>   $BaseWebServerProcess->print() or $BaseWebServerProcess->shortResponse() must not have been called before.</dd>
+		</dl><p>
+
+		<div class="desc">Schedule a HTTP header for sending. This header will be sent when the connection to the web browser is closed,
+or when you first call <a href="Base--WebServer--Process.html#$BaseWebServerProcess->print"><code>$BaseWebServerProcess->print()</code></a> or <a href="Base--WebServer--Process.html#$BaseWebServerProcess->shortResponse"><code>$BaseWebServerProcess->shortResponse()</code></a>. If you have sent a header with
+the same name before, the previous header is overwritten by this one.
+<p>
+
+For sending HTTP status messages, you should use <a href="Base--WebServer--Process.html#$BaseWebServerProcess->status"><code>$BaseWebServerProcess->status()</code></a> instead.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwb">$BaseWebServerProcess</span><span class="hl sym">-&gt;</span><span class="hl kwd">header</span><span class="hl sym">(</span><span class="hl str">&quot;WWW-Authenticate&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;Negotiate&quot;</span><span class="hl sym">);</span>
+<span class="hl kwb">$BaseWebServerProcess</span><span class="hl sym">-&gt;</span><span class="hl kwd">header</span><span class="hl sym">(</span><span class="hl str">&quot;WWW-Authenticate&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;NTLM&quot;</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseWebServerProcess-&gt;print"></a>
+<h3>$BaseWebServerProcess-&gt;print</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$BaseWebServerProcess-&gt;print</strong>(<span class="type">String</span> content)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>content</code> : the content to print.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($content)</dd>
+		</dl><p>
+
+		<div class="desc">Output a string to the web browser. Any scheduled headers and status message will be sent first.
+So after calling this function, you cannot send headers or a status message anymore.
+<p>
+
+The default status message is "200 OK". The default Content-Type is "text/html; charset=utf-8".
+<p>
+
+Should should send the Content-Length header (see HTTP specification) before calling this function,
+if possible. That header allows the web browser to keep persistent connections to the server,
+and to display download progress.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseWebServerProcess-&gt;shortResponse"></a>
+<h3>$BaseWebServerProcess-&gt;shortResponse</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$BaseWebServerProcess-&gt;shortResponse</strong>(<span class="type">String</span> content)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>content</code> : the data to send to the web browser.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($content)</dd>
+		</dl><p>
+
+		<div class="desc">Send data (usually HTML) to the web server. This function also automatically sets the HTTP Content-Length
+header for you, allowing the browser to keep the HTTP connection persistent, and to display download
+progress information.
+<p>
+
+<b>Warning:</b> after calling this function, you shouldn't call any of the other functions in this class
+which send data to the web server. It is undefined what will happen if you do so.
+<p>
+
+This function should only be used for small amount of data, because the entire content has to be in memory.
+For larger amounts of data, you should send small chunks of data incrementally using <a href="Base--WebServer--Process.html#$BaseWebServerProcess->print"><code>$BaseWebServerProcess->print()</code></a>.
+<p>
+
+The default status message is "200 OK". The default Content-Type is "text/html; charset=utf-8".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$BaseWebServerProcess-&gt;status"></a>
+<h3>$BaseWebServerProcess-&gt;status</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$BaseWebServerProcess-&gt;status</strong>(<span class="type">int</span> statusCode, String statusMsg)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>statusCode</code> : a HTTP status code.</dd>
+			<dd class="param"><code>statusMsg</code> : the associated HTTP status message.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">   defined($statusMsg)  <br>   $BaseWebServerProcess->print() or $BaseWebServerProcess->shortResponse() must not have been called before.</dd>
+		</dl><p>
+
+		<div class="desc">Schedule a HTTP response status message for sending. See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">the
+HTTP specification</a> (section 10) for a list of codes. This status code will be sent when the connection to
+the web browser is closed, or when you first call <a href="Base--WebServer--Process.html#$BaseWebServerProcess->print"><code>$BaseWebServerProcess->print()</code></a> or <a href="Base--WebServer--Process.html#$BaseWebServerProcess->shortResponse"><code>$BaseWebServerProcess->shortResponse()</code></a>.
+If you have sent a HTTP status before, the previous status is overwritten by this one.
+<p>
+
+See also: <a href="Base--WebServer--Process.html#$BaseWebServerProcess->header"><code>$BaseWebServerProcess->header()</code></a></div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwb">$BaseWebServerProcess</span><span class="hl sym">-&gt;</span><span class="hl kwd">status</span><span class="hl sym">(</span><span class="hl num">404</span><span class="hl sym">,</span> <span class="hl str">&quot;File Not Found&quot;</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Settings - Settings and configuration files management. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Settings</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Settings - Settings and configuration files management.</h1>
+
+Core OpenKore settings, such as OpenKore's program name and version number,
+are stored by this module.
+<p>
+
+OpenKore uses two kinds of data files:
+<ul>
+<li>Control files. These configuration files define character-specific
+  behavior and can be changed at any time.</li>
+<li>Table files. These files contain character-independent, but server-specific
+  information that OpenKore needs. These files are read-mostly (don't change
+  often).
+</li>
+</ul>
+This module is also responsible for data file management. It allows one to:
+<ul>
+<li>Register control or table files by name.</li>
+<li>Locate control or table files from multiple possible locations.</li>
+<li>(Re)load control or table files based on some search criteria.
+</li>
+</ul>
+Most of the functions for parsing configuration files are located in
+FileParsers.pm, while the variables which contain the configuration data are
+in Globals.pm.
+<p>
+
+Finally, the Settings module provides support functions for commandline
+argument parsing.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Constants</th></tr><tr onclick="location.href='#$Settings::NAME';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Settings::NAME">$Settings::NAME</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Settings::VERSION';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Settings::VERSION">$Settings::VERSION</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Data file lookup functions</th></tr><tr onclick="location.href='#Settings::getControlFilename';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#Settings::getControlFilename">Settings::getControlFilename</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr><tr onclick="location.href='#Settings::getTableFilename';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#Settings::getTableFilename">Settings::getTableFilename</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Public functions</th></tr><tr onclick="location.href='#Settings::addControlFile';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Settings::addControlFile">Settings::addControlFile</a></td>
+	<td class="decl">(<span class="type">String</span> name, options...)</td>
+</tr><tr onclick="location.href='#Settings::addTableFile';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Settings::addTableFile">Settings::addTableFile</a></td>
+	<td class="decl">(<span class="type">String</span> name, options...)</td>
+</tr><tr onclick="location.href='#Settings::getPluginsFolders';">
+	<td class="return-type">Array&lt;String&gt;</td>
+	<td class="func"><a href="#Settings::getPluginsFolders">Settings::getPluginsFolders</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#Settings::getSVNRevision';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#Settings::getSVNRevision">Settings::getSVNRevision</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#Settings::getUsageText';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#Settings::getUsageText">Settings::getUsageText</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#Settings::loadAll';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Settings::loadAll">Settings::loadAll</a></td>
+	<td class="decl">(<span class="type">[Function</span> progressHandler])</td>
+</tr><tr onclick="location.href='#Settings::parseArguments';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#Settings::parseArguments">Settings::parseArguments</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#Settings::removeFile';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Settings::removeFile">Settings::removeFile</a></td>
+	<td class="decl">(handle)</td>
+</tr><tr onclick="location.href='#Settings::setControlFolders';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Settings::setControlFolders">Settings::setControlFolders</a></td>
+	<td class="decl">(<span class="type">Array&lt;String&gt;</span> folders)</td>
+</tr><tr onclick="location.href='#Settings::setPluginsFolders';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Settings::setPluginsFolders">Settings::setPluginsFolders</a></td>
+	<td class="decl">(<span class="type">Array&lt;String&gt;</span> folders)</td>
+</tr><tr onclick="location.href='#Settings::setTablesFolders';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Settings::setTablesFolders">Settings::setTablesFolders</a></td>
+	<td class="decl">(<span class="type">Array&lt;String&gt;</span> folders)</td>
+</tr><tr onclick="location.href='#loadByHandle';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#loadByHandle">loadByHandle</a></td>
+	<td class="decl">(<span class="type">handle,</span> [Function progressHandler])</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Settings::NAME"></a>
+<h3>$Settings::NAME</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Settings::NAME</strong>
+	</dt>
+	<dd>
+		<div class="desc">The name of this program, usually "OpenKore".</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Settings::VERSION"></a>
+<h3>$Settings::VERSION</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Settings::VERSION</strong>
+	</dt>
+	<dd>
+		<div class="desc">The version number of this program.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::addControlFile"></a>
+<h3>Settings::addControlFile</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Settings::addControlFile</strong>(<span class="type">String</span> name, options...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">A handle for this data file, which can be used by Settings::removeFile() or Settings::loadByHandle().</dd>
+		</dl><p>
+
+		<div class="desc">Register a control file. This file will be eligable for (re)loading
+when one of the <code>load()</code> functions is called.
+<p>
+
+The following options are allowed:
+<ul>
+<li>loader (required): must be either a reference to a function, or
+      be an array in which the first element is a function reference.
+      This function will be used to load this control file. In case
+      of an array, all but the first element of that array will be passed
+      to the load function as additional parameters.</li>
+<li>autoSearch (boolean): whether the full filename of this control file
+      should be looked up by looking into one of the folders specified by
+      <a href="Settings.html#Settings::setControlFolders"><code>Settings::setControlFolders()</code></a>. If disabled, it will be assumed that
+      <code>$name</code> is a correct absolute or relative path. The default is enabled.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::addTableFile"></a>
+<h3>Settings::addTableFile</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Settings::addTableFile</strong>(<span class="type">String</span> name, options...)
+	</dt>
+	<dd>
+		<div class="desc">This is like <a href="Settings.html#Settings::addControlFile"><code>Settings::addControlFile()</code></a>, but for table files.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::getControlFilename"></a>
+<h3>Settings::getControlFilename</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>Settings::getControlFilename</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : A valid base file name.</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">if defined($result): -f <code>$result</code></dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">A valid filename, or undef if not found.</dd>
+		</dl><p>
+
+		<div class="desc">Get a control file by its name. This file will be looked up
+in all possible locations, as specified by earlier calls
+to <a href="Settings.html#Settings::setControlFolders"><code>Settings::setControlFolders()</code></a>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::getPluginsFolders"></a>
+<h3>Settings::getPluginsFolders</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Array&lt;String&gt;</span> <strong>Settings::getPluginsFolders</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Get the folders in which to look for plugins.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::getSVNRevision"></a>
+<h3>Settings::getSVNRevision</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>Settings::getSVNRevision</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Return OpenKore's SVN revision number, or undef if that information cannot be retrieved.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::getTableFilename"></a>
+<h3>Settings::getTableFilename</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>Settings::getTableFilename</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : A valid base file name.</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">if defined($result): -f <code>$result</code></dd>
+		</dl><p>
+
+		<div class="desc">Get a table file by its name. This file will be looked up
+in all possible locations, as specified by earlier calls
+to <a href="Settings.html#Settings::setTablesFolders"><code>Settings::setTablesFolders()</code></a>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::getUsageText"></a>
+<h3>Settings::getUsageText</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>Settings::getUsageText</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Return the usage text that should be displayed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::loadAll"></a>
+<h3>Settings::loadAll</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Settings::loadAll</strong>(<span class="type">[Function</span> progressHandler])
+	</dt>
+	<dd>
+		<div class="desc">(Re)loads all registered data files. This method follows the same contract as
+<code>Settings::loadByHandle()</code>, so see that method for parameter descriptions
+and exceptions.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::parseArguments"></a>
+<h3>Settings::parseArguments</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>Settings::parseArguments</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 on success, 0 if a 'usage' text should be displayed.</dd>
+		</dl><p>
+
+		<div class="desc">Parse commandline arguments. Various variables within the Settings
+module will be filled with values.
+<p>
+
+This function will also attempt to create necessary folders. If
+one of the folders cannot be created, then an IOException is thrown,
+although the variables are already filled.
+<p>
+
+If the arguments are not correct, then an ArgumentException is thrown.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::removeFile"></a>
+<h3>Settings::removeFile</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Settings::removeFile</strong>(handle)
+	</dt>
+	<dd>
+		<div class="desc">Unregister a file that was registered by <a href="Settings.html#Settings::addControlFile"><code>Settings::addControlFile()</code></a>
+or <a href="Settings.html#Settings::addTableFile"><code>Settings::addTableFile()</code></a>.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::setControlFolders"></a>
+<h3>Settings::setControlFolders</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Settings::setControlFolders</strong>(<span class="type">Array&lt;String&gt;</span> folders)
+	</dt>
+	<dd>
+		<div class="desc">Set the folders in which to look for control files.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::setPluginsFolders"></a>
+<h3>Settings::setPluginsFolders</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Settings::setPluginsFolders</strong>(<span class="type">Array&lt;String&gt;</span> folders)
+	</dt>
+	<dd>
+		<div class="desc">Set the folders in which to look for plugins.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Settings::setTablesFolders"></a>
+<h3>Settings::setTablesFolders</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Settings::setTablesFolders</strong>(<span class="type">Array&lt;String&gt;</span> folders)
+	</dt>
+	<dd>
+		<div class="desc">Set the folders in which to look for table files.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="loadByHandle"></a>
+<h3>loadByHandle</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>loadByHandle</strong>(<span class="type">handle,</span> [Function progressHandler])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>handle</code> : A handle, as returned by <a href="Settings.html#Settings::addControlFile"><code>Settings::addControlFile()</code></a> or</dd>
+			<dd class="param"><code>        Settings</code> : <code>:addTableFile()</code>.</dd>
+			<dd class="param"><code>progressHandler</code> : A function which will be called when the filename                 resolved.</dd>
+		</dl><p>
+
+		<div class="desc">Load or reload a data file as specified by the given data file handle.
+Throws FileNotFoundException if the file cannot be found in any of the
+search locations.
+Note that the data file loader function may throw additional exceptions.
+<p>
+
+The progress handler function, if specified, will be called when the
+full filename of this data file has been resolved (that is, it has been
+found in one of the search locations), but before the file is actually
+loaded. It is useful for displaying progress reports.
+<p>
+
+The progress handler function is called with two arguments: the filename,
+and the data file's type (which can be Settings::CONTROL_FILE_TYPE or
+Settings::TABLE_FILE_TYPE).
+For example:
+<pre class="example">
+Settings<span class="hl sym">::</span><span class="hl kwd">loadByHandle</span><span class="hl sym">(</span><span class="hl kwb">$handle</span><span class="hl sym">,</span> <span class="hl kwa">sub</span> <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$filename</span><span class="hl sym">,</span> <span class="hl kwb">$type</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;$_[0] is about to be loaded!</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$type</span> <span class="hl sym">==</span> Settings<span class="hl sym">::</span>CONTROL_FILE_TYPE<span class="hl sym">) {</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;And it's a control file.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span> <span class="hl kwa">else</span> <span class="hl sym">{</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;And it's a table file.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+<span class="hl sym">});</span>
+</pre></div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

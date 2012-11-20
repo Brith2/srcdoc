@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Task::Function - Task which accept a function as iterate method. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Task::Function</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Task::Function - Task which accept a function as iterate method.</h1>
+
+This is a convenience task for those who want to write a simple task
+without declaring an entire class. Here's an example:
+<pre class="example">
+new Task<span class="hl sym">::</span><span class="hl kwd">Function</span><span class="hl sym">(</span>function <span class="hl sym">=&gt;</span> <span class="hl kwa">sub</span> <span class="hl sym">{</span>
+    <span class="hl slc"># $task is the Task::Function object.</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$task</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;Hello world</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+    <span class="hl kwb">$task</span><span class="hl sym">-&gt;</span><span class="hl kwd">setDone</span><span class="hl sym">();</span>
+<span class="hl sym">});</span>
+</pre>
+<p>
+
+The above is almost equivalent to:
+<pre class="example">
+<span class="hl kwa">package</span> Task<span class="hl sym">::</span><span class="hl kwd">SomeRandomName</span><span class="hl sym">;</span>
+
+<span class="hl kwa">use</span> <span class="hl kwd">Task</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> base <span class="hl kwd">qw</span><span class="hl sym">(</span>Task<span class="hl sym">);</span>
+
+<span class="hl kwa">sub</span> iterate <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$self</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwc">print</span> <span class="hl str">&quot;Hello world</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+    <span class="hl kwb">$self</span><span class="hl sym">-&gt;</span><span class="hl kwd">setDone</span><span class="hl sym">();</span>
+<span class="hl sym">}</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$task</span> <span class="hl sym">=</span> new Task<span class="hl sym">::</span><span class="hl kwd">SomeRandomName</span><span class="hl sym">();</span>
+</pre>
+<p>
+
+You can also use object methods. Specify the 'object' argument, like this:
+<pre class="example">
+new Task<span class="hl sym">::</span><span class="hl kwd">Function</span><span class="hl sym">(</span>
+    object <span class="hl sym">=&gt;</span> <span class="hl kwb">$self</span><span class="hl sym">,</span>
+    function <span class="hl sym">=&gt;</span> <span class="hl kwa">sub</span> <span class="hl sym">{</span>
+        <span class="hl kwc">my</span> <span class="hl sym">(</span><span class="hl kwb">$self</span><span class="hl sym">,</span> <span class="hl kwb">$task</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;Hello world</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl kwb">$task</span><span class="hl sym">-&gt;</span><span class="hl kwd">setDone</span><span class="hl sym">();</span>
+    <span class="hl sym">}</span>
+<span class="hl sym">);</span>
+</pre>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Constructor</th></tr><tr onclick="location.href='#Task::Function->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Task::Function->new">Task::Function->new</a></td>
+	<td class="decl">(...)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Task::Function-&gt;new"></a>
+<h3>Task::Function-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Task::Function-&gt;new</strong>(...)
+	</dt>
+	<dd>
+		<div class="desc">Create a new Task::Function object.
+<p>
+
+The following arguments are allowed:
+<ul>
+<li>All options allowed for <a href="Task.html#Task->new"><code>Task->new()</code></a></li>
+<li>function (required) - A reference to a function to be run as <code>iterate()</code> method.</li>
+<li>object - A class object. Specify this argument if _function_ is supposed to be an object method.
+           This object will be passed to that function as the first parameter.</li>
+<li>weak - Whether _object_ should internally be stored as a weak reference.
+         This is useful to prevent problems with circular references.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

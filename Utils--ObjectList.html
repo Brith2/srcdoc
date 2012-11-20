@@ -1,0 +1,487 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::ObjectList - List class with constant item indices and event support : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::ObjectList</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::ObjectList - List class with constant item indices and event support</h1>
+
+The ObjectList class is an array list, and differentiates from the standard
+Perl array in the following ways:
+<ol>
+<li> It will only contain Objects. That is, only blessed scalars. </li>
+<li> It guarantees that, when you add an item to the list, its index will
+     always remain constant until that item is removed from the list. </li>
+<li> It can emit an event when items are added or removed, or
+     when the list is cleared. </li>
+<li> When you iterate through the list, it is guaranteed that you will never
+     encounter undefined items. </li>
+</ol>
+<p>
+
+ObjectList is used to implement the actors list, the inventory list, etc.
+Especially property (2) is important: for instance, it is desirable that
+monster in the monster list will always have the same list index, so that
+when someone types 'ml' and 'a 2', Kore will attack monster 2 as he saw
+earlier in the list, and not some other monster (as a result of an index
+change).
+<p>
+
+Note that subclasses of ObjectList may require stronger preconditions.
+<p>
+
+Subclasses: <a href="ActorList.html">ActorList</a>
+<p>
+
+<h3>Item indices and iteration</h3>
+The index, as returned by the <a href="Utils--ObjectList.html#$ObjectList->add"><code>$ObjectList->add()</code></a>, must not be treated as an
+index in a regular Perl array. Which means that you can't assume that that
+index is always smaller than <a href="Utils--ObjectList.html#$ObjectList->size"><code>$ObjectList->size()</code></a>. So the index that
+<a href="Utils--ObjectList.html#$ObjectList->add"><code>$ObjectList->add()</code></a> returns should only be used for:
+<ul>
+<li>Uniquely identifying an item in the list.</li>
+<li>Retrieving an item from the list using <a href="Utils--ObjectList.html#$ObjectList->get"><code>$ObjectList->get()</code></a>.
+</li>
+</ul>
+<p>
+
+To iterate through the list, you must <b>not</b> write this:
+<pre class="example">
+<span class="hl kwa">for</span> <span class="hl sym">(</span><span class="hl kwc">my</span> <span class="hl kwb">$i</span> <span class="hl sym">=</span> <span class="hl num">0</span><span class="hl sym">;</span> <span class="hl kwb">$i</span> <span class="hl sym">&lt;</span> <span class="hl kwb">$list</span><span class="hl sym">-&gt;</span><span class="hl kwd">size</span><span class="hl sym">();</span> <span class="hl kwb">$i</span><span class="hl sym">++) {</span>
+    <span class="hl kwd">doSomethingWith</span><span class="hl sym">(</span><span class="hl kwb">$list</span><span class="hl sym">-&gt;</span><span class="hl kwd">get</span><span class="hl sym">(</span><span class="hl kwb">$i</span><span class="hl sym">));</span>
+<span class="hl sym">}</span>
+</pre>
+Use <a href="Utils--ObjectList.html#$ObjectList->getItems"><code>$ObjectList->getItems()</code></a> instead:
+<pre class="example">
+<span class="hl kwc">my</span> <span class="hl kwb">$items</span> <span class="hl sym">=</span> <span class="hl kwb">$list</span><span class="hl sym">-&gt;</span><span class="hl kwd">getItems</span><span class="hl sym">();</span>
+<span class="hl kwa">foreach</span> <span class="hl kwc">my</span> <span class="hl kwb">$item</span> <span class="hl sym">(</span>&#64;<span class="hl sym">{</span><span class="hl kwb">$items</span><span class="hl sym">}) {</span>
+    <span class="hl kwd">doSomethingWith</span><span class="hl sym">(</span><span class="hl kwb">$item</span><span class="hl sym">);</span>
+<span class="hl sym">}</span>
+</pre>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class ObjectList</th></tr><tr onclick="location.href='#ObjectList->new';">
+	<td class="return-type"><a href="Utils--ObjectList.html">ObjectList</a></td>
+	<td class="func"><a href="#ObjectList->new">ObjectList->new</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->add';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ObjectList->add">$ObjectList->add</a></td>
+	<td class="decl">(<span class="type">Object</span> item)</td>
+</tr><tr onclick="location.href='#$ObjectList->checkValidity';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$ObjectList->checkValidity">$ObjectList->checkValidity</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->clear';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$ObjectList->clear">$ObjectList->clear</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->find';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ObjectList->find">$ObjectList->find</a></td>
+	<td class="decl">(<span class="type">Object</span> item)</td>
+</tr><tr onclick="location.href='#$ObjectList->get';">
+	<td class="return-type">Object</td>
+	<td class="func"><a href="#$ObjectList->get">$ObjectList->get</a></td>
+	<td class="decl">(<span class="type">int</span> index)</td>
+</tr><tr onclick="location.href='#$ObjectList->getItems';">
+	<td class="return-type">Array&lt;Object&gt;*</td>
+	<td class="func"><a href="#$ObjectList->getItems">$ObjectList->getItems</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->onAdd';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$ObjectList->onAdd">$ObjectList->onAdd</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->onClearBegin';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$ObjectList->onClearBegin">$ObjectList->onClearBegin</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->onClearEnd';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$ObjectList->onClearEnd">$ObjectList->onClearEnd</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->onRemove';">
+	<td class="return-type"><a href="Utils--CallbackList.html">CallbackList</a></td>
+	<td class="func"><a href="#$ObjectList->onRemove">$ObjectList->onRemove</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$ObjectList->remove';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ObjectList->remove">$ObjectList->remove</a></td>
+	<td class="decl">(<span class="type">Object</span> item)</td>
+</tr><tr onclick="location.href='#$ObjectList->size';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ObjectList->size">$ObjectList->size</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#void $ObjectList->doClear';">
+	<td class="return-type">protected</td>
+	<td class="func"><a href="#void $ObjectList->doClear">void $ObjectList->doClear</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$ObjectList-&gt;add"></a>
+<h3>$ObjectList-&gt;add</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ObjectList-&gt;add</strong>(<span class="type">Object</span> item)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>item</code> : The item to add.</dd>
+			<dd class="param"><code>          must not be treated like an index in a regular Perl array</code> :           it may be greater than <code>$self->size()</code>. See the overview for          information.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($item)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->size()</code> == <code>$old->size()</code> + 1</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The index of the item in this list. Note that this index</dd>
+		</dl><p>
+
+		<div class="desc">Add an item to this list. This will trigger an onAdd event, after the
+item has been added.
+<p>
+
+Note that subclasses of ObjectList may have further preconditions.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;checkValidity"></a>
+<h3>$ObjectList-&gt;checkValidity</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$ObjectList-&gt;checkValidity</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether the internal invariants are correct.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;clear"></a>
+<h3>$ObjectList-&gt;clear</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$ObjectList-&gt;clear</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->size()</code> == 0</dd>
+		</dl><p>
+
+		<div class="desc">Removes all items in this list. This will trigger the following events:
+<ul>
+<li>An onClearBegin event before the clearing begins.</li>
+<li>An onClearEnd event after the entire list has been cleared.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;find"></a>
+<h3>$ObjectList-&gt;find</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ObjectList-&gt;find</strong>(<span class="type">Object</span> item)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>    if result != -1</code> : <code>$self</code>->get(result) == <code>$item</code></dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($item)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">    result >= -1</dd>
+		</dl><p>
+
+		<div class="desc">Returns the index of the first occurence of <code>$item</code>, or -1 if not found.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;get"></a>
+<h3>$ObjectList-&gt;get</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Object</span> <strong>$ObjectList-&gt;get</strong>(<span class="type">int</span> index)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>index</code> : An index, as returned by <a href="Utils--ObjectList.html#$ObjectList->add"><code>$ObjectList->add()</code></a></dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$index >= 0</dd>
+		</dl><p>
+
+		<div class="desc">Returns the item at the specified index, or undef
+if there is no item at the specified index.
+<p>
+
+Note: you must not use <code>get()</code> and <code>size()</code> to iterate through the list.
+Use <code>getItems()</code> instead. See the overview for more information.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;getItems"></a>
+<h3>$ObjectList-&gt;getItems</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Array&lt;Object&gt;*</span> <strong>$ObjectList-&gt;getItems</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>    for all $k in @{$result}</code> :         defined($k)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">    defined($result)    <code>@{</code>$result} == <code>$self->size()</code></dd>
+		</dl><p>
+
+		<div class="desc">Returns a reference to an array, which contains all items in this list.
+It is safe to remove items during iteration.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;onAdd"></a>
+<h3>$ObjectList-&gt;onAdd</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$ObjectList-&gt;onAdd</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the onAdd event callback list. This event is triggered after an
+item has been added. The callback's argument is a reference to an array,
+with the 0th element being the item that was added, and the 1st element the
+index of that item.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;onClearBegin"></a>
+<h3>$ObjectList-&gt;onClearBegin</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$ObjectList-&gt;onClearBegin</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the onClearBegin event callback list.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;onClearEnd"></a>
+<h3>$ObjectList-&gt;onClearEnd</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$ObjectList-&gt;onClearEnd</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the onClearEnd event callback list.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;onRemove"></a>
+<h3>$ObjectList-&gt;onRemove</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--CallbackList.html">CallbackList</a></span> <strong>$ObjectList-&gt;onRemove</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the onRemove event callback list. This event is triggered
+after an item has been removed. The callback's argument is a reference to an
+array, with the 0th element being the item that was deleted, and the 1st
+element the index of that item.
+<p>
+
+This event is not called when the list is cleared.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;remove"></a>
+<h3>$ObjectList-&gt;remove</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ObjectList-&gt;remove</strong>(<span class="type">Object</span> item)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>item</code> : The item to remove.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($item)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">if result: <code>$self->size()</code> == <code>$old->size()</code> - 1</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">Whether $item was in the list.</dd>
+		</dl><p>
+
+		<div class="desc">Remove the first occurance of <code>$item</code> from this list. This will trigger
+an onRemove event, after the item has been removed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ObjectList-&gt;size"></a>
+<h3>$ObjectList-&gt;size</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ObjectList-&gt;size</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">result >= 0</dd>
+		</dl><p>
+
+		<div class="desc">Returns the number of items.
+<p>
+
+Note: you must not use <code>get()</code> and <code>size()</code> to iterate through the list.
+Use <code>getItems()</code> instead. See the overview for more information.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ObjectList-&gt;new"></a>
+<h3>ObjectList-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--ObjectList.html">ObjectList</a></span> <strong>ObjectList-&gt;new</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">    <code>$self->size()</code> == 0    <code>$self->onAdd()</code><code>->size()</code> == 0    <code>$self->onRemove()</code><code>->size()</code> == 0    <code>$self->onClearBegin()</code><code>->size()</code> == 0    <code>$self->onClearEnd()</code><code>->size()</code> == 0</dd>
+		</dl><p>
+
+		<div class="desc">Construct a new ObjectList.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="void $ObjectList-&gt;doClear"></a>
+<h3>void $ObjectList-&gt;doClear</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> protected</span> <strong>void $ObjectList-&gt;doClear</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->size()</code> == 0</dd>
+		</dl><p>
+
+		<div class="desc">Clears all items in the list. This method is called by <a href="Utils--ObjectList.html#$ObjectList->clear"><code>$ObjectList->clear()</code></a>,
+after the onClearBegin event is sent, and before the onClearEnd event is sent.
+This method must not be called directly, and is supposed to be overloaded by
+subclasses that want to implement different clearing behavior.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

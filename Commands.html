@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Commands - Commandline input processing : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Commands</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Commands - Commandline input processing</h1>
+
+This module processes commandline input.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions</th></tr><tr onclick="location.href='#Commands::register';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Commands::register">Commands::register</a></td>
+	<td class="decl">(<span class="type">[name,</span> description, callback]...)</td>
+</tr><tr onclick="location.href='#Commands::run';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Commands::run">Commands::run</a></td>
+	<td class="decl">(input)</td>
+</tr><tr onclick="location.href='#Commands::unregister';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Commands::unregister">Commands::unregister</a></td>
+	<td class="decl">(ID)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Private functions</th></tr><tr onclick="location.href='#cmdStorage_list';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#cmdStorage_list">cmdStorage_list</a></td>
+	<td class="decl">(<span class="type">String</span> list_type)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Commands::register"></a>
+<h3>Commands::register</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Commands::register</strong>(<span class="type">[name,</span> description, callback]...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an ID for use with Commands::unregister()</dd>
+		</dl><p>
+
+		<div class="desc">Register new commands.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">$ID</span> <span class="hl sym">=</span> Commands<span class="hl sym">::</span><span class="hl kwd">register</span><span class="hl sym">(</span>
+    <span class="hl sym">[</span><span class="hl str">&quot;my_command&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;My custom command's description&quot;</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>my_callback<span class="hl sym">],</span>
+    <span class="hl sym">[</span><span class="hl str">&quot;another_command&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;Yet another command description&quot;</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>another_callback<span class="hl sym">]</span>
+<span class="hl sym">);</span>
+Commands<span class="hl sym">::</span><span class="hl kwd">unregister</span><span class="hl sym">(</span><span class="hl kwb">$ID</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Commands::run"></a>
+<h3>Commands::run</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Commands::run</strong>(input)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>input</code> : a command.</dd>
+		</dl><p>
+
+		<div class="desc">Processes <code>$input</code>. See also <a href="http://openkore.sourceforge.net/docs.php">the user documentation</a>
+for a list of commands.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># Same effect as typing 's' in the console. Displays character status</span>
+Commands<span class="hl sym">::</span><span class="hl kwd">run</span><span class="hl sym">(</span><span class="hl str">&quot;s&quot;</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Commands::unregister"></a>
+<h3>Commands::unregister</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Commands::unregister</strong>(ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : an ID returned by <a href="Commands.html#Commands::register"><code>Commands::register()</code></a></dd>
+		</dl><p>
+
+		<div class="desc">Unregisters a registered command.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="cmdStorage_list"></a>
+<h3>cmdStorage_list</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>cmdStorage_list</strong>(<span class="type">String</span> list_type)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>list_type</code> : ''|eq|nu|u</dd>
+		</dl><p>
+
+		<div class="desc">Displays the contents of storage, or a subset indicated by switches.
+<p>
+
+Called by: cmdStorage (not called directly).</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

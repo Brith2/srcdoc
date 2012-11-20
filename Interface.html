@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Interface - User interface system. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Interface</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Interface - User interface system.</h1>
+
+In OpenKore, the user interface code is seperated from the core code.
+Each user interface is implemented in a class. The Interface class is an
+abstract base class for all OpenKore user interface classes.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#$interface->beep';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$interface->beep">$interface->beep</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$interface->errorDialog';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$interface->errorDialog">$interface->errorDialog</a></td>
+	<td class="decl">(<span class="type">String</span> message, [boolean fatal = true])</td>
+</tr><tr onclick="location.href='#$interface->getInput';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$interface->getInput">$interface->getInput</a></td>
+	<td class="decl">(<span class="type">float</span> timeout)</td>
+</tr><tr onclick="location.href='#$interface->iterate';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$interface->iterate">$interface->iterate</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$interface->mainLoop';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$interface->mainLoop">$interface->mainLoop</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$interface->query';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$interface->query">$interface->query</a></td>
+	<td class="decl">(<span class="type">String</span> message, options...)</td>
+</tr><tr onclick="location.href='#$interface->showMenu';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$interface->showMenu">$interface->showMenu</a></td>
+	<td class="decl">(<span class="type">String</span> message, Array&lt;String&gt;* choices, options...)</td>
+</tr><tr onclick="location.href='#$interface->title';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$interface->title">$interface->title</a></td>
+	<td class="decl">(<span class="type">[String</span> title])</td>
+</tr><tr onclick="location.href='#$interface->writeOutput';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$interface->writeOutput">$interface->writeOutput</a></td>
+	<td class="decl">(<span class="type">String</span> type, String message, String domain)</td>
+</tr><tr onclick="location.href='#Interface->loadInterface';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Interface->loadInterface">Interface->loadInterface</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$interface-&gt;beep"></a>
+<h3>$interface-&gt;beep</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$interface-&gt;beep</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Emit a beep on the available audio device.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;errorDialog"></a>
+<h3>$interface-&gt;errorDialog</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$interface-&gt;errorDialog</strong>(<span class="type">String</span> message, [boolean fatal = true])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>message</code> : The error message to display.</dd>
+			<dd class="param"><code>fatal</code> : Indicate that this is a fatal error (meaning that the application will       exit after this dialog is closed). If set, the console interfaces       will warn the user that the app is about to exit.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($message)</dd>
+		</dl><p>
+
+		<div class="desc">Display an error dialog. This function blocks until the user has closed the
+dialog.
+<p>
+
+Consider using <a href="Log.html#Log::error"><code>Log::error()</code></a> if your message is not a fatal error, because
+<a href="Log.html#Log::error"><code>Log::error()</code></a> does not require any user interaction.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;getInput"></a>
+<h3>$interface-&gt;getInput</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$interface-&gt;getInput</strong>(<span class="type">float</span> timeout)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>timeout</code> : Number of second to wait until keyboard data is available.          Negative numbers will wait forever, 0 will not wait at all.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The keyboard data (excluding newline), or undef if there's no         keyboard data available.</dd>
+		</dl><p>
+
+		<div class="desc">Reads keyboard data.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;iterate"></a>
+<h3>$interface-&gt;iterate</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$interface-&gt;iterate</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Process messages in the user interface message queue.
+In other words: make sure the user interface updates itself.
+(redraw controls when necessary, etc.)</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;mainLoop"></a>
+<h3>$interface-&gt;mainLoop</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$interface-&gt;mainLoop</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Enter the interface's main loop.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;query"></a>
+<h3>$interface-&gt;query</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$interface-&gt;query</strong>(<span class="type">String</span> message, options...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>message</code> : A message to display when asking for input.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($message)</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The user input, or undef if the user cancelled.</dd>
+		</dl><p>
+
+		<div class="desc">Ask the user to enter a one-line input text.
+The following options are allowed:
+<ul>
+<li>cancelable - Whether the user is allowed to enter nothing. If this is set to true,
+      then the user will be asked the same thing over and over until he
+      replies with a non-empty input. The default is true.</li>
+<li>title - A title to display in the query dialog. The default is "Query".</li>
+<li>isPassword - Whether this query is a password query. The default is false.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;showMenu"></a>
+<h3>$interface-&gt;showMenu</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$interface-&gt;showMenu</strong>(<span class="type">String</span> message, Array&lt;String&gt;* choices, options...)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>message</code> : The message to display while asking the user to make a choice.</dd>
+			<dd class="param"><code>choices</code> : The possible choices.</dd>
+			<dd class="param"><code>    for all $k in @{$choices}</code> : defined($k)</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">    defined($message)    defined($choices)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">-1 <= result < <code>@{</code>$choices}</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The index of the chosen item, or -1 if the user cancelled.</dd>
+		</dl><p>
+
+		<div class="desc">Ask the user to choose an item from a menu of choices.
+<p>
+
+The following options are allowed:
+<ul>
+<li>title - The title to display when presenting the choices to the user.
+          The default is 'Menu'.</li>
+<li>cancelable - Whether the user is allowed to not choose.
+               The default is true.
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;title"></a>
+<h3>$interface-&gt;title</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$interface-&gt;title</strong>(<span class="type">[String</span> title])
+	</dt>
+	<dd>
+		<div class="desc">If <code>$title</code> is given, set the interface's window's title to <code>$title</code>.
+If not given, returns the current window title.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$interface-&gt;writeOutput"></a>
+<h3>$interface-&gt;writeOutput</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$interface-&gt;writeOutput</strong>(<span class="type">String</span> type, String message, String domain)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($type) && defined($message) && defined($domain)</dd>
+		</dl><p>
+
+		<div class="desc">Writes a message to the interface's console.
+This method should not be used directly, use <a href="Log.html#Log::message"><code>Log::message()</code></a> instead.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Interface-&gt;loadInterface"></a>
+<h3>Interface-&gt;loadInterface</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Interface-&gt;loadInterface</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : The class name of the interface to load, excluding the 'Interface::' prefix.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">The newly created interface object.</dd>
+		</dl><p>
+
+		<div class="desc">Create a new interface of the specified class.
+<p>
+
+Throws ModuleLoadException if the interface's Perl module cannot be loaded.
+Throws ClassCreateException if the interface class cannot be created.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

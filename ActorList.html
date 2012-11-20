@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>ActorList - List of actors : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>ActorList</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>ActorList - List of actors</h1>
+
+<b>Derived from: <a href="Utils--ObjectList.html">ObjectList</a></b>
+<p>
+
+The ActorList class holds a list of Actor-objects.
+OpenKore stores lists of players/monsters/portals/NPCs/etc. in lists
+of this type. Those lists are <code>$playersList</code>, <code>$monstersList</code>, <code>$npcsList</code>,
+<code>$petsList</code> and <code>$portalsList</code>, defined in Globals.pm.
+<p>
+
+<h3>Differences compared to ObjectList</h3>
+All items in ActorList are of the same class, and are all a
+subclass of <a href="Actor.html">Actor</a>.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class ActorList</th></tr><tr onclick="location.href='#ActorList->new';">
+	<td class="return-type"><a href="ActorList.html">ActorList</a></td>
+	<td class="func"><a href="#ActorList->new">ActorList->new</a></td>
+	<td class="decl">(<span class="type">String</span> type)</td>
+</tr><tr onclick="location.href='#$ActorList->add';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$ActorList->add">$ActorList->add</a></td>
+	<td class="decl">(<span class="type"><a href="Actor.html">Actor</a></span> actor)</td>
+</tr><tr onclick="location.href='#$ActorList->getByID';">
+	<td class="return-type"><a href="Actor.html">Actor</a></td>
+	<td class="func"><a href="#$ActorList->getByID">$ActorList->getByID</a></td>
+	<td class="decl">(<span class="type">Bytes</span> ID)</td>
+</tr><tr onclick="location.href='#$ActorList->remove';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ActorList->remove">$ActorList->remove</a></td>
+	<td class="decl">(<span class="type"><a href="Actor.html">Actor</a></span> actor)</td>
+</tr><tr onclick="location.href='#$ActorList->removeByID';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$ActorList->removeByID">$ActorList->removeByID</a></td>
+	<td class="decl">(<span class="type">Bytes</span> ID)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$ActorList-&gt;add"></a>
+<h3>$ActorList-&gt;add</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$ActorList-&gt;add</strong>(<span class="type"><a href="Actor.html">Actor</a></span> actor)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">    defined($actor)    defined($actor->{ID})    $self->find($actor) == -1</dd>
+		</dl><p>
+
+		<div class="desc">Adds an actor to this ActorList.
+<p>
+
+This method overloads <a href="Utils--ObjectList.html#$ObjectList->add"><code>$ObjectList->add()</code></a>, and has a stronger precondition.
+See the documentation for that method for more information about this
+method.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorList-&gt;getByID"></a>
+<h3>$ActorList-&gt;getByID</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Actor.html">Actor</a></span> <strong>$ActorList-&gt;getByID</strong>(<span class="type">Bytes</span> ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($ID)</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">if defined(result): result->{ID} eq <code>$ID</code></dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">An Actor, or undef if there is no actor with that ID in this list.</dd>
+		</dl><p>
+
+		<div class="desc">Looks up an Actor object based on the actor ID.
+<p>
+
+See also: <code>$Actor</code>->{ID}</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorList-&gt;remove"></a>
+<h3>$ActorList-&gt;remove</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ActorList-&gt;remove</strong>(<span class="type"><a href="Actor.html">Actor</a></span> actor)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($actor) && defined($actor->{ID})</dd>
+		</dl><p>
+
+		<div class="desc">Removes an actor from this ActorList.
+<p>
+
+This method overloads <a href="Utils--ObjectList.html#$ObjectList->remove"><code>$ObjectList->remove()</code></a>, and has a stronger precondition.
+See the documentation for that method for more information about this
+method.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$ActorList-&gt;removeByID"></a>
+<h3>$ActorList-&gt;removeByID</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$ActorList-&gt;removeByID</strong>(<span class="type">Bytes</span> ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : The ID of the actor to remove.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($ID)</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">Whether the actor with the specified ID was in the list.</dd>
+		</dl><p>
+
+		<div class="desc">Removes an actor based on the actor ID. This will trigger an onRemove event
+before the actor is removed.
+<p>
+
+See also: <code>$Actor</code>->{ID}</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="ActorList-&gt;new"></a>
+<h3>ActorList-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="ActorList.html">ActorList</a></span> <strong>ActorList-&gt;new</strong>(<span class="type">String</span> type)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>type</code> : The name of the class that all items in this ActorList must be.</dd>
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">defined($type) && UNIVERSAL::isa($type, "Actor")</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->size()</code> == 0</dd>
+		</dl><p>
+
+		<div class="desc">Creates a new ActorList object.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

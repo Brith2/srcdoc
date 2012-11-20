@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Network::PacketParser - Server message parsing : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Network::PacketParser</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Network::PacketParser - Server message parsing</h1>
+
+This class is responsible for parsing messages that are sent by the RO
+server to Kore. Information in the messages are stored in global variables
+(in the module Globals).
+<p>
+
+Please also read <a href="http://wiki.openkore.com/index.php/Network_subsystem">the
+network subsystem overview.</a>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class methods</th></tr><tr onclick="location.href='#Network::PacketParser->create';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Network::PacketParser->create">Network::PacketParser->create</a></td>
+	<td class="decl">(<span class="type">Network</span> net, String serverType)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Hash members</th></tr><tr onclick="location.href='#{packet_list}';">
+	<td class="return-type">Hash*</td>
+	<td class="func"><a href="#{packet_list}">{packet_list}</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#{packet_lut}';">
+	<td class="return-type">Hash*</td>
+	<td class="func"><a href="#{packet_lut}">{packet_lut}</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Methods</th></tr><tr onclick="location.href='#$packetParser->mangle';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$packetParser->mangle">$packetParser->mangle</a></td>
+	<td class="decl">(<span class="type">Array*</span> args)</td>
+</tr><tr onclick="location.href='#$packetParser->parse';">
+	<td class="return-type">Hash*</td>
+	<td class="func"><a href="#$packetParser->parse">$packetParser->parse</a></td>
+	<td class="decl">(<span class="type">Bytes</span> msg)</td>
+</tr><tr onclick="location.href='#$packetParser->reconstruct';">
+	<td class="return-type">Bytes</td>
+	<td class="func"><a href="#$packetParser->reconstruct">$packetParser->reconstruct</a></td>
+	<td class="decl">(<span class="type">Hash*</span> args)</td>
+</tr><tr onclick="location.href='#$packetParser->willMangle';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$packetParser->willMangle">$packetParser->willMangle</a></td>
+	<td class="decl">(<span class="type">Bytes</span> messageID)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$packetParser-&gt;mangle"></a>
+<h3>$packetParser-&gt;mangle</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$packetParser-&gt;mangle</strong>(<span class="type">Array*</span> args)
+	</dt>
+	<dd>
+		<div class="desc">Calls the appropriate plugin function to mangle the packet, which
+destructively modifies <code>$args</code>.
+Returns false if the packet should be suppressed.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$packetParser-&gt;parse"></a>
+<h3>$packetParser-&gt;parse</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash*</span> <strong>$packetParser-&gt;parse</strong>(<span class="type">Bytes</span> msg)
+	</dt>
+	<dd>
+		<div class="desc">Parses a raw packet using {packet_list}.
+<p>
+
+Result hashref would contain parsed arguments and the following information:
+<ul>
+<li>switch: packet switch</li>
+<li>RAW_MSG: original message passed</li>
+<li>RAW_MSG_SIZE: length of original message passed</li>
+<li>KEYS: list of argument names from {packet_list}
+</li>
+</ul></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$packetParser-&gt;reconstruct"></a>
+<h3>$packetParser-&gt;reconstruct</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Bytes</span> <strong>$packetParser-&gt;reconstruct</strong>(<span class="type">Hash*</span> args)
+	</dt>
+	<dd>
+		<div class="desc">Reconstructs a raw packet from <code>$args</code> using {packet_list} and {packet_lut}.
+<p>
+
+<code>$args</code>->{switch} may contain a packet switch or a handler name.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$packetParser-&gt;willMangle"></a>
+<h3>$packetParser-&gt;willMangle</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$packetParser-&gt;willMangle</strong>(<span class="type">Bytes</span> messageID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>messageID</code> : a message ID, such as "008A".</dd>
+		</dl><p>
+
+		<div class="desc">Check whether the message with the specified message ID will be mangled.
+If the bot is running in X-Kore mode, then messages that will be mangled will not
+be sent to the RO client.
+<p>
+
+By default, a message will never be mangled. Plugins can register mangling procedures
+though. This is done by using the following hooks:
+<ul>
+<li>"Network::Receive/willMangle" - This hook has arguments 'messageID' (Bytes) and 'name' (String).
+         'name' is a human-readable description of the message, and may be undef. Plugins
+         should set the 'return' argument to 1 if they want <code>willMangle()</code> to return 1.</li>
+<li>"Network::Receive/mangle" - This hook has arguments 'messageArgs' and 'messageName' (the latter may be undef).
+</li>
+</ul>
+The following example demonstrates how this is done:
+<pre class="example">
+Plugins<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span><span class="hl str">&quot;Network::Receive/willMangle&quot;</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>willMangle<span class="hl sym">);</span>
+Plugins<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span><span class="hl str">&quot;Network::Receive/mangle&quot;</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>mangle<span class="hl sym">);</span>
+
+<span class="hl kwa">sub</span> willMangle <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span>undef<span class="hl sym">,</span> <span class="hl kwb">$args</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$args</span><span class="hl sym">-&gt;{</span>messageID<span class="hl sym">}</span> <span class="hl kwa">eq</span> <span class="hl str">'008A'</span><span class="hl sym">) {</span>
+        <span class="hl kwb">$args</span><span class="hl sym">-&gt;{</span>willMangle<span class="hl sym">} =</span> <span class="hl num">1</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+<span class="hl sym">}</span>
+
+<span class="hl kwa">sub</span> mangle <span class="hl sym">{</span>
+    <span class="hl kwc">my</span> <span class="hl sym">(</span>undef<span class="hl sym">,</span> <span class="hl kwb">$args</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+    <span class="hl kwc">my</span> <span class="hl kwb">$message_args</span> <span class="hl sym">=</span> <span class="hl kwb">$args</span><span class="hl sym">-&gt;{</span>messageArgs<span class="hl sym">};</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$message_args</span><span class="hl sym">-&gt;{</span><span class="hl kwa">switch</span><span class="hl sym">}</span> <span class="hl kwa">eq</span> <span class="hl str">'008A'</span><span class="hl sym">) {</span>
+        <span class="hl sym">...</span>Modify <span class="hl kwb">$message_args</span> as necessary<span class="hl sym">....</span>
+    <span class="hl sym">}</span>
+<span class="hl sym">}</span>
+</pre>
+<p>
+
+You can also mangle packets by defining <code>$args</code>->{mangle} in other plugin hooks. The options avalable are:
+<ul>
+<li>0 = no mangle</li>
+<li>1 = mangle (change packet and reconstruct)</li>
+<li>2 = drop
+</li>
+</ul>
+The following example will drop all public chat messages:
+<pre class="example">
+Plugins<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span><span class="hl str">&quot;packet_pre/public_chat&quot;</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>mangleChat<span class="hl sym">);</span>
+
+<span class="hl kwa">sub</span> mangleChat
+<span class="hl sym">{</span>
+	<span class="hl kwc">my</span><span class="hl sym">(</span>undef<span class="hl sym">,</span> <span class="hl kwb">$args</span><span class="hl sym">) =</span> <span class="hl kwb">&#64;_</span><span class="hl sym">;</span>
+	<span class="hl kwb">$args</span><span class="hl sym">-&gt;{</span>mangle<span class="hl sym">} =</span> <span class="hl num">2</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Network::PacketParser-&gt;create"></a>
+<h3>Network::PacketParser-&gt;create</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Network::PacketParser-&gt;create</strong>(<span class="type">Network</span> net, String serverType)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>net</code> : An object compatible with the '<code>Network</code>' class.</dd>
+			<dd class="param"><code>serverType</code> : A server type.</dd>
+		</dl><p>
+
+		<div class="desc">Create a new server message parsing object for the specified server type.
+<p>
+
+Throws FileNotFoundException, ModuleLoadException.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="{packet_list}"></a>
+<h3>{packet_list}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash*</span> <strong>{packet_list}</strong>
+	</dt>
+	<dd>
+		<div class="desc">A list of packet handlers and decoding information.
+<p>
+
+'packet switch' => ['handler function', 'unpack string', [qw(argument names)]]</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="{packet_lut}"></a>
+<h3>{packet_lut}</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> Hash*</span> <strong>{packet_lut}</strong>
+	</dt>
+	<dd>
+		<div class="desc">Lookup table for currently used packet switches.
+Used for constructing packets by handler name.
+<p>
+
+'handler function' => 'packet switch'</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

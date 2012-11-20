@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::AppLauncher - Abstraction layer for launching applications : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::AppLauncher</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::AppLauncher - Abstraction layer for launching applications</h1>
+
+The <code>AppLauncher</code> class provides a cross-platform way to
+launch external applications.
+<p>
+
+<b>See also:</b> <a href="Utils--PerlLauncher.html">PerlLauncher</a>
+<p>
+
+<h3>Example</h3>
+<pre class="example">
+<span class="hl kwa">use</span> Utils<span class="hl sym">::</span><span class="hl kwd">AppLauncher</span><span class="hl sym">;</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$launcher</span> <span class="hl sym">=</span> new <span class="hl kwd">AppLauncher</span><span class="hl sym">(</span><span class="hl str">'gedit'</span><span class="hl sym">,</span> <span class="hl str">'/dev/null'</span><span class="hl sym">);</span>
+<span class="hl kwa">if</span> <span class="hl sym">(!</span><span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">launch</span><span class="hl sym">(</span><span class="hl num">0</span><span class="hl sym">)) {</span>
+    die <span class="hl str">&quot;Cannot launch application.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span> <span class="hl sym">.</span>
+        <span class="hl str">&quot;Error message: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">getError</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span> <span class="hl sym">.</span>
+        <span class="hl str">&quot;Error code: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">getErrorCode</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+
+<span class="hl kwa">while</span> <span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">) {</span>
+    <span class="hl kwa">if</span> <span class="hl sym">(</span><span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">check</span><span class="hl sym">()) {</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;App is still running.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span> <span class="hl kwa">else</span> <span class="hl sym">{</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;App has exited.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl kwc">print</span> <span class="hl str">&quot;Its exit code was: &quot;</span> <span class="hl sym">.</span> <span class="hl kwb">$launcher</span><span class="hl sym">-&gt;</span><span class="hl kwd">getExitCode</span><span class="hl sym">() .</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+        <span class="hl kwa">last</span><span class="hl sym">;</span>
+    <span class="hl sym">}</span>
+    sleep <span class="hl num">5</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class AppLauncher</th></tr><tr onclick="location.href='#AppLauncher->new';">
+	<td class="return-type"><a href="Utils--AppLauncher.html">AppLauncher</a></td>
+	<td class="func"><a href="#AppLauncher->new">AppLauncher->new</a></td>
+	<td class="decl">(<span class="type">String</span> app, [String arg...])</td>
+</tr><tr onclick="location.href='#$AppLauncher->check';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$AppLauncher->check">$AppLauncher->check</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$AppLauncher->getError';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$AppLauncher->getError">$AppLauncher->getError</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$AppLauncher->getErrorCode';">
+	<td class="return-type">int</td>
+	<td class="func"><a href="#$AppLauncher->getErrorCode">$AppLauncher->getErrorCode</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$AppLauncher->getExitCode';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$AppLauncher->getExitCode">$AppLauncher->getExitCode</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$AppLauncher->getPID';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$AppLauncher->getPID">$AppLauncher->getPID</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$AppLauncher->isDetached';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$AppLauncher->isDetached">$AppLauncher->isDetached</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$AppLauncher->isLaunched';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$AppLauncher->isLaunched">$AppLauncher->isLaunched</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$AppLauncher->launch';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$AppLauncher->launch">$AppLauncher->launch</a></td>
+	<td class="decl">(<span class="type">boolean</span> detach)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$AppLauncher-&gt;check"></a>
+<h3>$AppLauncher-&gt;check</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$AppLauncher-&gt;check</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->isLaunched() && !$self->isDetached()</dd>
+		</dl><p>
+
+		<div class="desc">Check whether the launched application is still running.
+<p>
+
+If the application has exited (that is, result is false), then you
+can use <a href="Utils--AppLauncher.html#$AppLauncher->getExitCode"><code>$AppLauncher->getExitCode()</code></a> to retrieve the application's
+exit code.
+<p>
+
+You should periodically call this function. On Unix, not calling
+this function can lead to zombie processes.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$AppLauncher-&gt;getError"></a>
+<h3>$AppLauncher-&gt;getError</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$AppLauncher-&gt;getError</strong>()
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$AppLauncher-&gt;getErrorCode"></a>
+<h3>$AppLauncher-&gt;getErrorCode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> int</span> <strong>$AppLauncher-&gt;getErrorCode</strong>()
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$AppLauncher-&gt;getExitCode"></a>
+<h3>$AppLauncher-&gt;getExitCode</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$AppLauncher-&gt;getExitCode</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">!$self->check()</dd>
+		</dl><p>
+
+		<div class="desc">Retrieve the launched application's exit code. The application
+must have exited.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$AppLauncher-&gt;getPID"></a>
+<h3>$AppLauncher-&gt;getPID</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$AppLauncher-&gt;getPID</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->isLaunched()</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">defined(result)</dd>
+		</dl><p>
+
+		<div class="desc">Returns the launched application's PID (on Unix), or its
+Win32::Process object (on Windows).</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$AppLauncher-&gt;isDetached"></a>
+<h3>$AppLauncher-&gt;isDetached</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$AppLauncher-&gt;isDetached</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$self->isLaunched()</dd>
+		</dl><p>
+
+		<div class="desc">Check whether the application was launched in detached mode.
+That is, whether <a href="Utils--AppLauncher.html#$AppLauncher->launch"><code>$AppLauncher->launch()</code></a> was called with the detach
+parameter set to true.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$AppLauncher-&gt;isLaunched"></a>
+<h3>$AppLauncher-&gt;isLaunched</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$AppLauncher-&gt;isLaunched</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether <a href="Utils--AppLauncher.html#$AppLauncher->launch"><code>$AppLauncher->launch()</code></a> had successfully launched
+the application.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$AppLauncher-&gt;launch"></a>
+<h3>$AppLauncher-&gt;launch</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$AppLauncher-&gt;launch</strong>(<span class="type">boolean</span> detach)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>detach</code> : Set to 1 if you don't care when this application exists.</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures"><code>$self->isLaunched()</code> == result</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">whether the application was successfully launched.</dd>
+		</dl><p>
+
+		<div class="desc">Launch the application asynchronously. That is, it will
+not wait until the application has exited.
+<p>
+
+If <code>$detach</code> is false, then you must periodically call
+<a href="Utils--AppLauncher.html#$AppLauncher->check"><code>$AppLauncher->check()</code></a> until it returns true. This is
+to avoid zombie processes on Unix.
+<p>
+
+If the launch failed, then you can use <a href="Utils--AppLauncher.html#$AppLauncher->getError"><code>$AppLauncher->getError()</code></a>
+and <a href="Utils--AppLauncher.html#$AppLauncher->getErrorCode"><code>$AppLauncher->getErrorCode()</code></a> to get detailed information
+about the cause.
+<p>
+
+You must not call this function more than once. If this
+function failed, and you want to try launching again, then you
+must discard this object and create a new one.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="AppLauncher-&gt;new"></a>
+<h3>AppLauncher-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Utils--AppLauncher.html">AppLauncher</a></span> <strong>AppLauncher-&gt;new</strong>(<span class="type">String</span> app, [String arg...])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>app</code> : The application you want to run.</dd>
+			<dd class="param"><code>arg</code> : The arguments you want to pass to the executable.</dd>
+		<dt class="ensures"><strong>Ensures:</strong></dt>
+			<dd class="ensures">!<code>$self->isLaunched()</code></dd>
+		</dl><p>
+
+		<div class="desc">Create a new AppLauncher object. The specified application
+isn't run until you call <a href="Utils--AppLauncher.html#$AppLauncher->launch"><code>$AppLauncher->launch()</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

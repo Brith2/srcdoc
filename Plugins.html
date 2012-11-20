@@ -1,0 +1,493 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Plugins - Plugin system : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Plugins</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Plugins - Plugin system</h1>
+
+This module provides an interface for handling plugins.
+See the <a href="http://wiki.openkore.com/index.php/How_to_write_plugins_for_OpenKore">Plugin
+Writing Tutorial</a> for more information about plugins.
+<p>
+
+NOTE: Do not confuse plugins with modules! See <a href="Modules.html">Modules.pm</a> for more information.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions</th></tr><tr onclick="location.href='#Plugins::addHook';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Plugins::addHook">Plugins::addHook</a></td>
+	<td class="decl">(<span class="type">String</span> hookname, callback, [user_data])</td>
+</tr><tr onclick="location.href='#Plugins::addHooks';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Plugins::addHooks">Plugins::addHooks</a></td>
+	<td class="decl">(<span class="type"></span> [hookName, callback, user_data], ... )</td>
+</tr><tr onclick="location.href='#Plugins::callHook';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Plugins::callHook">Plugins::callHook</a></td>
+	<td class="decl">(<span class="type">String</span> hookName, [argument])</td>
+</tr><tr onclick="location.href='#Plugins::delHook';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Plugins::delHook">Plugins::delHook</a></td>
+	<td class="decl">(<span class="type">hookname,</span> handle)</td>
+</tr><tr onclick="location.href='#Plugins::delHooks';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Plugins::delHooks">Plugins::delHooks</a></td>
+	<td class="decl">(hooks)</td>
+</tr><tr onclick="location.href='#Plugins::hasHook';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#Plugins::hasHook">Plugins::hasHook</a></td>
+	<td class="decl">(<span class="type">String</span> hookName)</td>
+</tr><tr onclick="location.href='#Plugins::load';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Plugins::load">Plugins::load</a></td>
+	<td class="decl">(<span class="type">String</span> file)</td>
+</tr><tr onclick="location.href='#Plugins::loadAll';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Plugins::loadAll">Plugins::loadAll</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#Plugins::register';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Plugins::register">Plugins::register</a></td>
+	<td class="decl">(<span class="type">String</span> name, String description, [unload_callback, reload_callback])</td>
+</tr><tr onclick="location.href='#Plugins::registered';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#Plugins::registered">Plugins::registered</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr><tr onclick="location.href='#Plugins::reload';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#Plugins::reload">Plugins::reload</a></td>
+	<td class="decl">(<span class="type">String</span> name)</td>
+</tr><tr onclick="location.href='#Plugins::unload';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#Plugins::unload">Plugins::unload</a></td>
+	<td class="decl">(name)</td>
+</tr><tr onclick="location.href='#Plugins::unloadAll';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Plugins::unloadAll">Plugins::unloadAll</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Variables</th></tr><tr onclick="location.href='#$Plugins::current_plugin';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Plugins::current_plugin">$Plugins::current_plugin</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$Plugins::current_plugin_folder';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$Plugins::current_plugin_folder">$Plugins::current_plugin_folder</a></td>
+	<td class="decl"></td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$Plugins::current_plugin"></a>
+<h3>$Plugins::current_plugin</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Plugins::current_plugin</strong>
+	</dt>
+	<dd>
+		<div class="desc">When a plugin is being (re)loaded, the filename of the plugin is set in this variable.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$Plugins::current_plugin_folder"></a>
+<h3>$Plugins::current_plugin_folder</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$Plugins::current_plugin_folder</strong>
+	</dt>
+	<dd>
+		<div class="desc">When a plugin is being (re)loaded, the the plugin's folder is set in this variable.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::addHook"></a>
+<h3>Plugins::addHook</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Plugins::addHook</strong>(<span class="type">String</span> hookname, callback, [user_data])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>hookname</code> : Name of a hook.</dd>
+			<dd class="param"><code>callback</code> : Reference to the function to call.</dd>
+			<dd class="param"><code>user_data</code> : Additional data to pass to callback.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">A handle which can be used to remove this hook.</dd>
+		</dl><p>
+
+		<div class="desc">Add a hook for <code>$hookname</code>. Whenever Kore calls Plugins::callHook('foo'),
+callback is also called.
+<p>
+
+See also <a href="Plugins.html#Plugins::callHook"><code>Plugins::callHook()</code></a> for information about how callback is called.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># Somewhere in your plugin:</span>
+<span class="hl kwa">use</span> <span class="hl kwd">Plugins</span><span class="hl sym">;</span>
+<span class="hl kwa">use</span> <span class="hl kwd">Log</span><span class="hl sym">;</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$hook</span> <span class="hl sym">=</span> Plugins<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span><span class="hl str">'AI_pre'</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>ai_called<span class="hl sym">);</span>
+
+<span class="hl kwa">sub</span> ai_called <span class="hl sym">{</span>
+    Log<span class="hl sym">::</span><span class="hl kwd">message</span><span class="hl sym">(</span><span class="hl str">&quot;Kore's AI() function has been called.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">);</span>
+<span class="hl sym">}</span>
+
+<span class="hl slc"># Somewhere in the Kore source code:</span>
+<span class="hl kwa">sub</span> AI <span class="hl sym">{</span>
+    <span class="hl sym">...</span>
+    Plugins<span class="hl sym">::</span><span class="hl kwd">callHook</span><span class="hl sym">(</span><span class="hl str">'AI_pre'</span><span class="hl sym">);</span>   <span class="hl slc"># &lt;-- ai_called() is now also called.</span>
+    <span class="hl sym">...</span>
+<span class="hl sym">}</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::addHooks"></a>
+<h3>Plugins::addHooks</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Plugins::addHooks</strong>(<span class="type"></span> [hookName, callback, user_data], ... )
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">A handle, which can be used with Plugins::delHook()</dd>
+		</dl><p>
+
+		<div class="desc">A convenience function for adding many hooks with one function.
+<p>
+
+See also: <a href="Plugins.html#Plugins::addHook"><code>Plugins::addHook()</code></a>, <a href="Plugins.html#Plugins::delHook"><code>Plugins::delHook()</code></a></div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwb">$hooks</span> <span class="hl sym">=</span> Plugins<span class="hl sym">::</span><span class="hl kwd">addHooks</span><span class="hl sym">(</span>
+	<span class="hl sym">[</span><span class="hl str">'AI_pre'</span><span class="hl sym">,</span>       \<span class="hl sym">&amp;</span>onAI_pre<span class="hl sym">],</span>
+	<span class="hl sym">[</span><span class="hl str">'mainLoop_pre'</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>onMainLoop_pre<span class="hl sym">,</span> <span class="hl kwb">$some_user_data</span><span class="hl sym">]</span>
+<span class="hl sym">);</span>
+Plugins<span class="hl sym">::</span><span class="hl kwd">delHook</span><span class="hl sym">(</span><span class="hl kwb">$hooks</span><span class="hl sym">);</span>
+
+<span class="hl slc"># The above is the same as:</span>
+<span class="hl kwb">$hook1</span> <span class="hl sym">=</span> Plugins<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span><span class="hl str">'AI_pre'</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>onAI_pre<span class="hl sym">);</span>
+<span class="hl kwb">$hook2</span> <span class="hl sym">=</span> Plugins<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span><span class="hl str">'mainLoop_pre'</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>onMainLoop_pre<span class="hl sym">);</span>
+Plugins<span class="hl sym">::</span><span class="hl kwd">delHook</span><span class="hl sym">(</span><span class="hl kwb">$hook1</span><span class="hl sym">);</span>
+Plugins<span class="hl sym">::</span><span class="hl kwd">delHook</span><span class="hl sym">(</span><span class="hl kwb">$hook2</span><span class="hl sym">);</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::callHook"></a>
+<h3>Plugins::callHook</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Plugins::callHook</strong>(<span class="type">String</span> hookName, [argument])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>hookName</code> : Name of the hook.</dd>
+			<dd class="param"><code>argument</code> : An argument to pass to the hook's callback functions.</dd>
+		</dl><p>
+
+		<div class="desc">Call all callback functions which are associated with the hook <code>$hookName</code>.
+<p>
+
+The hook's callback function is called as follows:
+<pre class="example">
+<span class="hl kwb">$callback</span><span class="hl sym">-&gt;(</span><span class="hl kwb">$hookName</span><span class="hl sym">,</span> <span class="hl kwb">$argument</span><span class="hl sym">,</span> userdata as passed to addHook<span class="hl sym">);</span>
+</pre>
+<p>
+
+See also: <a href="Plugins.html#Plugins::addHook"><code>Plugins::addHook()</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::delHook"></a>
+<h3>Plugins::delHook</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Plugins::delHook</strong>(<span class="type">hookname,</span> handle)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>hookname</code> : Name of a hook.</dd>
+			<dd class="param"><code>handle</code> : A hook handle, as returned by <a href="Plugins.html#Plugins::addHook"><code>Plugins::addHook()</code></a></dd>
+		</dl><p>
+
+		<div class="desc">Removes a registered hook. <code>$callback</code> will not be called anymore.
+<p>
+
+See also: <a href="Plugins.html#Plugins::addHook"><code>Plugins::addHook()</code></a></div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre>Plugins<span class="hl sym">::</span><span class="hl kwd">register</span><span class="hl sym">(</span><span class="hl str">'example'</span><span class="hl sym">,</span> <span class="hl str">'Example Plugin'</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>on_unload<span class="hl sym">,</span> \<span class="hl sym">&amp;</span>on_reload<span class="hl sym">);</span>
+<span class="hl kwc">my</span> <span class="hl kwb">$hook</span> <span class="hl sym">=</span> Plugins<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span><span class="hl str">'AI_pre'</span><span class="hl sym">,</span> \<span class="hl sym">&amp;</span>ai_called<span class="hl sym">);</span>
+
+<span class="hl kwa">sub</span> on_unload <span class="hl sym">{</span>
+    Plugins<span class="hl sym">::</span><span class="hl kwd">delHook</span><span class="hl sym">(</span><span class="hl kwb">$hook</span><span class="hl sym">);</span>
+    Log<span class="hl sym">::</span>message <span class="hl str">&quot;Example plugin unloaded.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl sym">;</span>
+<span class="hl sym">}</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::delHooks"></a>
+<h3>Plugins::delHooks</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Plugins::delHooks</strong>(hooks)
+	</dt>
+	<dd>
+		<div class="desc">An alias for <a href="Plugins.html#Plugins::delHook"><code>Plugins::delHook()</code></a>, for backwards compatibility reasons.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::hasHook"></a>
+<h3>Plugins::hasHook</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>Plugins::hasHook</strong>(<span class="type">String</span> hookName)
+	</dt>
+	<dd>
+		<div class="desc">Check whether there are any hooks registered for the specified hook name.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::load"></a>
+<h3>Plugins::load</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Plugins::load</strong>(<span class="type">String</span> file)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>file</code> : The filename of a plugin.</dd>
+		</dl><p>
+
+		<div class="desc">Loads a plugin.
+<p>
+
+Throws Plugin::LoadException if it failed to load.
+Throws Plugin::DeniedException if the plugin system refused to load this plugin. This can
+happen, for example, if it detects that a plugin is incompatible.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::loadAll"></a>
+<h3>Plugins::loadAll</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Plugins::loadAll</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Loads all plugins from the plugins folder, and all plugins that are one subfolder below
+the plugins folder. Plugins must have the .pl extension.
+<p>
+
+Throws Plugin::LoadException if a plugin failed to load.
+Throws Plugin::DeniedException if the plugin system refused to load a plugin. This can
+happen, for example, if it detects that a plugin is incompatible.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::register"></a>
+<h3>Plugins::register</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Plugins::register</strong>(<span class="type">String</span> name, String description, [unload_callback, reload_callback])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : The plugin's name.</dd>
+			<dd class="param"><code>description</code> : A short one-line description of the plugin.</dd>
+			<dd class="param"><code>unload_callback</code> : Reference to a function that will be called when the plugin is being unloaded.</dd>
+			<dd class="param"><code>reload_callback</code> : Reference to a function that will be called when the plugin is being reloaded.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if the plugin has been successfully registered, 0 if a plugin with the same name is already registered.</dd>
+		</dl><p>
+
+		<div class="desc">Plugins should call this function when they are loaded. This function registers
+the plugin in the plugin database. Registered plugins can be unloaded by the user.
+<p>
+
+In the unload/reload callback functions, plugins should delete any hook functions they added.
+See also: <a href="Plugins.html#Plugins::addHook"><code>Plugins::addHook()</code></a>, <a href="Plugins.html#Plugins::delHook"><code>Plugins::delHook()</code></a></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::registered"></a>
+<h3>Plugins::registered</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>Plugins::registered</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : The plugin's name.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if the plugin's registered, 0 if it isn't.</dd>
+		</dl><p>
+
+		<div class="desc">Checks whether a plugin is registered.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::reload"></a>
+<h3>Plugins::reload</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>Plugins::reload</strong>(<span class="type">String</span> name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : The name of the plugin to reload.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 on success, 0 if the plugin isn't registered.</dd>
+		</dl><p>
+
+		<div class="desc">Reload a plugin.
+<p>
+
+Throws Plugin::LoadException if it failed to load.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::unload"></a>
+<h3>Plugins::unload</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>Plugins::unload</strong>(name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : The name of the plugin to unload.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 if the plugin has been successfully unloaded, 0 if the plugin isn't registered.</dd>
+		</dl><p>
+
+		<div class="desc">Unloads a registered plugin.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Plugins::unloadAll"></a>
+<h3>Plugins::unloadAll</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Plugins::unloadAll</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Unloads all registered plugins.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Network::Send - Sending messages to RO server : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Network::Send</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Network::Send - Sending messages to RO server</h1>
+
+This class contains convenience methods for sending messages to the RO
+server.
+<p>
+
+Please also read <a href="http://wiki.openkore.com/index.php/Network_subsystem">the
+network subsystem overview.</a>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Class methods</th></tr><tr onclick="location.href='#Network::Send::encrypt';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#Network::Send::encrypt">Network::Send::encrypt</a></td>
+	<td class="decl">(<span class="type">r_msg,</span> themsg)</td>
+</tr>
+</table>
+<p><table class="functionIndex">
+<tr><th colspan="3">Methods</th></tr><tr onclick="location.href='#$messageSender->encryptMessageID';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$messageSender->encryptMessageID">$messageSender->encryptMessageID</a></td>
+	<td class="decl">(r_message)</td>
+</tr><tr onclick="location.href='#$messageSender->injectAdminMessage';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$messageSender->injectAdminMessage">$messageSender->injectAdminMessage</a></td>
+	<td class="decl">(<span class="type">String</span> message)</td>
+</tr><tr onclick="location.href='#$messageSender->injectMessage';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$messageSender->injectMessage">$messageSender->injectMessage</a></td>
+	<td class="decl">(<span class="type">String</span> message)</td>
+</tr><tr onclick="location.href='#$messageSender->sendRaw';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$messageSender->sendRaw">$messageSender->sendRaw</a></td>
+	<td class="decl">(<span class="type">String</span> raw)</td>
+</tr><tr onclick="location.href='#$messageSender->sendToServer';">
+	<td class="return-type">void</td>
+	<td class="func"><a href="#$messageSender->sendToServer">$messageSender->sendToServer</a></td>
+	<td class="decl">(<span class="type">Bytes</span> msg)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$messageSender-&gt;encryptMessageID"></a>
+<h3>$messageSender-&gt;encryptMessageID</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$messageSender-&gt;encryptMessageID</strong>(r_message)
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$messageSender-&gt;injectAdminMessage"></a>
+<h3>$messageSender-&gt;injectAdminMessage</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$messageSender-&gt;injectAdminMessage</strong>(<span class="type">String</span> message)
+	</dt>
+	<dd>
+		<div class="desc">Send text message to the connected client's system chat.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$messageSender-&gt;injectMessage"></a>
+<h3>$messageSender-&gt;injectMessage</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$messageSender-&gt;injectMessage</strong>(<span class="type">String</span> message)
+	</dt>
+	<dd>
+		<div class="desc">Send text message to the connected client's party chat.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$messageSender-&gt;sendRaw"></a>
+<h3>$messageSender-&gt;sendRaw</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$messageSender-&gt;sendRaw</strong>(<span class="type">String</span> raw)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>raw</code> : space-delimited list of hex byte values</dd>
+		</dl><p>
+
+		<div class="desc">Send a raw data to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$messageSender-&gt;sendToServer"></a>
+<h3>$messageSender-&gt;sendToServer</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>$messageSender-&gt;sendToServer</strong>(<span class="type">Bytes</span> msg)
+	</dt>
+	<dd>
+		<div class="desc">Send a raw data to the server.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Network::Send::encrypt"></a>
+<h3>Network::Send::encrypt</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> void</span> <strong>Network::Send::encrypt</strong>(<span class="type">r_msg,</span> themsg)
+	</dt>
+	<dd>
+		<div class="desc">This is an old method used back in the iRO beta 2 days when iRO had encrypted packets.
+At the moment (December 20 2006) there are no servers that still use encrypted packets.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

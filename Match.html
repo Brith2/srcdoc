@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Match - Entity lookup and matching : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Match</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Match - Entity lookup and matching</h1>
+
+This module contains functions for matching input typed by the player with
+an in-game entity (e.g. players, monsters, items). These functions make
+it easy to match an entity using a number or a name.
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Match::cartItem';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Match::cartItem">Match::cartItem</a></td>
+	<td class="decl">(name)</td>
+</tr><tr onclick="location.href='#Match::inventoryItem';">
+	<td class="return-type"><a href="Actor--Item.html">Actor::Item</a></td>
+	<td class="func"><a href="#Match::inventoryItem">Match::inventoryItem</a></td>
+	<td class="decl">(name)</td>
+</tr><tr onclick="location.href='#Match::player';">
+	<td class="return-type"><a href="Actor--Player.html">Actor::Player</a></td>
+	<td class="func"><a href="#Match::player">Match::player</a></td>
+	<td class="decl">(<span class="type">ID,</span> [boolean partial_match = false])</td>
+</tr><tr onclick="location.href='#Match::storageItem';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Match::storageItem">Match::storageItem</a></td>
+	<td class="decl">(name)</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Match::cartItem"></a>
+<h3>Match::cartItem</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Match::cartItem</strong>(name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : either a number in the cart list, or an item name.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the hash to the cart item matching $name, or undef.</dd>
+		</dl><p>
+
+		<div class="desc">Find an item in cart.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Match::inventoryItem"></a>
+<h3>Match::inventoryItem</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Actor--Item.html">Actor::Item</a></span> <strong>Match::inventoryItem</strong>(name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : either a number in the inventory list, or an item name.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the hash to the inventory item matching $name, or undef.</dd>
+		</dl><p>
+
+		<div class="desc">Find an item in the inventory. <a href="Actor--Item.html#Actor::Item::get"><code>Actor::Item::get()</code></a> does the same thing, but allows more search criteria.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Match::player"></a>
+<h3>Match::player</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> <a href="Actor--Player.html">Actor::Player</a></span> <strong>Match::player</strong>(<span class="type">ID,</span> [boolean partial_match = false])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : either a number in the player list, or a player name.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">an Actor::Player object, or undef if not found.</dd>
+		</dl><p>
+
+		<div class="desc">Find an player in the global player list based on the given match criteria.
+You can either find a player by name, or by number (as displayed in the 'pl' command).</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl slc"># Suppose these players are on screen:</span>
+<span class="hl slc"># 0     SuperPlayer</span>
+<span class="hl slc"># 1     BigKnight</span>
+<span class="hl slc"># 3     MyHunter</span>
+Match<span class="hl sym">::</span><span class="hl kwd">player</span><span class="hl sym">(</span><span class="hl num">1</span><span class="hl sym">);</span>           <span class="hl slc"># Returns the Actor::Player object for BigKnight</span>
+Match<span class="hl sym">::</span><span class="hl kwd">player</span><span class="hl sym">(</span><span class="hl num">2</span><span class="hl sym">);</span>           <span class="hl slc"># undef - player 2 does not exist</span>
+Match<span class="hl sym">::</span><span class="hl kwd">player</span><span class="hl sym">(</span><span class="hl str">&quot;MyHunter&quot;</span><span class="hl sym">);</span>  <span class="hl slc"># Returns the Actor::Player object for MyHunter</span>
+Match<span class="hl sym">::</span><span class="hl kwd">player</span><span class="hl sym">(</span><span class="hl str">&quot;someone&quot;</span><span class="hl sym">);</span>   <span class="hl slc"># undef - there is no such player on screen</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Match::storageItem"></a>
+<h3>Match::storageItem</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Match::storageItem</strong>(name)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>name</code> : either a number in the storage list, or an item name.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the hash to the storage item matching $name, or undef.</dd>
+		</dl><p>
+
+		<div class="desc">Find an item in storage.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

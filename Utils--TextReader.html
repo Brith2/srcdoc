@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Utils::TextReader - UTF-8 text reader. : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Utils::TextReader</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Utils::TextReader - UTF-8 text reader.</h1>
+
+A convenience class for reading text files encoded in UTF-8. If you're
+not familiar with UTF-8, Unicode or character encoding in general, then you
+should read <a href="http://www.joelonsoftware.com/articles/Unicode.html">this article
+by Joel on Software</a>.
+<p>
+
+If the text file is not valid UTF-8, then it will assume that the text file
+is in the system's default encoding. If that isn't correct either, then an
+exception will be thrown during reading.
+<p>
+
+This class is to be used as follows:
+<pre class="example">
+<span class="hl kwa">use</span> Utils<span class="hl sym">::</span><span class="hl kwd">TextReader</span><span class="hl sym">;</span>
+
+<span class="hl kwc">my</span> <span class="hl kwb">$reader</span> <span class="hl sym">=</span> new Utils<span class="hl sym">::</span><span class="hl kwd">TextReader</span><span class="hl sym">(</span><span class="hl str">&quot;file.txt&quot;</span><span class="hl sym">);</span>
+<span class="hl kwa">while</span> <span class="hl sym">(!</span><span class="hl kwb">$reader</span><span class="hl sym">-&gt;</span><span class="hl kwd">eof</span><span class="hl sym">()) {</span>
+   <span class="hl kwc">print</span> <span class="hl kwb">$reader</span><span class="hl sym">-&gt;</span><span class="hl kwd">readLine</span><span class="hl sym">();</span>
+<span class="hl sym">}</span>
+</pre>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Utils::TextReader->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Utils::TextReader->new">Utils::TextReader->new</a></td>
+	<td class="decl">(<span class="type">String</span> filename)</td>
+</tr><tr onclick="location.href='#$TextReader->eof';">
+	<td class="return-type">boolean</td>
+	<td class="func"><a href="#$TextReader->eof">$TextReader->eof</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$TextReader->readLine';">
+	<td class="return-type">String</td>
+	<td class="func"><a href="#$TextReader->readLine">$TextReader->readLine</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$TextReader-&gt;eof"></a>
+<h3>$TextReader-&gt;eof</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> boolean</span> <strong>$TextReader-&gt;eof</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Check whether end-of-file has been reached.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$TextReader-&gt;readLine"></a>
+<h3>$TextReader-&gt;readLine</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> String</span> <strong>$TextReader-&gt;readLine</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">!$TextReader->eof()</dd>
+		<dt class="throws"><strong>Throws:</strong></dt>
+			<dd class="throws">UTF8MalformedException</dd>
+		</dl><p>
+
+		<div class="desc">Read one line from the file, including a possible newline character.
+UTF-8 BOM characters are automatically stripped.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Utils::TextReader-&gt;new"></a>
+<h3>Utils::TextReader-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Utils::TextReader-&gt;new</strong>(<span class="type">String</span> filename)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="throws"><strong>Throws:</strong></dt>
+			<dd class="throws">FileNotFoundException, IOException</dd>
+		</dl><p>
+
+		<div class="desc">Create a new TextReader and open the given file for reading.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

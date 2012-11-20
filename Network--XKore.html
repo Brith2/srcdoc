@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Network::XKore -  : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Network::XKore</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Network::XKore - </h1>
+
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Network::XKore->new';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Network::XKore->new">Network::XKore->new</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->checkConnection';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->checkConnection">$net->checkConnection</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->clientAlive';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->clientAlive">$net->clientAlive</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->clientConnect';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->clientConnect">$net->clientConnect</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$net->clientPeerHost';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->clientPeerHost">$net->clientPeerHost</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$net->clientPeerPort';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->clientPeerPort">$net->clientPeerPort</a></td>
+	<td class="decl"></td>
+</tr><tr onclick="location.href='#$net->clientRecv';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->clientRecv">$net->clientRecv</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->clientSend';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->clientSend">$net->clientSend</a></td>
+	<td class="decl">(msg)</td>
+</tr><tr onclick="location.href='#$net->hackClient';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->hackClient">$net->hackClient</a></td>
+	<td class="decl">(pid)</td>
+</tr><tr onclick="location.href='#$net->inject';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->inject">$net->inject</a></td>
+	<td class="decl">(pid)</td>
+</tr><tr onclick="location.href='#$net->injectSync';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->injectSync">$net->injectSync</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->recv';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->recv">$net->recv</a></td>
+	<td class="decl">()</td>
+</tr><tr onclick="location.href='#$net->waitForClient';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#$net->waitForClient">$net->waitForClient</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="$net-&gt;checkConnection"></a>
+<h3>$net-&gt;checkConnection</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;checkConnection</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Handles any connection issues. Based on the current situation, this function may
+re-connect to the RO server, disconnect, do nothing, etc.
+<p>
+
+This function is meant to be run in the Kore main loop.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientAlive"></a>
+<h3>$net-&gt;clientAlive</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;clientAlive</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">a boolean.</dd>
+		</dl><p>
+
+		<div class="desc">Check whether the connection with the client is still alive.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientConnect"></a>
+<h3>$net-&gt;clientConnect</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;clientConnect</strong>
+	</dt>
+	<dd>
+		<div class="desc">Not used with XKore mode 1</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientPeerHost"></a>
+<h3>$net-&gt;clientPeerHost</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;clientPeerHost</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientPeerPort"></a>
+<h3>$net-&gt;clientPeerPort</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;clientPeerPort</strong>
+	</dt>
+	<dd>
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientRecv"></a>
+<h3>$net-&gt;clientRecv</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;clientRecv</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>Returns</code> : the message sent from the client (towards the server), or undef if there are no pending messages.</dd>
+		</dl><p>
+
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;clientSend"></a>
+<h3>$net-&gt;clientSend</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;clientSend</strong>(msg)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>msg</code> : A scalar to be sent to the RO client</dd>
+		</dl><p>
+
+		<div class="desc"></div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;hackClient"></a>
+<h3>$net-&gt;hackClient</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;hackClient</strong>(pid)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>pid</code> : Process ID of a running (and official) Ragnarok Online client</dd>
+		</dl><p>
+
+		<div class="desc">Hacks the client (non-nProtect GameGuard version) to remove bot detection.
+If the code is in the RO Client, it should find it fairly quick and patch, but
+if not it will spend a bit of time scanning through Ragnarok's memory. Perhaps
+there should be a config option to disable/enable this?
+<p>
+
+Code Note: <code>$original</code> is a regexp match, and since 0x7C is '|', its escaped.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;inject"></a>
+<h3>$net-&gt;inject</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;inject</strong>(pid)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>pid</code> : a process ID.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">1 on success, 0 on failure.</dd>
+		</dl><p>
+
+		<div class="desc">Inject NetRedirect.dll into an external process. On failure, $@ is set.
+<p>
+
+This function is meant to be used internally only.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;injectSync"></a>
+<h3>$net-&gt;injectSync</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;injectSync</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Send a keep-alive packet to the injected DLL.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;recv"></a>
+<h3>$net-&gt;recv</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;recv</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">Nothing</dd>
+		</dl><p>
+
+		<div class="desc">Receive packets from the client. Then sort them into server-bound or client-bound;
+<p>
+
+This is meant to be used internally only.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="$net-&gt;waitForClient"></a>
+<h3>$net-&gt;waitForClient</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>$net-&gt;waitForClient</strong>()
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">the socket which connects X-Kore to the client.</dd>
+		</dl><p>
+
+		<div class="desc">Wait until the client has connected the X-Kore server.
+<p>
+
+This function is meant to be used internally only.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Network::XKore-&gt;new"></a>
+<h3>Network::XKore-&gt;new</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Network::XKore-&gt;new</strong>()
+	</dt>
+	<dd>
+		<div class="desc">Initialize X-Kore mode. Throws Network::XKore::CannotStart on error.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>

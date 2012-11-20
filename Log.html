@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Log - Message Logging framework : OpenKore source code documentation</title>
+	<link rel="stylesheet" type="text/css" href="openkore.css">
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+	<!-- Fix broken PNG transparency for IE/Win5-6+ -->
+	<!--[if gte IE 5.5000]>
+	<script type="text/javascript" src="pngfix.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div id="title">OpenKore source code documentation</div>
+
+<div id="navigation">
+	<ul>
+	<li><a href="http://www.openkore.com/">Main website</a></li>
+	<li><a href="index.html">Table of contents</a></li>
+	<li><b>Log</b></li>
+	</ul>
+</div>
+
+<div id="main">
+
+
+<h1>Log - Message Logging framework</h1>
+
+<h3>What is a logging framework and why is it needed?</h3>
+<p>
+
+Kore used to print messages to the console using <code>print()</code>. There are several
+problems though:
+<ul>
+<li>Messages can only be printed to the console. If you want to print it
+  to elsewhere you have to resort to all kinds of hacks (take a look
+  at the code for sending console output to X-Kore, for example).</li>
+<li>The messages have no classification. You have a message, but there's
+  no easy way for the program to find out what kind of message it is;
+  you don't know it's context. This means that the user can't really control
+  what kind of messages he does and doesn't want to see.</li>
+<li>Debug messages are all in the form of print "bla\n" if ($config{'verbose'});
+  You can either enable all debug messages, or nothing at all. For developers,
+  the huge amount of debug messages can make things look cluttered.
+</li>
+</ul>
+<p>
+
+The logging framework provides a new way to print messages:
+<ul>
+<li>You can print messages (of course).</li>
+<li>You can classify messages: attaching a context (domain) to a message you print.</li>
+<li>You can intercept messages and decide what else to do with it. You can write to
+  a file, send to X-Kore (based on the message's domain), or whatever you want.</li>
+<li>You can attach certain colors to messages of a certain domains.</li>
+<li>You can choose what kind of message you do and do not want to see.
+</li>
+</ul>
+<p>
+
+The most important functions are:
+<a href="Log.html#Log::message"><code>Log::message()</code></a>, <a href="Log.html#Log::warning"><code>Log::warning()</code></a>, <a href="Log.html#Log::error"><code>Log::error()</code></a>, <a href="Log.html#Log::debug"><code>Log::debug()</code></a>
+<p>
+
+You pass the following arguments to those functions:
+<ul>
+<li>message: The message you want to print.</li>
+<li>domain: The message domain (context). This is used to classify a message.</li>
+<li>level: The message's verbosity level. The message will only be printed if this number
+         is lower than or equal to <code>$config{'verbose'}</code> (or <code>$config{'debug'}</code> if this is a
+         debug message). Important messages should have a low verbosity level,
+         unimportant/redundant messages should have a high verbosity level.
+</li>
+</ul>
+
+
+<p><table class="functionIndex">
+<tr><th colspan="3">Functions in this module</th></tr><tr onclick="location.href='#Log::addHook';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Log::addHook">Log::addHook</a></td>
+	<td class="decl">(<span class="type">r_func,</span> [user_data])</td>
+</tr><tr onclick="location.href='#Log::debug';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Log::debug">Log::debug</a></td>
+	<td class="decl">(<span class="type">message,</span> [domain], [level])</td>
+</tr><tr onclick="location.href='#Log::delHook';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Log::delHook">Log::delHook</a></td>
+	<td class="decl">(ID)</td>
+</tr><tr onclick="location.href='#Log::error';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Log::error">Log::error</a></td>
+	<td class="decl">(<span class="type">message,</span> [domain], [level])</td>
+</tr><tr onclick="location.href='#Log::message';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Log::message">Log::message</a></td>
+	<td class="decl">(<span class="type">message,</span> [domain], [level])</td>
+</tr><tr onclick="location.href='#Log::parseLogToFile';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Log::parseLogToFile">Log::parseLogToFile</a></td>
+	<td class="decl">(args,hash)</td>
+</tr><tr onclick="location.href='#Log::warning';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#Log::warning">Log::warning</a></td>
+	<td class="decl">(<span class="type">message,</span> [domain], [level])</td>
+</tr><tr onclick="location.href='#initLogFiles';">
+	<td class="return-type"></td>
+	<td class="func"><a href="#initLogFiles">initLogFiles</a></td>
+	<td class="decl">()</td>
+</tr>
+</table>
+
+
+<p><hr class="details_sep">
+
+<h2>Details</h2>
+<div class="details">
+
+
+<p>
+<div class="function"><a name="Log::addHook"></a>
+<h3>Log::addHook</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Log::addHook</strong>(<span class="type">r_func,</span> [user_data])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>r_func</code> : A reference to the function to call.</dd>
+			<dd class="param"><code>user_data</code> : Additional data to pass to r_func.</dd>
+		<dt class="returns"><strong>Returns:</strong></dt>
+			<dd class="returns">An ID which you can use to remove this hook.</dd>
+		</dl><p>
+
+		<div class="desc">Adds a hook. Every time <a href="Log.html#Log::message"><code>Log::message()</code></a>, <a href="Log.html#Log::warning"><code>Log::warning()</code></a>, <a href="Log.html#Log::error"><code>Log::error()</code></a> or <a href="Log.html#Log::debug"><code>Log::debug()</code></a> is called,
+r_func is also called, in the following way:
+<pre>
+r_func<span class="hl sym">-&gt;(</span><span class="hl kwb">$type</span><span class="hl sym">,</span> <span class="hl kwb">$domain</span><span class="hl sym">,</span> <span class="hl kwb">$level</span><span class="hl sym">,</span> <span class="hl kwb">$globalVerbosity</span><span class="hl sym">,</span> <span class="hl kwb">$message</span><span class="hl sym">,</span> <span class="hl kwb">$user_data</span><span class="hl sym">);</span>
+<span class="hl kwb">$type</span> <span class="hl sym">:</span> One of the following<span class="hl sym">:</span> <span class="hl str">&quot;message&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;warning&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;error&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;debug&quot;</span><span class="hl sym">.</span>
+<span class="hl kwb">$domain</span> <span class="hl sym">:</span> The message<span class="hl str">'s domain.</span>
+<span class="hl str">$level : The message'</span>s own verbosity level<span class="hl sym">.</span>
+<span class="hl kwb">$globalVerbosity</span> <span class="hl sym">:</span> The global verbosity level<span class="hl sym">.</span>
+<span class="hl kwb">$message</span> <span class="hl sym">:</span> The message itself<span class="hl sym">.</span>
+<span class="hl kwb">$user_data</span> <span class="hl sym">:</span> The value of user_data<span class="hl sym">,</span> as passed to addHook<span class="hl sym">.</span>
+<span class="hl kwb">$near</span> <span class="hl sym">:</span> The function that called <span class="hl str">&quot;message&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;warning&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;error&quot;</span> <span class="hl kwa">or</span> <span class="hl str">&quot;debug&quot;</span>
+<span class="hl kwb">$far</span> <span class="hl sym">:</span> The function that called <span class="hl kwb">$near</span>
+</pre>
+<p>
+
+See also: <a href="Log.html#Log::delHook"><code>Log::delHook()</code></a></div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwa">sub</span> hook <span class="hl sym">{</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$type</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>		<span class="hl slc"># &quot;message&quot;</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$domain</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>		<span class="hl slc"># &quot;MyDomain&quot;</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$level</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>		<span class="hl slc"># 2</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$globalVerbosity</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>	<span class="hl slc"># 1 (equal to $config{'verbose'})</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$message</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>		<span class="hl slc"># &quot;Hello World&quot;</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$user_data</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>		<span class="hl slc"># &quot;my_user_data&quot;</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$near</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>		<span class="hl slc"># &quot;Commands::cmdWhere&quot;</span>
+	<span class="hl kwc">my</span> <span class="hl kwb">$far</span> <span class="hl sym">=</span> <span class="hl kwd">shift</span><span class="hl sym">;</span>		<span class="hl slc"># &quot;Commands::run&quot;</span>
+	<span class="hl slc"># Do whatever you want here</span>
+<span class="hl sym">}</span>
+Log<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span>\<span class="hl sym">&amp;</span>hook<span class="hl sym">,</span> <span class="hl str">&quot;my_user_data&quot;</span><span class="hl sym">);</span>
+
+<span class="hl kwb">$config</span><span class="hl sym">{</span><span class="hl str">'verbose'</span><span class="hl sym">} =</span> <span class="hl num">1</span><span class="hl sym">;</span>
+<span class="hl slc"># Note that the following function will not print anything to screen,</span>
+<span class="hl slc"># because it's verbosity level is higher than the global verbosity</span>
+<span class="hl slc"># level ($config{'verbose'}).</span>
+Log<span class="hl sym">::</span><span class="hl kwd">message</span><span class="hl sym">(</span><span class="hl str">&quot;Hello World&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;MyDomain&quot;</span><span class="hl sym">,</span> <span class="hl num">2</span><span class="hl sym">);</span>  <span class="hl slc"># hook() will now be called</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Log::debug"></a>
+<h3>Log::debug</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Log::debug</strong>(<span class="type">message,</span> [domain], [level])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$message must be encoded in UTF-8.</dd>
+		</dl><p>
+
+		<div class="desc">Prints a debugging message. See the description for <a href="Log.html">Log.pm</a> for more details about the parameters.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Log::delHook"></a>
+<h3>Log::delHook</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Log::delHook</strong>(ID)
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="params"><strong>Parameters:</strong></dt>
+			<dd class="param"><code>ID</code> : A hook ID, as returned by <code>addHook()</code>.</dd>
+		</dl><p>
+
+		<div class="desc">Removes a hook. r_func will not be called anymore.</div>
+
+		<dl class="example">
+			<dt><strong>Example:</strong></dt>
+			<dd><pre><span class="hl kwc">my</span> <span class="hl kwb">$ID</span> <span class="hl sym">=</span> Log<span class="hl sym">::</span><span class="hl kwd">addHook</span><span class="hl sym">(</span>\<span class="hl sym">&amp;</span>hook<span class="hl sym">);</span>
+Log<span class="hl sym">::</span><span class="hl kwd">message</span><span class="hl sym">(</span><span class="hl str">&quot;Hello World&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;MyDomain&quot;</span><span class="hl sym">);</span>	<span class="hl slc"># hook() is called</span>
+Log<span class="hl sym">::</span><span class="hl kwd">delHook</span><span class="hl sym">(</span><span class="hl kwb">$ID</span><span class="hl sym">);</span>
+Log<span class="hl sym">::</span><span class="hl kwd">message</span><span class="hl sym">(</span><span class="hl str">&quot;Hello World&quot;</span><span class="hl sym">,</span> <span class="hl str">&quot;MyDomain&quot;</span><span class="hl sym">);</span>	<span class="hl slc"># hook() is NOT called</span>
+</pre></dd>
+		</dl>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Log::error"></a>
+<h3>Log::error</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Log::error</strong>(<span class="type">message,</span> [domain], [level])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$message must be encoded in UTF-8.</dd>
+		</dl><p>
+
+		<div class="desc">Prints an error message. It tells the user that a non-recoverable error has
+occured.  A "non-recoverable error" could either be a fatal error, or an
+error that prevents the program from performing an action the user requested.
+<p>
+
+Examples of non-recoverable errors:
+<ul>
+<li>Kore receives the "You haven't paid for this account"-packet. The error is
+  fatal, so the entire program must exit.</li>
+<li>The user typed in an invalid/unrecognized command. Kore cannot perform the
+  command the user requested, but will not exit because this error is not
+  fatal.
+</li>
+</ul>
+See the description for <a href="Log.html">Log.pm</a> for more details about the parameters.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Log::message"></a>
+<h3>Log::message</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Log::message</strong>(<span class="type">message,</span> [domain], [level])
+	</dt>
+	<dd>
+		<dl class="params_and_returns">
+		<dt class="requires"><strong>Requires:</strong></dt>
+			<dd class="requires">$message must be encoded in UTF-8.</dd>
+		</dl><p>
+
+		<div class="desc">Prints a normal message. See the description for <a href="Log.html">Log.pm</a> for more details
+about the parameters.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Log::parseLogToFile"></a>
+<h3>Log::parseLogToFile</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Log::parseLogToFile</strong>(args,hash)
+	</dt>
+	<dd>
+		<div class="desc">args has to look like domain=file
+but can look like domain1=file1.txt;domain2=file2.txt,file3.txt
+<p>
+
+The hash has to be a reference for the output hash.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="Log::warning"></a>
+<h3>Log::warning</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>Log::warning</strong>(<span class="type">message,</span> [domain], [level])
+	</dt>
+	<dd>
+		<div class="desc">Prints a warning message. It warns the user that a possible non-fatal error has occured or will occur.
+See the description for <a href="Log.html">Log.pm</a> for more details about the parameters.</div>
+	</dd>
+</dl>
+</div>
+
+
+<p><hr class="function_sep"><p>
+<div class="function"><a name="initLogFiles"></a>
+<h3>initLogFiles</h3>
+<dl>
+	<dt class="decl">
+		<span class="return-type"> </span><strong>initLogFiles</strong>()
+	</dt>
+	<dd>
+		<div class="desc">This function should be called everytime config.txt is (re)loaded.</div>
+	</dd>
+</dl>
+</div>
+
+
+
+
+
+</div>
+
+
+<p><hr><p>
+
+<div id="footer">
+	<ul>
+	<li><a href="http://validator.w3.org/check?uri=referer" title="Valid HTML 4.01!"><img src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a></li>
+	<li><a href="http://www.mozilla.com/" title="Get Firefox - Take Back the Web"><img width="104" height="32" src="http://www.mozilla.org/products/firefox/buttons/getfirefox_small.png" alt="Get Firefox - Take Back the Web"></a></li>
+	<li><a href="http://www.mozilla.com/" title="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"><img width="45" height="45" src="http://linuxart.com/img/noIE-small.png" alt="If you were looking at this page in any browser but Microsoft Internet Explorer, it would look and run better and faster"></a></li>
+	</ul>
+
+	Last modified: Fri Nov 16 10:05:11 2012
+</div>
+
+</div>
+
+</body>
+</html>
